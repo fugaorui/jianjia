@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>申请请假</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta content="telephone=no,email=no" name="format-detection"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="description" content="">
+    <!-- <link rel="shortcut icon" href="/favicon.ico"> -->
+    <link rel="stylesheet" href="../fonts/iconfont.css">
+    <link rel="stylesheet" href="../css/min/sm.css">
+    <link rel="stylesheet" href="../css/min/sm-extend.css">
+    <link rel="stylesheet" href="../css/min/flexBox.css">
+    <link rel="stylesheet" href="../css/tonXin.css">
+    <style>
+        #page_news .content {
+            background-color: #f2f2f2;
+        }
+
+        #page_news .content .news_list {
+            background-color: #fff;
+        }
+
+        .border_ {
+            border-bottom: 1px solid #ddd;
+            margin: 0.2rem 0.8rem 0.2rem 0.8rem;
+        }
+
+        .radio_hw {
+            width: 1.3rem;
+            height: 1.3rem;
+        }
+
+        .label_ {
+            background-color: white;
+            padding-top: 0.15rem;
+            padding-bottom: 0.15rem;
+            font-size: 0.8rem;
+        }
+
+        .opinion_text {
+            min-height: 1.3rem;
+            max-height: auto;
+            width: 80%;
+            background-color:;
+            margin-left: 1rem;
+        }
+
+        .opinion_del {
+            height: 1.5rem;
+            width: 1.5rem;
+            margin-left: 0.5rem;
+            background-image: url(../img/delete_.png);
+            background-size: 100% 100%;
+        }
+
+        .oaSends:active {
+            background-color: #ededed !important;
+        }
+
+        /*.oaSends{
+            position: fixed !important;z-index: 2;height: 1.8rem;line-height: 1.8rem; background-color: #dfdfdf;width: 100%;text-align: center;bottom: 0.1rem;
+        }*/
+        .toact_button {
+            margin: 0;
+            padding: 0 .4rem;
+        }
+
+        .toact_button div div.ub input {
+            width: 100%;
+            display: block;
+            background: none;
+            border: 0; /*line-height:1.8rem;*/
+            height: 100%;
+            text-indent: .5rem;
+            border: 1px solid #d8d8d8;
+            background-color: #fff;
+            height: 1.8rem;
+            border-radius: .3rem;
+            margin-top: .35rem;
+        }
+
+        .toact_button div div.ub {
+        }
+
+        .toact_button a {
+            min-width: 2rem;
+            height: 1.8rem;
+            background: #ccc;
+            display: block;
+            border-radius: .3rem;
+            line-height: 1.8rem;
+            padding: 0 .4rem;
+            margin-top: .35rem;
+            margin-left: .4rem;
+        }
+
+        .toact_button a.toact_active {
+            color: #fff;
+            background-color: #0eafe0;
+        }
+
+        #loading_jd {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: rgba(0, 0, 0, .5);
+            font-size: .8rem;
+            color: #fff;
+        }
+
+        .load_warp {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            display: none;
+        }
+
+        .select_lx {
+            line-height: 1.4rem;
+            text-align: center;
+            color: gray;
+            margin: 0rem .6rem 0rem 0rem;
+            min-width: 2.2rem;
+            height: 1.3rem;
+            border-radius: 5px;
+            background-color: white;
+            border: 1px solid #dddddd;
+        }
+
+        .select_lx:last-child {
+            margin: 0rem 0rem 0rem 0rem;
+        }
+
+        .select_lx_active {
+            line-height: 1.5rem !important;
+            border: none;
+            box-shadow: 1px 1px 1px 1px gray;
+            color: white !important;
+            height: 1.3rem;
+            background-color: #1ac6ee !important;
+        }
+
+        #button_sub {
+            display: none;
+        }
+
+        .apply_imgs_wrap {
+            overflow-x: scroll;
+            width: 100%;
+            overflow-y: hidden;
+            padding: .5rem 0;
+        }
+
+        .apply_imgs {
+            margin-right: .8rem;
+        }
+
+        .page_leave_sq .apply_left {
+            margin-top: .5rem;
+        }
+
+        .popup-about img {
+            width: 100%;
+            height: 100%;
+            background-size: 100%;
+        }
+
+        .selectUser {
+            border-top: 1px solid #d8d8d8;
+        }
+
+        .button.button-fill {
+            height: 1.8rem;line-height: 1.8rem;margin:0 .4rem;font-size: .8rem;
+        }
+		.depart::-webkit-input-placeholder{color:#ec4e4e;}
+		.depart:-ms-input-placeholder{color:#ec4e4e;}
+		.depart::-moz-placeholder{color:#ec4e4e;}
+		.depart:-moz-placeholder{color:#ec4e4e;}
+    </style>
+</head>
+<body>
+<div class="page-group">
+    <!-- 申请请假-->
+    <div class="page page-current leave page_leave_sq" id="page_leave_sq">
+        <!--申请请假头部-->
+        <header class="bar bar-nav">
+            <a class="icon icon-left pull-left back"></a>
+            <h1 class="title">申请请假</h1>
+            <a class="icon icon-menu pull-right"
+               onclick="$.uexOpen('leave_list'),$.setStorage('leaveListTabsIndex',0)"></a>
+        </header>
+        <div class="fixed_button bar bar-tab "
+             style="white-space:nowrap;border: none;background-color: #f7f7f8;overflow-x: node;overflow-y: hidden;height: 3rem;">
+            <div id="button_sub">
+                <div id="opinion_txbu"></div>
+            </div>
+            <a href="javascript:;" class="button button-fill oaSends">提交</a>
+        </div>
+
+        <div class="content">
+
+            <!--申请请假内容-->
+            <div class="ub ub-f1 ub-ver organize">
+                <div class="ub ub-f1 ub-ver organize_list">
+                    <a class="ub  ub-ac ubb padd leaveType">
+                        <span class="ub ub-ac ub-ps">请假类型</span>
+                        <div class="ub" id="qxList">
+                            <div class="select_lx select_lx_active">事假</div>
+                            <div class="select_lx">病假</div>
+                            <div class="select_lx">年假</div>
+                            <div class="select_lx">其他</div>
+                        </div>
+                    </a>
+                    <a class="ub ub-f1 ub-ac ubb padd leaveStart">
+                        <span class="ub ub-ac ub-ps">开始时间</span>
+                        <div class="ub-f1"><input style="width: 100%; background-color: ;" placeholder="请选择开始时间"
+                                                  id="leaveStart" type="text" value="" readonly="readonly"/></div>
+                        <span class="icon icon-right"></span>
+                    </a>
+                    <a class="ub ub-f1 ub-ac ubb padd leaveEnd" style="border-bottom: 1px solid #ebebeb;">
+                        <span class="ub ub-ac ub-ps">结束时间</span>
+                        <div class="ub-f1"><input style="width: 100%; background-color: ;" placeholder="请选择结束时间"
+                                                  id="leaveEnd" type="text" value="" readonly="readonly"/></div>
+                        <span class="icon icon-right"></span>
+                    </a>
+
+                    <a class="ub ub-f1 ub-ac ubb padd leaveDay" style="border-bottom: 1px solid #ebebeb;">
+                        <span class="ub ub-ac ub-ps">请假天数</span>
+                        <div class="ub-f1"><input style="width: 100%; background-color: ;" placeholder="请写请假天数"
+                                                  onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-](.+?)[^0-9]+/,'');}).call(this)"
+                                                  onblur="this.v();" id="leaveDay" type="number"/></div>
+                    </a>
+                </div>
+
+                <style>
+                    .apply_upload i {
+                        display: inline-block;
+                        background: url(../img/delete.png) no-repeat;
+                        width: 1rem;
+                        height: 1rem;
+                        background-size: contain;
+                        position: absolute;
+                        right: -.5rem;
+                        z-index: 99999999;
+                        top: -.5rem;
+                    }
+
+                    .page_leave_sq .apply_upload {
+                        padding: 0 .4rem;
+                    }
+
+                    .page_leave_sq .apply_upload .apply_imgs {
+                        width: 3rem;
+                        height: 3rem;
+                        overflow: visible;
+                    }
+
+                    .page_leave_sq .apply_upload .apply_imgs img {
+                        width: 100%;
+                        height: 100%;
+                    }
+
+                    .content {
+                        padding-bottom: 1rem;
+                    }
+
+                    /*padding:.5rem 0;margin-left: 0.4rem;*/
+                </style>
+                <div class="item_inner ub ub-f1">
+                    <div class="item_title">请假事由</div>
+                    <div class="item_input ub ub-f1">
+                        <textarea id="leaveReason" placeholder="请输入请假事由（必填）" class="ub ub-f1 ub-ac"></textarea>
+                    </div>
+                </div>
+
+                <div class="apply_upload ub ub-f1" style="">
+                    <div class="apply_left">附件</div>
+                    <div class="ub ub-f1 ub-ac apply_imgs_wrap">
+                        <div class="apply_imgs ub" id="addPhoto">
+                            <img src="../img/jia.png"/>
+                            <!-- <input  class="btn" type="button" id="apply_upload_input" value="启动文件浏览器"> -->
+                            <!-- <div class="load_warp"><span class="ub ub-ac ub-pc" id="loading_jd">0%</span></div> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="ub ub-f1 ub-ver organize_list  selectUser">
+                    <a class="ub ub-f1 ub-ac ubb padd leaveEnd" style="border-bottom: 1px solid #ebebeb;">
+                        <span class="ub ub-ac ub-ps">我的上级</span>
+                        <div class="ub-f1 sendName" style="color:#666;">请选择上级</div>
+                        <input type="hidden" name="sendId"/>
+                        <span class="icon icon-right"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- About Popup -->
+<div class="popup popup-about close-popup">
+    <div class="content-block">
+        <img src="" alt=""/>
+    </div>
+</div>
+
+<!--选人pupop-->
+<div class="popup popup2">
+    <div class="page page-current">
+        <header class="bar bar-nav">
+            <a id="closePopup" class="icon icon-left pull-left"></a>
+            <h1 class="title">选择用户</h1>
+        </header>
+        <div class="bar bar-tab">
+            <a href="javascript:;" class="button button-fill onConfirm">确认</a>
+        </div>
+        <div class="content" style="background: #fff;">
+            <div id="radio_list1"></div>
+        </div>
+    </div>
+</div>
+
+
+<script type='text/javascript' src='../js/min/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/mains.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/config.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm-extend.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/demos.js' charset='utf-8'></script>
+<script src="../js/public_db.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/TouchSlide.1.1.js"></script>
+<script src="../js/uploadimg.js"></script>
+<script>
+
+    var db_docid = null, db_id = null, db_processinstid = null, db_currnodeid = null;
+    var dTime = new Date();
+    var dTime_ = new Date();
+    var nowTime = $.time(false, 0).split('-')
+    var nowBranch = $.time(false, 1).split(':')
+    $('#leaveStart,#leaveEnd').datetimePicker({
+        toolbarTemplate: '<header class="bar bar-nav">\
+      	    <button class="button button-link pull-right close-picker">确定</button>\
+      	    <h1 class="title">请选择日期时间</h1>\
+      	    </header>',
+        value: [nowTime[0], $time(nowTime[1]), $time(nowTime[2]), nowBranch[0], $time(nowBranch[1])]
+    }).click(function () {
+        $('body').append('<div class="picker-modal-box"></div>')
+    });
+    function $getDateDiff(date1, date2) {
+        var sArr = date1.split("-");
+        var eArr = date2.split("-");
+        var sRDate = new Date(sArr[0], sArr[1], sArr[2]);
+        var eRDate = new Date(eArr[0], eArr[1], eArr[2]);
+        var result = (eRDate - sRDate) / (24 * 60 * 60 * 1000);
+        return result;
+    }
+    function $time(a) {
+        a < 10 && (a = '0' + a);
+        return a
+    }
+    $(document).on('click', '.onConfirm', function (event) {
+        event.preventDefault();
+        var checked = $('.popup2 [name="people"]:checked')
+        var name = checked.attr('username')
+        var id = checked.attr('userid')
+        console.log(name)
+        if (name) {
+            $('.sendName').html(name)
+            $('.oaSends').attr({
+                'username': name,
+                'userid': id
+            })
+        }
+        $.closeModal()
+    });
+    $(document).on('click', '.close-picker,.picker-modal-box', function () {
+        var leaveStart = $('#leaveStart').val()
+        var leaveEnd = $('#leaveEnd').val()
+        leaveStart = leaveStart.replace(/\s\d+:\d+/, '')
+        leaveEnd = leaveEnd.replace(/\s\d+:\d+/, '')
+        //$('#leaveDay').val($getDateDiff(leaveStart,leaveEnd))
+        $('.picker-modal-box').remove();
+    })
+    $(document).on('click', '.select_lx', function () {
+        $(this).addClass('select_lx_active').siblings().removeClass('select_lx_active');
+    })
+
+    $.ready(function () {
+        loadButon(9);
+        var fjDelJson = {
+            "id": "0",
+            "filepath": "",
+            "SessionId": getlocalVal('SessionId')
+        }
+        function fjDel(dom, fn) {
+            var ParamfjDel = JSON.stringify(fjDelJson);
+            console.info('打印的传参：', ParamfjDel);
+            $.https({
+                url: mainURL,
+                data: {
+                    ClassName: "MyMemo",
+                    MethodName: "FileDel",
+                    ParamJson: ParamfjDel
+                },
+                type: "post",
+                dataType: "json",
+                success: function (res, status, xhr) {
+                    //  0调用失败 1成功 2文件不存在
+                    res.Code == 0 ? $.toast("删除失败") : res.Code == 2 ? $.toast("文件不存在") : false;
+                    if (res.Code == 1) {
+                        dom.text('上传附件');
+                        $.toast("删除成功")
+                        $('#explorer').find('img').attr('src', '../img/jia.png');
+                        selectFileMgr();//绑定上传功能
+                    }
+                    if (typeof(fn) == "function") {
+                        fn(res);
+                    }
+                }
+            });
+        }
+
+        var fileData = "",
+                uexid = 1;
+        function selectFileMgr() {
+            $('#apply_upload_input').on('click', function () {
+                $.hideIndicator();
+                uexFileMgr.explorer('wgts://');//打开 explorer 文件管理器
+            })
+        }
+
+        selectFileMgr();
+        var uploadHttp = ipAddress + '/swfupload/upload_do2.jsp?type=all';
+
+        function upload(d) {
+            uexid = Math.floor(Math.random() * (1000 + 1));
+            var headJson = '{"Content-type":"application/json;charset=utf-8"}';
+        }
+
+        if (!isiOS) {
+            //打开拍照回调
+            uexCamera.cbOpen = function (info) {
+                $callbackPhotoPath(info)
+            }
+            // 当图片达到一定数量时，禁止用户继续拍照的回调
+            uexCamera.cbPhotoCount = function (info) {
+                $callbackPhotoCount(info)
+            }
+        } else {
+            //打开拍照回调
+            uexCameras.callbackPhotoPath = function (opCode, dataType, info) {
+                $callbackPhotoPath(info)
+            }
+            // 当图片达到一定数量时，禁止用户继续拍照的回调
+            uexCameras.callbackPhotoCount = function (opCode, dataType, info) {
+                $callbackPhotoCount(info)
+            }
+        }
+
+        function callBackFn(data) {
+            MomeSaveJson['filepaths'] = '';
+            $('#apply_imgs_ti').text('上传附件');
+            $('#explorer').find('img').attr('src', '../img/jia.png');
+            selectFileMgr();//绑定上传文件功能
+            console.log(data)
+        }
+    })
+    $(document).on('click', '.toact_active,.selectUser', function (index, el) {
+        var qjkssj = '', qjjssj = '', title = '', qjlx = '', filepaths = '', filenames = '', filetypes = '';
+        qjlx = $(".select_lx_active").html();
+        qjkssj = $("#leaveStart").val();
+        qjjssj = $("#leaveEnd").val();
+        title = $("#leaveReason").val().replace(/\s/g, "");
+        leaveDay = $("#leaveDay").val();
+        if (qjkssj == "") {
+            $.alert("请选择开始时间！");
+            return;
+        }
+        if (qjjssj == "") {
+            $.alert("请选择结束时间！");
+            return;
+        }
+        if (leaveDay == "") {
+		    $('#leaveDay').addClass('depart')
+            $.alert("请填写请假天数！");
+            return;
+        }
+        if (title == "") {
+		    $('#leaveReason').addClass('depart')
+            $.alert("请输入请假事由！");
+            return;
+        } else {
+            title = $("#leaveReason").val();
+        }
+        localStorage.setItem("leaveDay", leaveDay);
+        localStorage.setItem("isLeave", "1");
+        localStorage.setItem("qjkssj", qjkssj);
+        localStorage.setItem("qjjssj", qjjssj);
+        localStorage.setItem("qjyy", title);
+        localStorage.setItem("qjlx", qjlx);
+
+        title = $("#leaveReason").val().replace(/\s/g, "");
+
+        var nodeid = $('.toact_active').attr("nodeid");
+        if ($('.toact_active').html() == "抄送" || $('.toact_active').html() == "转办") {
+            nodeid_0 = nodeid;
+            console.info(nodeid);
+            localStorage.setItem("peopleListType", "抄送");
+            if ($('.toact_active').html() == "抄送") {
+                localStorage.setItem("ctype", "2");
+            } else if ($('.toact_active').html() == "转办") {
+                localStorage.setItem("ctype", "1");
+            }
+
+            //打开选人
+            ProcessingService();//解密通讯录
+            return;
+        }
+        if ($('.toact_active').html() == "送回抄送人") {
+            loadSendOA(null, null, null, null, opinion_text);
+            return;
+        }
+        if ($('.toact_active').html() == "终止流程") {
+            $.modal({
+                title: '提示',
+                text: "您确认需要终止该流程，终止后不可恢复！",
+                buttons: [
+                    {
+                        text: '确定',
+                        onClick: function () {
+                            loadStopFlow();
+                        }
+                    },
+                    {
+                        text: '取消',
+                        onClick: function () {
+
+                        }
+                    }
+                ]
+            })
+            return;
+        }
+
+        var doctplid = $('.toact_active').attr("doctplid");
+        var covernodeid = $('.toact_active').attr("covernodeid");
+        console.info("gtgttg:" + doctplid + '---' + covernodeid + '---' + nodeid);
+        LoadSendToInfo(doctplid, covernodeid, nodeid, null);//获取接收者信息
+        console.info(doctplid + '---' + covernodeid + '---' + nodeid);
+    })
+
+    function loadMyLeaveApprovalAdd() {
+        var getLocal = localStorage.getItem('SessionId');
+        var SessionId = typeof(getLocal) == "Object" ? "" : getLocal;
+        var qjkssj = '', qjjssj = '', title = '', qjlx = '', filepaths = '', filenames = '', filetypes = '';
+        qjlx = $("#leaveType").val();
+        qjkssj = $("#leaveStart").val();
+        qjjssj = $("#leaveEnd").val();
+        leaveDay = $("#leaveDay").val();
+        title = $("#leaveReason").val().replace(/\s/g, "");
+        if (qjlx == "") {
+            $.alert("请选择请假类型！");
+            return;
+        } else if (qjlx == "事假") {
+            qjlx = 1;
+        } else if (qjlx == "病假") {
+            qjlx = 2;
+        } else if (qjlx == "年假") {
+            qjlx = 3;
+        } else if (qjlx == "其他") {
+            qjlx = 9;
+        }
+        if (qjkssj == "") {
+            $.alert("请选择开始时间！");
+            return;
+        }
+        if (qjjssj == "") {
+            $.alert("请选择结束时间！");
+            return;
+        }
+        if (leaveDay == "") {
+            $.alert("请填写请假天数！");
+            return;
+        }
+        if ($('.sendName').text() == "请选择上级") {
+            $.alert("请选择上级");
+            return;
+        }
+        if (title == "") {
+            $.alert("请输入请假事由！");
+            return;
+        } else {
+            title = $("#leaveReason").val();
+        }
+        localStorage.setItem("leaveDay", leaveDay);
+        localStorage.setItem("isLeave", "1");
+        localStorage.setItem("qjkssj", qjkssj + ':00');
+        localStorage.setItem("qjjssj", qjjssj + ':00');
+        localStorage.setItem("qjyy", title);
+        localStorage.setItem("qjlx", qjlx);
+    }
+
+    $(document).on('click', '#closePopup', function (index, el) {
+        $.closeModal(".popup2");
+        $("#radio_list1").html("");
+    })
+
+    //处理通讯录
+    function proHadle(data) {
+        $.hideIndicator();
+        var username = '';
+        var userid = '';
+        var str = '';
+        var peopleListType = localStorage.getItem("peopleListType");
+        var num = '';
+        if (peopleListType == "SelectAllPer") {
+            num = 1;
+        } else if (peopleListType == "抄送") {
+            num = 2;
+        }
+        if (data != null && data != "") {
+            var res = JSON.parse(data);
+            var Result = res.usersTree;
+            $.each(Result, function (index, el) {
+                username = el.username;
+                userid = el.userid;
+                str += html_popup2(username, userid, num);
+            });
+            $("#radio_list1").html(str);
+            $.setStorage('leave_applyPage', '1')
+            uexWindow.open('mailList', '0', 'mailList.html', 2, '', '', 0, 0, 0, 0)
+            // $.popup('.popup2');
+            $('label.label_').each(function (index, el) {
+                $(el).click(function (event) {
+                    var name = $(el).find('input').attr('username')
+                    var userids = $(el).find('input').attr('userid')
+                    $('.sendName').html(name)
+                    $('[name="sendId"]').val(userids)
+                    $.closeModal()
+                });
+            });
+        } else {
+            $.toast("无缓存数据");
+        }
+    }
+    //解密通讯录
+    function ProcessingService() { //服务器请求的数据处理逻辑
+        $.showIndicator();
+        // proHadle($.getStorage('chenxiubin'));
+        uexEncryption.onDecrypt('userJsonInfoDetails'); //解密
+        uexEncryption.cbData = function (code, type, data) { //回调
+            code = parseInt(code)
+            switch (code) {
+                case 404:
+                    $.toast("通讯录数据为空");
+                    break;
+                case 201:
+                    console.log('返回加密文件的路径' + data);
+                    //alert('返回加密文件的路径'+data);
+                    break;
+                case 200:
+                    //alert(200)
+                    proHadle(data);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+    $.monitorVal({
+        setEgrUser: function () {
+            $('.sendName').html($.getStorage('setMsnName'))
+            $('.oaSends').attr({
+                'username': $.getStorage('setMsnName'),
+                'userid': $.getStorage('setMsnId')
+            })
+            $.setStorage('setMsnId', '')
+            $.setStorage('setMsnName', '')
+        }
+    })
+    $(document).on('click', '.oaSends', function () {
+        var qjkssj = '', qjjssj = '', title = '', qjlx = '', filepaths = '', filenames = '', filetypes = '';
+        qjlx = $(".select_lx_active").html();
+        qjkssj = $("#leaveStart").val();
+        qjjssj = $("#leaveEnd").val();
+        leaveDay = $("#leaveDay").val();
+        title = $("#leaveReason").val().replace(/\s/g, "");
+        if (qjlx == "") {
+            $.alert("请选择请假类型！");
+            return;
+        } else if (qjlx == "事假") {
+            qjlx = 1;
+        } else if (qjlx == "病假") {
+            qjlx = 2;
+        } else if (qjlx == "年假") {
+            qjlx = 3;
+        } else if (qjlx == "其他") {
+            qjlx = 9;
+        }
+
+        if (qjkssj == "") {
+            $.alert("请选择开始时间！");
+            return;
+        }
+        if (qjjssj == "") {
+            $.alert("请选择结束时间！");
+            return;
+        }
+        if (leaveDay == "") {
+			$('#leaveDay').addClass('depart')
+            $.alert("请填写请假天数！");
+            return;
+        }
+        if (title == "") {
+			$('#leaveReason').addClass('depart')
+            $.alert("请输入请假事由！");
+            return;
+        } else {
+            title = $("#leaveReason").val();
+        }
+        if ($('.sendName').text() == "请选择上级") {
+            $.alert("请选择上级");
+            return;
+        }
+        var username = '', userid = '';
+        username = $(this).attr('username');
+        userid = $(this).attr('userid');
+        if (userid == '') {
+            $.alert("你还没有选择");
+            return;
+        }
+        console.log(username, userid)
+        $.showIndicator();
+        $("#radio_list1").html("");
+        localStorage.setItem("isLeave", "1");
+        localStorage.setItem("leaveDay", leaveDay);
+        localStorage.setItem("qjkssj", qjkssj + ':00');
+        localStorage.setItem("qjjssj", qjjssj + ':00');
+        localStorage.setItem("qjyy", title);
+        localStorage.setItem("qjlx", qjlx);
+        var filepaths = upImg.filePath.join(',');
+        var filenames = upImg.fileName.join(',');
+        localStorage.setItem("filepaths", filepaths);
+        localStorage.setItem("filenames", filenames);
+        if (upImg.filePath.length > 1) {
+            var a = []
+            for (var i = 0; i < upImg.filePath.length; i++) {
+                a.push('2')
+            }
+            ;
+            localStorage.setItem("filetypes", a.join(','));
+        } else {
+            localStorage.setItem("filetypes", '2');
+        }
+
+
+        var peopleListType = localStorage.getItem("peopleListType");
+        //判断是抄送还是其他流转选人
+        if (peopleListType == "抄送") {
+            loadSaveCCOpinion(db_currnodeid, opinion_text_0, userid, username, true);
+        } else if (peopleListType == "分配") {
+            loadSaveOrUpdateTodo(userid, username);
+        } else {
+            loadSendOA(doctplid_0, covernodeid_0, userid, selectrange_0, contentEditor_0, true);
+        }
+    })
+
+    //点击选择上传图片选项
+    var userid = $.getUserData().userid
+    $(document).on('click', '#addPhoto', function (event) {
+        var upLoadIMG = ipAddress + '/swfupload/upload_do2.jsp?type=all'
+        var buttons1 = [
+            {
+                text: '请选择',
+                label: true
+            },
+            {
+                text: '拍照',
+                bold: true,
+                color: 'danger',
+                onClick: function () {
+                    $viewpic(upLoadIMG, 1, function (json) {
+                        $uploadImgCal(json, 1);
+                    }, 1);
+                }
+            },
+            {
+                text: '从手机相册选择',
+                onClick: function () {
+                    $viewpic(upLoadIMG, 1, function (json) {
+                        $uploadImgCal(json, 0);
+                    });
+                }
+            }
+        ];
+        var buttons2 = [
+            {
+                text: '取消',
+                bg: 'danger'
+            }
+        ];
+        var groups = [buttons1, buttons2];
+        $.actions(groups);
+    });
+    var upImg = {
+        filePath: [],
+        fileName: []
+    }
+    //上传图片回调
+    function $uploadImgCal(json, del) {
+        var imgData = JSON.parse(json);
+        if (imgData.code == 1) {
+            $('#addPhoto').before(
+                    '<div class="apply_imgs ub" path="' + imgData.filePath + '" localPath="' + imgData.localPath + '" fileName="' + imgData.fileName + '">\
+					   <i></i>\
+					   <img src="' + ipAddress + '/' + imgData.filePath + '" class="showPhoto"/>\
+				   </div>');
+            //(del == 1) && (isiOS ? uexImagePicker.deletePhoto(imgData.localPath) : uexCamera.deletePicture(imgData.localPath));
+            var length = $('.apply_imgs').length - 1
+            if (length == 5) {
+                $('#addPhoto').css('display', ' none!important');
+            }
+            upImg.filePath.push(imgData.filePath);
+            upImg.fileName.push(imgData.fileName);
+            $.refreshScroller(); //刷新滚动条
+        } else if (imgData.code == 0) {
+            $.alert("上传失败");
+        } else {
+            $.alert("未知错误");
+        }
+    }
+    //点击删除图片
+    $(document).on('click', '.apply_imgs i', function (event) {
+        var _this = $(this).parent()
+        var path = _this.attr('path')
+        $.confirm('确认删除图片？', function () {
+            $.showIndicator()
+            $.https({
+                url: mainURL,
+                data: {
+                    ClassName: "MyMemo",
+                    MethodName: "FileDel",
+                    ParamJson: JSON.stringify({
+                        "id": "0",
+                        "filepath": path,
+                        "SessionId": $.getStorage('SessionId')
+                    })
+                },
+                type: "post",
+                success: function (res, status, xhr) {
+                    $.hideIndicator()
+                    res.Code == 0 ? $.toast("删除失败") : res.Code == 2 ? $.toast("文件不存在") : false;
+                    if (res.Code == 1) {
+                        $.each(upImg.filePath, function (index, el) {
+                            if (el == path) {
+                                upImg.filePath.splice(index, 1)
+                                upImg.fileName.splice(index, 1)
+                            }
+                        });
+                        $.toast("删除成功")
+                        $('#addPhoto').show();
+                        _this.remove()
+                    }
+                }
+            });
+        });
+
+    });
+    $(document).on('click', '.showPhoto', function (event) {
+        var src = $(this).attr('src')
+        $.popup('.popup-about')
+        $('.popup-about').find('img').attr('src', src)
+    })
+</script>
+
+</body>
+</html>

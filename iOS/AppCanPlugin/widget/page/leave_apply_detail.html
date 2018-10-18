@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>申请请假</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<meta content="telephone=no,email=no" name="format-detection"/> 
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="description" content="">
+<!-- <link rel="shortcut icon" href="/favicon.ico"> -->
+<link rel="stylesheet" href="../fonts/iconfont.css"> 
+<link rel="stylesheet" href="../css/min/sm.css">
+<link rel="stylesheet" href="../css/min/sm-extend.css"> 
+<link rel="stylesheet" href="../css/min/flexBox.css"> 
+<link rel="stylesheet" href="../css/tonXin.css"> 
+<style>
+#toogle{width:100%;height:1.5rem;line-height:1.5rem;text-align:center;font-size:.7rem;color:#666;}
+ #page_news .content{background-color:#f2f2f2;}
+ #page_news .content .news_list{background-color:#fff;}
+ .border_{
+		border-bottom: 1px solid #ddd;margin: 0.2rem 0.8rem 0.2rem 0.8rem;
+	}
+	.radio_hw{
+		width: 1.3rem;height: 1.3rem;
+	}
+	.label_{
+		background-color: white;padding-top: 0.15rem;padding-bottom: 0.15rem;font-size: 0.8rem;
+	}
+	.opinion_text{
+		min-height: 1.3rem;max-height: auto; width: 80%;background-color: ;margin-left: 1rem;
+	}
+	.opinion_del{
+		height: 1.5rem;width: 1.5rem;margin-left: 0.5rem; background-image: url(../img/delete_.png);background-size: 100% 100%;
+	}
+	.oaSend:active {
+		background-color: #ededed !important;
+	}
+	.oaSend{
+		position: fixed !important;z-index: 2;height: 1.8rem;line-height: 1.8rem;
+		background-color: #0894ec;width: 100%;text-align: center;bottom: 0.1rem;
+		color:#fff;
+	}
+
+#opinion_text,#button_sub .toact_active{font-size:.85rem;}
+
+.iconfont.icon-form{
+	position: relative;
+    z-index: 20;
+    padding: .5rem .1rem;
+    font-size: 1rem;
+    line-height: 1.2rem;
+}
+.leaveList .item-time{
+	font-size: .65rem;
+	color:#585858;
+}
+
+.page_leave_sq .apply_upload .apply_img{height:auto;padding:.4rem .4rem;}
+.list_ubb:after{
+    content: " ";
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 100%;
+    height: 1px;
+    border-top: 1px solid #d8d8d8;
+    color: #d9d9d9;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+}
+.list_ubb:last-child:after{
+   border-top:0;height:0;
+}
+.leaveList .icon-down{
+	font-size: .5rem;
+	    position: relative;
+	    left: 50%;
+}
+.row-down{
+	height:1rem;
+	color:#cccccc;
+}
+.leaveList .list-block.media-list .item-inner{
+	padding-bottom:0;
+}
+.list-block.media-list  .row-wcyy{
+	display:none;
+}
+.page_leave_toact_detail .apply_upload .apply_img{
+  height:auto;padding:.3rem .4rem;
+}
+
+/*侧滑CSS*/
+#panelPop .apply_content{background:#fff;padding:.3rem .3rem;border-radius:.3rem;-webkit-border-radius:.3rem;margin-bottom:.4rem;}
+ #panelPop .apply_content:last-child{margin-bottom:0;}
+ #panelPop .apply_content .apply_top,#panelPop .apply_content .apply_time{font-size:.7rem;color:#999;}
+ .theme-dark .page, .theme-dark .login-screen-content, .page.theme-dark, .theme-dark .panel, .panel.theme-dark, .theme-dark .content{
+    background-color:#e7e7e7;width:15.5rem;
+ }
+ body.with-panel-right-reveal .panel-overlay {
+    margin-left: -15.5rem;
+}
+body.with-panel-right-reveal .page {
+    -webkit-transform: translate3d(-15rem, 0, 0);
+    transform: translate3d(-15.5rem, 0, 0);
+}
+ .panel #panelPop.content-block{padding:0 .4rem;/*margin-top:2.2rem;*/}
+ #panelPop .apply_content i {
+    width: 0em;
+    height: 0em;
+    display: block;
+    position: absolute;
+    border-left: 10px solid rgba(0, 0, 0, 0);
+    border-rig: 10px solid rgba(0, 0, 0, 0);
+    border-top: 10px solid rgba(255, 255, 255, 1);
+    border-botttom: 10px solid rgba(0, 0, 0, 0);
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+    left: -.21rem;
+    top: .7rem;
+    z-index: 2;
+}
+.bar2 {
+  position: absolute;
+  right: 0;
+  left: 0;
+  z-index: 10;
+  height: 2.2rem;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  background-color: #f7f7f8;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+.bar2:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: auto;
+  top: auto;
+  height: 1px;
+  width: 100%;
+  background-color: #e7e7e7;
+  display: block;
+  z-index: 15;
+  -webkit-transform-origin: 50% 100%;
+          transform-origin: 50% 100%;
+}
+.bar-tab2 {
+  bottom: 0;
+  width: 100%;
+  height: 2.5rem;
+  padding: 0;
+  table-layout: fixed;
+}
+.bar-tab2 ~ .content {
+    bottom: 2.5rem;
+}
+.bar-tab2 ~ .content {
+    bottom: 5rem;
+}
+</style>
+</head>
+<body>
+ <div class="page-group">
+<!-- 单个page ,第一个.page默认被展示-->
+<!-- 申请请假-->
+     <div class="page page-current leave page_leave_sq page_leave_sq_detail page_leave_toact_detail" id="page_leave_toact_detail">
+	 
+	         <!--申请请假头部-->
+			  <header class="bar bar-nav">
+                <a class="icon icon-left pull-left back"></a>
+                <a class="pull-right iconfont icon-form"></a>
+                <h1 class="title" id="title_"></h1>
+              </header>
+              
+		   <!--申请请假提交按钮-->
+			<div id="opinion_txbu" class="toact_button bar2 bar-tab2" style="height: 5rem;display: none;">
+			  <div class="ub ub-f1 ub-ver">
+			    <div class="ub ub-f1" style="">
+			    	<input id="opinion_text" type="text" style="" class="ub ub-f1 ub-ac ub-ps" placeholder="请输入意见（必填）"/>
+			    	<a onclick="openOpinion()" style="font-size:.85rem;">常用意见</a>
+			    	<!--<a onclick="()">新增为常用意见</a>-->
+			    </div>
+			    <div id="button_sub" class="ub ub-f1" style="border: none;background-color: #f7f7f8;overflow-x: scroll;overflow-y: hidden;height: 3rem;">
+			    	<!--<a onclick="" class="toact_active" doctplid="1" covernodeid="1" nodeid="1" >同意</a>-->
+			    	
+			    </div>
+			    
+			  </div>
+			</div>
+			
+       <div class="content">
+			<!--申请请假内容-->
+			<div class="ub ub-f1 ub-ver organize">
+		     <div class="ub ub-f1 ub-ver organize_list">
+			   <a  class="ub ub-f1 ub-ac list_ubb padd">
+			    <span class="ub ub-ac ub-ps">请假人</span><div class="ub ub-f1 ub-ac" id="leavePer"></div>
+			   </a>
+			   <a  class="ub ub-f1 ub-ac list_ubb padd">
+			    <span class="ub ub-ac ub-ps">请假类型</span><div class="ub ub-f1 ub-ac" id="leaveType"></div>
+			   </a>
+			   <a  class="ub ub-f1 ub-ac list_ubb padd">
+			    <span class="ub ub-ac ub-ps">开始时间</span><div class="ub ub-f1 ub-ac" id="leaveStart"></div>
+			   </a>
+			    <a  class="ub ub-f1 ub-as list_ubb padd">
+			    <span class="ub ub-as ub-ps">结束时间</span><div class="ub ub-f1 ub-ac" id="leaveEnd"></div>
+			   </a>
+			   <a  class="ub ub-f1 ub-ac list_ubb padd">
+			    <span class="ub ub-ac ub-ps">请假天数</span><div contenteditable readonly class="ub-f1 ub-ac" id="docfromName"></div>
+			   </a>
+			   <a  class="ub ub-f1 ub-ac list_ubb padd">
+			    <span class="ub ub-ac ub-ps">请假事由</span><div contenteditable readonly class="ub-f1 ub-ac" id="leaveReason"></div>
+			   </a>
+			 </div>
+			 
+			 <!--<div class="apply_upload ub ub-f1 ub-ver"style="padding-top:.3rem;">-->
+				<!--<div class="apply_left">正文</div>-->
+				<!--<div id="getOAAttachPath" class="ub ub-f1 ub-as ub-pc apply_img_wrap ub-ver">-->
+				  <!--&lt;!&ndash;<div class="apply_img ub ub-f1 ub-ac">照片.jpg</div>-->
+				  <!--<div class="apply_img ub ub-f1 ub-ac">照片.jpg</div>&ndash;&gt;-->
+				<!--</div>-->
+			  <!--</div>-->
+			  
+			  <div class="apply_upload ub ub-f1 ub-ver"style="padding-top:0rem;">
+				<div class="apply_left" style="margin:0;padding:0;">附件</div>
+				<div id="getOAAttachPath2" class="ub ub-f1 ub-as ub-pc apply_img_wrap ub-ver">
+				  <!--<div class="apply_img ub ub-f1 ub-ac">照片.jpg</div>
+				  <div class="apply_img ub ub-f1 ub-ac">照片.jpg</div>-->
+				</div>
+			  </div> 
+		   </div> 
+		   <div class="ub ub-f1 ub-as apply_load_bottom" style="overflow-y: auto;/*margin-bottom: 2.7rem;*/">
+		      <div class="apply_left2 ub ub-f1 ub-ver"><div id="xian" class="ub ub-f1 ub-ver"></div></div>
+		      <div id="getOAOpinion" class="ub ub-f1 ub-as ub-ps ub-ver"style="padding-right:.4rem;margin-left:.3rem;">
+			    
+		      </div>
+		   </div>
+		   
+		   
+	   </div>
+	   
+     </div>	   	
+</div>
+
+       <div class="panel-overlay"></div>
+		<!-- Left Panel with Reveal effect -->
+		<div class="panel panel-right panel-reveal theme-dark" id='panel-left-demo'>
+		  <div class="content-block" id="panelPop">
+		   
+			<!--  <div class="apply_content ub" style="position:relative;" data="{}">
+			  <div class="ub ub-f1 ub-ver">
+			   <div class="apply_top">美元加息(抄送给：测试号尤大)</div>
+			   <div class="apply_time">测试账号01(行政财务部)</div>
+			   <div class="apply_time">2017-03-22</div>
+			  </div>-->
+			  <!-- <em class="ub ub-ac ub-pc icon icon-menu" style="color:#999;"></em> -->
+			 <!-- <i></i><span class="apply_guo"></span>
+			 </div> -->
+
+		  </div>
+		  <!--<div class="list-block"></div> -->
+		</div>
+
+		<!--选人pupop-->
+	    <div class="popup popup2">
+		  	<header class="bar bar-nav" style="background-color: #0894ec;">
+                <a id="closePopup" style="color: white !important;" class="icon icon-left pull-left close-popup"></a>
+                <h1 style="color: white !important;" class="title">选择用户</h1>
+             </header>
+             <div style="height: 3rem;"></div>
+             <div id="radio_list1" style="overflow-y: scroll;height: 85%;"></div>
+             <div id="radio_list2" style="margin-top: 1rem;border-top: 0.8rem solid #dfdfdf;padding-top: 0.5rem; overflow-y: scroll;height: 42%;display: none;"></div>
+			  
+			  <div class="oaSend">发送</div>
+			  
+		</div>
+		
+		<!--常用意见pupop-->
+	    <div class="popup popupOpinion" style="height: 50%;margin-top: 45%;">
+             <div style="height: 2rem;"></div>
+             
+             <div id="radio_list" style="max-height: 70%;overflow-y: scroll;"></div>
+			  
+			  <div class="ub" style="padding: 1rem;position: absolute; bottom: 0rem;right: 0rem;">
+			  	<!--<a class="button button-big button-fill ub-f2">发送</a>-->
+			  	<div class="ub-f1"></div>
+			  	<a onclick="loadSavaOrUpdateOpinion()" class="button button-big button-fill ub-f2" style="height: 1.5rem;line-height: 1.5rem;max-width: auto;margin-right: 2rem;">已输入意见新增为常用意见</a>
+			  	<!--<a class="button button-big button-fill button-danger ub-f2 close-popup" style="height: 1.5rem;line-height: 1.5rem;max-width: 3rem;">关闭</a>-->
+			  	<div class="ub-f1"></div>
+			  </div>
+		</div>
+
+		<!--请假列表pupop-->
+	    <div class="popup leaveList pupop-IOSapp-head" > 
+	    <header class="bar bar-nav">
+        	<a class="icon icon-left pull-left close-popup" onclick="showLeaveList = false"></a> 
+        	<h1 class="title" >请假记录</h1>
+      	</header>
+	    <div class="content infinite-scroll"> 
+		    <div class="list-block media-list" style="margin:0">
+			    <ul>
+			     	
+			    </ul> 
+		    </div>
+	    </div>
+        </div> 
+
+
+<script type='text/javascript' src='../js/min/zepto.min.js' charset='utf-8'></script> 
+<script type='text/javascript' src='../js/mains.js' charset='utf-8'></script>  
+<script type='text/javascript' src='../js/config.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm-extend.min.js' charset='utf-8'></script> 
+<script type='text/javascript' src='../js/demos.js' charset='utf-8'></script>
+<script src="../js/public_db.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/TouchSlide.1.1.js"></script>
+<script>
+  		var db_doctplid = localStorage.getItem("leavve_doctplid");
+  		var db_docid = localStorage.getItem("leavve_docid");//列表接口返回docid
+		var db_id = localStorage.getItem("leavve_id");//列表接口返回id
+		var db_processinstid = localStorage.getItem("leavve_processinstid");//列表接口返回processinstid
+		var db_currnodeid = localStorage.getItem("leavve_currnodeid");//列表接口返回currnodeid
+  		
+  		var leavve_tabIndex = localStorage.getItem("leavve_tabIndex");
+  		var checkedUrl = '';
+  		
+  		if(leavve_tabIndex == 0){
+  			db_docid = db_id;
+  		}
+	  	$.ready(function () {
+	  		 uexWindow.setReportKey(0, 1);
+		     uexWindow.onKeyPressed = function() {
+		         if(showLeaveList){
+		         	$.closeModal('.leaveList')
+		         	showLeaveList = false
+		         }else{
+		         	$.uexBack()
+		         }
+		     };
+	  		console.info(db_doctplid+"--"+db_docid+"--"+db_id+"--"+db_processinstid+"--"+db_currnodeid+"--"+leavve_tabIndex);
+	  		loadGetOAOpinion();//加载公文流转日志
+		   	loadGetOAAttachPath();//加载附件
+		   	if(leavve_tabIndex == 1){
+  				loadButon();//加载按钮
+  				$("#title_").html("我的请假审批");
+				$("title").html("我的请假审批");
+				checkedUrl = "MyLeaveApprovalView&ClassName=MyLeave";
+				loadChecked();
+  			}else{
+  				$('.iconfont.icon-form').remove();
+  				$("#title_").html("我的请假申请");
+				$("title").html("我的请假申请"); 
+				checkedUrl = "MyLeaveView&ClassName=MyLeave";
+				$('.bar-tab2 ~ .content').css('bottom',0).find('div.apply_load_bottom').css('margin-bottom',0)
+				loadChecked();
+  			}
+				
+		   $(document).on('click','.popup-overlay.modal-overlay-visible', function () {
+			   $.closeModal(".popupOpinion");
+			});	
+			
+	  	})
+	  	function loadChecked () {
+	  		console.log()
+			$.showIndicator();
+			var getLocal = localStorage.getItem('SessionId');
+			var SessionId = typeof(getLocal) == "Object" ? "" : getLocal;
+			var data = '{"SessionId":"'+SessionId+'","doctplid":"'+db_doctplid+'","docid":"'+db_docid+'","nodeid":"'+db_currnodeid+'"}';
+			var value = '',docfromName = '';
+			$.https({
+				type:"post",
+				url:dbURL+checkedUrl,
+				data:{
+					ParamJson:data
+				},
+				success:function (data) {
+					$.hideIndicator(); 
+					$.each(data, function(index,el) {
+						console.log(el)
+						docfromName = el.docfromName;
+						value = el.value;
+						if(docfromName == "请假人"){
+							$("#leavePer").html(value);
+						}else if(docfromName == "请假开始时间"){
+							$("#leaveStart").html(value);
+						}else if(docfromName == "请假结束时间"){
+							$("#leaveEnd").html(value);
+						}else if(docfromName == "请假原因"){
+							$("#leaveReason").html(value);
+						}else if(docfromName == "请假天数"){
+							$("#docfromName").html(value);
+						}else if(docfromName == "请假类型" && el.code == "leavetype"){
+							if(value == 1){
+								value = "事假";
+							}else if(value == 2){
+								value = "病假";
+							}else if(value == 3){
+								value = "年假";
+							}else if(value == 9){
+								value = "其他";
+							}else if(value == 4){
+								value = "";
+							}
+							$("#leaveType").html(value);
+						}
+					});
+					console.info(data);
+				},
+				error:function() {
+					
+				}
+			});
+	  	}
+		$(document).on('click','.toact_active', function (index,el) {
+			var opinion_text = $("#opinion_text").val().replace(/\s/g,"");
+			var str = '';
+			if(opinion_text == ""){
+				$.alert("请输入您的意见！");
+				return;
+			}
+			opinion_text = $("#opinion_text").val();
+			var nodeid = $(this).attr("nodeid");
+			if($(this).html()=="抄送" || $(this).html()=="转办"){
+				nodeid_0 = nodeid;
+				opinion_text_0 = opinion_text;
+				console.info(nodeid);
+				localStorage.setItem("peopleListType","抄送");
+				if($(this).html()=="抄送"){
+					localStorage.setItem("ctype","2");
+				}else if($(this).html()=="转办"){
+					localStorage.setItem("ctype","1");
+				}
+				
+				//打开选人
+				ProcessingService();//解密通讯录
+				return;
+			}
+			if($(this).html()=="送回抄送人"){
+				loadSendOA(null,null,null,null,opinion_text);
+				return;
+			}
+			if($(this).html()=="终止流程"){
+				$.modal({
+			      title:  '提示',
+			      text: "您确认需要终止该流程，终止后不可恢复！",
+			      buttons: [
+			        {
+			          text: '确定',
+			          onClick: function() {
+			            loadStopFlow();
+			          }
+			        },
+			        {
+			          text: '取消',
+			          onClick: function() {
+			          	
+			          }
+			        }
+			      ]
+			    })
+				return;
+			}
+			var doctplid = $(this).attr("doctplid");
+			var covernodeid = $(this).attr("covernodeid");
+			$.showIndicator();
+			LoadSendToInfo(doctplid,covernodeid,nodeid,opinion_text);//获取接收者信息
+			console.info(doctplid+'---'+covernodeid+'---'+nodeid);
+		})
+				//终止流程的方法
+		function loadStopFlow () {
+			var opinion_text = $("#opinion_text").val().replace(/\s/g,"");
+			if(opinion_text == ""){
+				$.alert("请输入您的意见！");
+				return;
+			}
+			$.showIndicator();
+			opinion_text = $("#opinion_text").val();
+			var getLocal = localStorage.getItem('SessionId');
+			var SessionId = typeof(getLocal) == "Object" ? "" : getLocal;
+			var data = '{"SessionId":"'+SessionId+'","content":"'+opinion_text+'","docid":"'+db_docid+'","todtoId":"'+db_id+'"}';
+			console.info(data);
+			$.https({
+				type:"post",
+				url:dbURL+"StopFlow&ClassName=DocToDo",
+				data:{
+					ParamJson:data
+				},
+				success:function (data) {
+					$.hideIndicator();
+					//var data = JSON.parse(data);
+					if(data.success == true){
+						$.modal({
+					      title:  '提示',
+					      text: data.msg,
+					      buttons: [
+					        {
+					          text: '确定',
+					          onClick: function() {
+					            $.uexBack();
+					            localStorage.setItem("db_list","1");
+					          }
+					        }
+					      ]
+					    })
+					}
+					console.info(data);
+				},
+				error:function() {
+					
+				}
+			});
+		}
+		
+		//任意选择机构的方法
+		function loadQueryDeptTreeForQUI () {
+			$.showIndicator();
+			var getLocal = localStorage.getItem('SessionId');
+			var SessionId = typeof(getLocal) == "Object" ? "" : getLocal;
+			var data = '{"SessionId":"'+SessionId+'"}';
+			var username = '';
+			var userid = '';
+			var chindren = '';
+			var str = '';
+			console.info(data);
+			$.https({
+				type:"post",
+				url:dbURL+"QueryDeptTreeForQUI&ClassName=DocToDo",
+				data:{
+					ParamJson:data
+				},
+				success:function (data) {
+					$.hideIndicator();
+					//var data = JSON.parse(data);
+					var peopleListType = localStorage.getItem("peopleListType");
+					var jsonData = eval(JSON.stringify(data.treeNodes));
+					var jsonDataTree = transData(jsonData, 'id', 'parentId', 'chindren');  
+					if($("#radio_list1").html() != ''){
+						$.popup('.popup2');
+					}else{
+						html_rec(JSON.stringify(jsonDataTree));
+						$.popup('.popup2');
+					}
+				},
+				error:function() {
+					
+				}
+			});
+		}
+		
+		//递归拼接机构树形
+		function html_rec (arr) {
+			var username = '';
+			var userid = '';
+			var chindren = '';
+			var chindrenArr = '';
+			var parentid = '';
+			var str = '';
+			$.each(JSON.parse(arr), function(index,el) {
+				username = el.name;
+				userid = el.id;
+				chindren = el.chindren;
+				chindrenArr = el.chindren;
+				parentid = el.parentId;
+				if(chindren == undefined){
+					chindren = 0;
+				}else{
+					chindren = 1;
+				}
+				str += html_Tree_popup2(username,userid,chindren,parentid);
+				if(chindren == 1){
+					html_rec(JSON.stringify(chindrenArr));
+				}
+			});
+		}
+
+		//任意选择岗位的方法
+		function loadGetPostByDeptIdQUI (deptid) {
+			$.showIndicator();
+			var getLocal = localStorage.getItem('SessionId');
+			var SessionId = typeof(getLocal) == "Object" ? "" : getLocal;
+			var data = '{"SessionId":"'+SessionId+'","deptid":"'+deptid+'"}';
+			var username = '';
+			var userid = '';
+			var str = '';
+			console.info(data);
+			$.https({
+				type:"post",
+				url:dbURL+"GetPostByDeptIdQUI&ClassName=DocToDo",
+				data:{
+					ParamJson:data
+				},
+				success:function (data) {
+					console.info(data);
+					$.hideIndicator();
+					//var data = JSON.parse(data);
+					$.each(data, function(index,el) {
+							username = el.key;
+							userid = el.value;
+							str += html_child_popup2(username,userid,1);
+					});
+					$("#radio_list2").html(str);
+					$("#radio_list1").css("height","45%");
+					$("#radio_list2").show();
+					console.info(data);
+				},
+				error:function() {}
+			});
+		}
+		
+		//任意选择角色的方法
+		function loadgetRoleByDeptIdQUI (deptid) {
+			$.showIndicator();
+			var getLocal = localStorage.getItem('SessionId');
+			var SessionId = typeof(getLocal) == "Object" ? "" : getLocal;
+			var data = '{"SessionId":"'+SessionId+'","deptid":"'+deptid+'"}';
+			var username = '';
+			var userid = '';
+			var str = '';
+			console.info(data);
+			$.https({
+				type:"post",
+				url:dbURL+"getRoleByDeptIdQUI&ClassName=DocToDo",
+				data:{
+					ParamJson:data
+				},
+				success:function (data) {
+					console.info(data);
+					$.hideIndicator();
+					//var data = JSON.parse(data);
+					$.each(data, function(index,el) {
+							username = el.key;
+							userid = el.value;
+							str += html_child_popup2(username,userid,1);
+					});
+					$("#radio_list2").html(str);
+					$("#radio_list1").css("height","45%");
+					$("#radio_list2").show();
+					console.info(data);
+				},
+				error:function() {
+					
+				}
+			});
+		}
+		
+		//拼接岗位/角色的方法
+		function html_child_popup2 (username,userid,num) {
+			var radioStyle = '';
+			var str = '';
+			//抄送时为多选，其他流转为单选
+			if(num == 1){
+				radioStyle = "radio";
+			}else{
+				radioStyle = "checkbox";
+			}
+			str +='<label class="label-checkbox item-content ub label_">'
+			  +'<div style="margin-left: 2rem;">'+username+'</div><div class="ub-f1"></div>'
+			  +'<input type="'+radioStyle+'" name="people" username="'+username+'" userid="'+userid+'">'
+			  +'<div class="item-media" style="margin-right: 1.8rem;"><i class="icon icon-form-checkbox radio_hw"></i></div>'
+			  +'</label><div style="margin-left: 2rem;" class="border_"></div>';
+			return str;
+		}
+		
+		//拼接岗位/角色的父级机构的方法
+		function html_parent_popup2 (username,userid) {
+			var str = '';
+			str +='<div onclick="toggleChild(\''+userid+'\')" style="margin-left: 1rem;" class="ub"><div>'+username+'</div><div class="ub-f1"></div>'
+        		+'<span class="icon icon-down" style="margin-right: 1.8rem;"></span></div><div class="border_"></div><div id="child_toggle'+userid+'" style="display: none;"></div>';
+			return str;
+		}
+		
+		//拼接机构树形的方法
+		function html_Tree_popup2 (username,userid,chindren,parentid) {
+			var margin = '';
+			var lable_ = '';
+			var onclick_ = '';
+			var peopleListType = localStorage.getItem("peopleListType");
+			if(userid.length == 1){
+				margin = '0';
+			}if(userid.length == 3){
+				margin = '1rem';
+			}if(userid.length == 6){
+				margin = '1.8rem';
+			}if(userid.length == 9){
+				margin = '2.6rem';
+			}if(userid.length == 12){
+				margin = '3.4rem';
+			}if(userid.length == 15){
+				margin = '4.2rem';
+			}
+			if(chindren == 1){
+				chindren = '<span class="icon icon-down" style=""></span>';
+			}else{
+				chindren = '';
+			}
+			if(peopleListType == "SelectAllPost" || peopleListType == "SelectAllRole"){
+				lable_ = 'peopleRP';
+				onclick_ = 'onclick="peopleRPchange()"';
+			}else if(peopleListType == "SelectAllDep"){
+				lable_ = "people";
+				onclick_ = '';
+			}
+			var str = '';
+			str +='<div class="ub border_"><div style="width:'+margin+'"></div>'
+	             +'<label class="label-checkbox item-content label_" '+onclick_+'>'
+				 +'<input type="radio" name="'+lable_+'" username="'+username+'" userid="'+userid+'">'
+				 +'<div class="item-media"><i class="icon icon-form-checkbox radio_hw"></i></div></label>'
+				 +'<div class="ub-f1 ub" onclick="toggleChild(\''+userid+'\')" style="margin-left: 1rem;">'
+	             +'<div>'+username+'</div><div class="ub-f1"></div>'
+	             +chindren+'</div></div>'
+	             +'<div id="child_toggle'+userid+'" style="display: none;"></div>';
+	             
+	             if(parentid == 0){
+					$("#radio_list1").append(str);
+				}else{
+					$("#child_toggle"+parentid).append(str);
+				}
+				return str;
+		}
+		
+		function peopleRPchange () {
+			$("#radio_list1").find('input[name="peopleRP"]:checked').each(function(index,el) {
+				var id = $(el).attr("userid");
+				var peopleListType = localStorage.getItem("peopleListType");
+				if(peopleListType == "SelectAllPost"){
+		  			loadGetPostByDeptIdQUI(id);
+			  	}else if(peopleListType == "SelectAllRole"){
+			  		loadgetRoleByDeptIdQUI(id);
+			  	}
+			});
+		}
+		
+		//切换子级显示
+		function toggleChild (id) {
+		  	var peopleListType = localStorage.getItem("peopleListType");
+		  	var str = $("#child_toggle"+id).html();
+//		  	if(str == ''){
+//		  		if(peopleListType == "SelectAllPost"){
+//		  			loadGetPostByDeptIdQUI(id);
+//			  	}else if(peopleListType == "SelectAllRole"){
+//			  		loadgetRoleByDeptIdQUI(id);
+//			  	}
+//		  	}else{
+		  		$("#child_toggle"+id).toggle();
+//		  	}
+	  	}
+		//转换普通对象为树形对象
+		function transData(a, idStr, pidStr, chindrenStr){  
+		    var r = [], hash = {}, id = idStr, pid = pidStr, children = chindrenStr, i = 0, j = 0, len = a.length;  
+		    for(; i < len; i++){  
+		        hash[a[i][id]] = a[i];  
+		    }  
+		    for(; j < len; j++){  
+		        var aVal = a[j], hashVP = hash[aVal[pid]];  
+		        if(hashVP){  
+		            !hashVP[children] && (hashVP[children] = []);  
+		            hashVP[children].push(aVal);  
+		        }else{  
+		            r.push(aVal);  
+		        }  
+		    }  
+		    return r;  
+		}
+
+		//处理通讯录
+		function proHadle(data) {
+			$.hideIndicator();
+			var username = '';
+			var userid = '';
+			var str = '';
+			var peopleListType = localStorage.getItem("peopleListType");
+			var num = '';
+			if(peopleListType == "SelectAllPer"){
+				num = 1;
+			}else if(peopleListType == "抄送"){
+				num = 2;
+			}
+		    if(data != null && data != ""){
+			    var res = JSON.parse(data);
+				var Result   = res.usersTree;
+					$.each(Result, function(index,el) {
+						username = el.username;
+						userid = el.userid;
+						str += html_popup2(username,userid,num);
+					});
+					$("#radio_list1").html(str);
+					$.popup('.popup2');
+			    }else{
+				    $.toast("无缓存数据");
+			}
+		}
+		//解密通讯录
+     	function ProcessingService(){ //服务器请求的数据处理逻辑
+          $.showIndicator();	
+          uexEncryption.onDecrypt('userJsonInfoDetails'); //解密		
+		  uexEncryption.cbData = function (code, type, data){ //回调
+              code=parseInt(code)
+				switch(code)
+					{
+						case 404:
+						  $.toast("通讯录数据为空");
+						  break;
+						case 201:
+						  console.log('返回加密文件的路径'+data);
+						  //alert('返回加密文件的路径'+data);
+						  break;
+						case 200:
+						   	//alert(200)	
+                            proHadle(data);										
+						    break;
+						default:
+							break;
+					}					
+			}
+		}	
+		var leavePage = 1,leaveLoad = false,leaveEnd = false,showLeaveList = false;
+		$(document).on('click', '.iconfont.icon-form', function(event) { 
+			 showLeaveList = true
+			 $.popup('.leaveList'); 
+			 loadMyLeave()
+		});
+		function loadMyLeave(){
+			$.https({
+			 	 url:mainURL,
+			 	 type:'post',
+			 	 data:{
+			 	 	MethodName:'queryList',
+			 	 	ClassName:'MyLeave', 
+			 	 	ParamJson:JSON.stringify({
+			 	 		  "SessionId":$.getStorage('SessionId'),
+						  "cuser":$.getStorage('leavve_dealuserid'), 
+						  "pageNo":leavePage,//当前开始的页数(不传默认显示第一页的数据)
+						  "pageSize":10//每页显示的行数(不传默认显示20行的数据)
+			 	 	})
+			 	 	},
+			 	 	success:function(json){ 
+			 	 			var myli = '';
+
+			 	 			(json.leaveList.length == 0 && leavePage == 1) && $.toast("无请假记录");
+			 	 			(json.leaveList == 0 && leavePage != 1) && (leaveEnd = true); 
+
+			 	 			$.each(json.leaveList,function(index, el) { 
+
+			 	 				myli += '<li class="item-content">\
+									      <div class="item-inner">\
+									        <div class="item-title-row">\
+									          <div class="item-title">'+el.sqr+'</div>\
+									          <div class="item-after">'+el.qjlx+'</div>\
+									        </div>\
+									        <div class="item-title-row">\
+									          <div class="item-title item-time">开始时间：'+el.qjkssj+'</div>\
+									        </div>\
+									        <div class="item-title-row">\
+									          <div class="item-title item-time">结束时间：'+el.qjjssj+'</div>\
+									        </div>\
+									        <div class="item-title-row item-time row-wcyy">请假原因：'+el.qjyy+'</div>\
+									        <div class="item-title-row row-down">\
+									          <div class="icon icon-down"></div>\
+									        </div>\
+									  </li>'
+			 	 			}); 
+			 	 			$('.leaveList').find('ul').append(myli)
+			 	 			leavePage++
+			 	 			leaveLoad  = false
+			 	 	} 
+			 }) 
+		}
+  // 注册'infinite'事件处理函数
+       $('.leaveList .content').on('scroll',function(){  
+       	    if(leaveEnd) return
+	        if (this.scrollHeight - $(this).height() - $(this).scrollTop() < 50){  
+	        	leaveLoad = true;
+	        	loadMyLeave()
+	        	$.refreshScroller();
+	        }  
+		}); 
+		$(document).on('click', '.leaveList li', function(event) {
+       	 	  $(this).find('.row-wcyy').toggle(); 
+       	 	  $(this).find('.icon').toggleClass('icon-up'); 
+       	 	  $(this).siblings().find('.row-wcyy').hide()
+       	 	  $(this).siblings().find('.icon').removeClass('icon-up')
+
+       });  
+</script>
+</body>
+</html>

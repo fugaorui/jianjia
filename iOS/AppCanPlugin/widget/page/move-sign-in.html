@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>移动签到</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<meta content="telephone=no,email=no" name="format-detection" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="description" content="">
+<!-- <link rel="shortcut icon" href="/favicon.ico"> -->
+<link rel="stylesheet" href="../css/min/sm.css">
+<link rel="stylesheet" href="../css/min/sm-extend.css">
+<link rel="stylesheet" href="../css/min/flexBox.css">
+<link rel="stylesheet" href="../fonts/iconfont.css">
+<link rel="stylesheet" href="../css/tonXin.css">
+
+<style>
+#page_news .content {
+	background-color: #f2f2f2;
+}
+
+#page_news .content .news_list {
+	background-color: #fff;
+}
+.leave header.bar.bar-nav{
+	background:none;
+}
+#current_date{
+	margin: 0;
+	}
+
+h3,p{
+	color: white;
+}
+
+#edit{
+	margin-right: 0.5rem; 
+	color: white;
+}
+
+#head{
+	background:url(../img/bg.png) no-repeat center center;
+	background-size:100% 100%;
+	height:25%;
+	width:100%;
+}
+
+.bar:after{height: 0}
+}
+	
+</style>
+</head>
+<body>
+	<div class="page-group" >
+	 <div class="page page-current leave page_leave_sq page_leave_sq_detail page_leave_toact_detail" id="">
+		<div id="head">
+			<header class="bar bar-nav">
+				<a class="icon icon-left pull-left back"></a>
+				<button id="edit" class="button button-link button-nav pull-right">编辑</button>
+				<h1 class="title">移动签到</h1>
+			</header>
+			<div style="padding:4rem 0 0 1rem;">
+				<h3>星期二</h3>
+				<p id="current_date">2016.06.18</p>
+			</div>
+		</div>
+
+    <div class="content">
+		<div class="ub ub-f1 ub-as apply_load_bottom">
+		      <div class="apply_left2 ub ub-f1 ub-ver"><div id="xian" class="ub ub-f1 ub-ver"></div></div>
+
+		      <div class="ub ub-f1 ub-as ub-ps ub-ver" style="padding-right:.4rem;margin-left:.3rem;">
+			    <div class="apply_content ub ub-f1 ub-ver">
+				  <div class="apply_top">9:55 外勤签到</div>
+				  <div class="apply_time">广东省广州市天河区龙口东路192号</div>
+				  <i></i>
+				  <span class="apply_guo"></span>
+				</div>
+				<div class="apply_content ub ub-f1 ub-ver">
+				  <div class="apply_top">9:55 外勤签到</div>
+				  <div class="apply_time">广东省广州市天河区龙口东路192号</div>
+				  <i></i>
+				  <span class="apply_guo"></span>
+				</div>
+			  </div>
+			  
+		</div>
+	</div>
+
+	</div>
+	</div>
+
+	<script type='text/javascript' src='../js/min/zepto.min.js' charset='utf-8'></script>
+	<script type='text/javascript' src='../js/mains.js' charset='utf-8'></script>
+	<script type='text/javascript' src='../js/config.js' charset='utf-8'></script>
+	<script type='text/javascript' src='../js/min/sm.min.js' charset='utf-8'></script>
+	<script type='text/javascript' src='../js/min/sm-extend.min.js' charset='utf-8'></script>
+	<script type='text/javascript' src='../js/demos.js' charset='utf-8'></script>
+	<script src="../js/TouchSlide.1.1.js"></script>
+
+<script type="text/javascript">
+$.ready(function () {
+	
+		$('.content').css('top',$('#head').height())
+		$(window).on('resize',function(){
+			$('.content').css('top',$('#head').height())
+		})
+
+})	
+</script>
+</body>
+</html>

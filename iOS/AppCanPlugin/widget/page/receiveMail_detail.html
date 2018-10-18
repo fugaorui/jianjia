@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>站内信详情</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<meta content="telephone=no,email=no" name="format-detection"/> 
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="description" content="">
+<!-- <link rel="shortcut icon" href="/favicon.ico"> -->
+<link rel="stylesheet" href="../fonts/iconfont.css"> 
+<link rel="stylesheet" href="../css/min/sm.css">
+<link rel="stylesheet" href="../css/min/sm-extend.css"> 
+<link rel="stylesheet" href="../css/min/flexBox.css">
+<link rel="stylesheet" href="../css/tonXin.css"> 
+
+<style>
+
+div.list-block{
+	margin: 0px;
+}
+.list-block .item-title.label{
+	width:25%;
+}
+#content_all{
+  word-break: break-all;
+  word-wrap: break-word;
+} 
+</style>
+
+</head>
+
+
+
+
+<body>
+ <div class="page-group">
+        <!-- 单个page ,第一个.page默认被展示page_msn-->
+    <div class="page page-current leave page_email_Admin page_memo page_msn" id="page_inEmail">
+
+			<!--站内信头部-->
+		<header class="bar bar-nav">
+            <a class="icon icon-left pull-left back"></a>
+            <a class="icon icon-remove pull-right"></a>
+            <h1 class="title">已接收信息</h1>
+        </header>	
+				
+		   <!--工作日志编辑保存按钮-->
+			<div class="fixed_button bar bar-tab" onclick="openSend();">
+			  <a href="javascript:;" class="button button-fill button-warning bottoms" id="save">回复</a>
+			</div>
+
+        <!-- 这里是页面内容区 -->
+
+        	<div class="content">
+			  <div class="list-block">
+			    <ul>
+			      <!-- Text inputs -->
+			      <li>
+			        <div class="item-content">
+			          <div class="item-inner">
+			            <div class="item-title label">来自</div>
+			            <div class="item-input">
+			              <span id="content_from"></span>
+			            </div>
+			          </div>
+			        </div>
+			      </li>
+
+			      <li>
+			        <div class="item-content">
+			          <div class="item-inner">
+			            <div class="item-title label">时间</div>
+			            <div class="item-input">
+			              <span id="content_time"></span>
+			            </div>
+			          </div>
+			        </div>
+			      </li>
+
+			      <li>
+			        <div class="item-content">
+			          <div class="item-inner">
+			            <div class="item-title label">标题</div>
+			            <div class="item-input">
+			              <span id="content_title"></span>
+			            </div>
+			          </div>
+			        </div>
+			      </li>
+
+			      <li class="align-top">
+			        <div class="item-content"> 
+			          <div class="item-inner">
+			            <div class="item-title label">内容</div>
+			            <div class="item-input">
+			              <span id="content_all"></span>
+			            </div>
+			          </div>
+			        </div>
+			      </li> 
+			    </ul>
+			  </div>	
+			</div> 
+    </div>	
+</div>
+
+
+
+
+
+
+<script type='text/javascript' src='../js/min/zepto.min.js' charset='utf-8'></script> 
+<script type='text/javascript' src='../js/mains.js' charset='utf-8'></script>  
+<script type='text/javascript' src='../js/config.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm-extend.min.js' charset='utf-8'></script> 
+<script type='text/javascript' src='../js/demos.js' charset='utf-8'></script>
+<script type='text/javascript' src="../js/TouchSlide.1.1.js" charset='utf-8'></script>
+
+<script type="text/javascript">
+var newId = $.getStorage('receive_id');  
+var num = $.getStorage('receive_num');  
+if(num == '1'){
+	$('#content_from').parent().siblings().html('发送给')
+	$('h1.title').html('已发送的信息')
+    $('.fixed_button').remove()
+}
+var senduserid = $.getStorage('receive_senduserid');
+senduserid == 0 && $('.fixed_button').remove();
+function openSend(){ 
+	$.setStorage('receive_senduserids',senduserid)
+	$.uexOpen('msn_in')
+}
+$(document).on('click','.icon-remove',function () {
+    $.https({
+        url: mainURL + 'delMsg.do',
+        type: "post",
+        data: {
+            ParamJson: JSON.stringify({
+					id:newId,
+				    type:num
+			})
+        },
+        success: function (data) {
+             $.toast(data.Msg,2000,function () {
+                 $.setStorage('in_email',"1")
+                 $.uexBack();
+             })
+        }
+    })
+})
+$.ready(function(){
+
+	$.https({
+		url:mainURL + (num != "1" ? 'receiveMsgInfo.do': "sendMsgInfo.do"),
+		type:"post",
+		data:{
+		  ParamJson : JSON.stringify({
+				"id" : newId
+			}) 
+		},
+		success:function(data){
+		    console.log(data.Row)
+            data = num == "1" ? data.Row.messageSend : data.Row.messageReceive;
+			$('#content_from').append($.getStorage('receive_name'))
+            $('#content_title').append(data.title)
+			$('#content_time').append(data.createtime)
+			$('#content_all').append(data.content)
+			$.setStorage('senderID',data.receiveid)
+            senduserid  = data.sendid
+			$.setStorage('senderName',data.sendusername)
+			$.setStorage('seeEmail',"1");
+		} 
+	}) 
+})
+
+
+
+</script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>工作日志</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<meta content="telephone=no,email=no" name="format-detection"/> 
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="description" content="">
+<!-- <link rel="shortcut icon" href="/favicon.ico"> -->
+<link rel="stylesheet" href="../fonts/iconfont.css">
+<link rel="stylesheet" href="../css/min/sm.css">
+<link rel="stylesheet" href="../css/min/sm-extend.css"> 
+<link rel="stylesheet" href="../css/min/flexBox.css">  
+<link rel="stylesheet" href="../css/tonXin.css"> 
+<style>
+ #page_news .content{background-color:#f2f2f2;}
+ #page_news .content .news_list{background-color:#fff;}
+</style>
+</head>
+<body>
+ <div class="page-group">
+<!-- 单个page ,第一个.page默认被展示-->
+<!-- 工作日志-->
+     <div class="page page-current leave page_email_Admin page_job_log_edit" id="page_job_log_list">
+	 
+	         <!--工作日志头部-->
+			  <header class="bar bar-nav">
+                <a class="icon icon-left pull-left back"></a>
+                <h1 class="title">工作日志</h1>
+				<a class="icon pull-right">筛选</a>
+              </header>
+			  
+            <!--申请请假提交按钮-->
+			<div class="fixed_button bar bar-tab">
+			  <a href="javascript:;" onclick="$.uexOpen('job_log_edit')" class="button button-fill button-warning">新增日志</a>
+			</div>
+
+<script id="commentTemplate" type="text/html">
+  <li class="item-content ub">   
+    <a href="javascript:;" class="ub ub-f1 ub-ac ub-ps ubb padd hewenqi-li" djid="$id$" title="$title$" 
+	logdate="$logdate$" content="$content$" remark="$remark$" onclick="$.uexOpen('job_log_edit')">
+		<div class="ub ub-f1 ub-as ub-pc email_Admin_list ub-ver">
+		  <span class="ub ub-as ub-pc ub-f1 ub-ver ut-m line1"style="display:blcok;width:100%;">$title$</span>
+          <div class="ub ub-f1 ub-ac ub-ps email_Admin_list_bottom">
+		   <span style="padding-right:0;">日志日期：</span>$logdate$<span></span>
+		  </div>
+		</div>
+		<span class="icon icon-right"style="color:#999;"></span>
+	</a> 
+ </li>
+	
+</script> 
+
+<style>
+ #toogle{width:100%;height:1.5rem;line-height:1.5rem;text-align:center;font-size:.7rem;color:#666;}
+ 
+.ubb:after{
+    bottom:0px;
+}
+
+#page_job_log_list #job_siftings{
+		        position: fixed;font-size:.7rem;top: 2.2rem;z-index:99999;right: 0;left: 0;
+				width:100%;background:none;overflow:hidden;display:none;
+		}
+#job_siftings2{
+		        position: fixed;font-size:.7rem;top: 2.2rem;z-index:999;right: 0;left: 0;
+				width:100%;background:rgba(0,0,0,.5);overflow:hidden;display:none;bottom:0;
+		}
+#page_job_log_list #job_siftings .bg_siftings{
+		        background:#fff;padding:0 .4rem;color:#333;
+				transform: translate3d(0,-8.1rem,0);
+				-webkit-transform: translate3d(0,-8.1rem,0);
+				transition: all 0.2s ease-in-out;
+				-webkit-transition: all 0.2s ease-in-out;
+		}
+#page_job_log_list #job_siftings .active_siftings{
+				transform: translate3d(0,0,0);
+				-webkit-transform: translate3d(0,0,0);
+				transition: all 0.2s ease-in-out;
+				-webkit-transition: all 0.2s ease-in-out;
+		}
+#page_job_log_list .bg_siftings div:nth-child(1){
+		  padding:.5rem 0 .5rem 0;
+		}
+#page_job_log_list .bg_siftings div:nth-child(1) a{
+		  background:#eee;height:1.5rem;display:block;padding:0 .4rem;border-radius:1.5rem;color:#1ac6ee;
+		}
+		
+#page_job_log_list .time_siftings div:nth-child(1){margin-right:.4rem;}
+#page_job_log_list .time_siftings div:nth-child(2) input{
+		    height:1.5rem;text-indent:.3rem;border:1px solid #d8d8d8;
+			    /*-webkit-transform-origin: 0 0;
+				transform-origin: 0 0;
+				-webkit-transform: scaleY(.5);
+				transform: scaleY(.5);*/
+			}
+#page_job_log_list .time_siftings div:nth-child(4) input{height:1.5rem;text-indent:.3rem;border:1px solid #d8d8d8;}
+#page_job_log_list .time_siftings div:nth-child(3){width:1rem;}
+#page_job_log_list .submit_siftings{background:#1ac6ee;height:1.8rem;color:#fff;border-radius:1.8rem;max-width:70%;margin:.8rem auto;}
+
+ .buttons-tab{background:#f2f2f2;position:fixed;top:2.2rem;z-index:9;width:100%;}
+ .content-block{margin:0;padding:0;overflow:hidden;background:#fff;}
+ #add_book{line-height:1.5rem;}
+ .ubb:after {
+  content: " ";
+  position: absolute;
+  left: 0;
+  bottom: 0px;
+  width: 100%;
+  height: 1px;
+  border-bottom: 1px solid #d8d8d8;
+  border-top: 0px solid #d8d8d8;
+  color: #d9d9d9;
+  /*-webkit-transform-origin: 0 0;
+  transform-origin: 0 0;*/
+  -webkit-transform: scaleY(.5);
+  transform: scaleY(.5);
+}
+.icon-close{
+	position: absolute;
+	right: .2rem;
+}
+ /*.delete li:last-child a.ubb:after{height:0;border-bottom:0;}*/
+</style>	
+
+		  <!--筛选功能-->
+            <div class="" id="job_siftings">
+			 <div class="ub ub-f1 ub-ver bg_siftings" id="wrap_siftings">
+			  <!-- <div class="ub ub-f1 ub-ac ub-pj">
+			    <a href="javascript:;" class="ub ub-ac ub-pc" id="add_book">新增日志</a>
+				<div id="rest">取消</div>
+			  </div> -->
+			  
+			  <div class="ub ub-f1 ub-ac ub-ps time_siftings">
+			   <div>日期：</div>
+			   <div class="ub ub-f1"><input id="time_begin" class="ub ub-f1 ub-ac ub-ps" type="text" placeholder="开始日期"/><i class="iconfont icon-close"></i></div>
+			   <div class="ub ub-ac ub-pc">-</div>
+			   <div class="ub ub-f1"><input id="time_over" class="ub ub-f1 ub-ac ub-ps" type="text" placeholder="结束日期"/><i class="iconfont icon-close"></i></div>
+			  </div>
+			  
+			  <div class="ub ub-f1 ub-ac ub-pc submit_siftings" id="submit_siftings">查询</div>
+			 </div>
+			</div>
+			<div class="" id="job_siftings2"></div>
+		
+       <div class="content infinite-scroll infinite-scroll-bottom pull-to-refresh-content" data-ptr-distance="55">
+            
+			<!-- 默认的下拉刷新层 -->
+				<div class="pull-to-refresh-layer">
+					<div class="preloader"></div>
+					<div class="pull-to-refresh-arrow"></div>
+				</div>
+				
+			<!--工作日志内容-->
+			<div class="ub ub-f1 ub-ver organize">
+		     <div class="ub ub-f1 ub-ver organize_list hewenqi" id="hewenqi">
+			  <div class="content-block">
+			    <ul class="delete">
+			   <!-- <a href="#" class="ub ub-f1 ub-ac ub-ps ubb padd">
+			     <div class="ub ub-f1 ub-as ub-pc email_Admin_list ub-ver">
+				   <span class="ub ub-as ub-pc ub-f1 ub-ver ut-m line1"style="display:blcok;width:100%;">关于举办上合组织成员国际国际国际国际国际国际国际</span>
+                   <div class="ub ub-f1 ub-ac ub-ps email_Admin_list_bottom"><span style="padding-right:0;">创建日期：</span><span>2016.07.28</span></div>
+				 </div>
+			     <span class="icon icon-right"style="color:#999;"></span>
+			   </a> -->
+			    </ul>
+			  </div>
+			 </div>
+		    </div>
+		   
+		   <!-- 加载提示符 -->
+          <div class="infinite-scroll-preloader">
+              <div class="preloader"></div>
+          </div>
+		  <div id="toogle" style="display:none;">没有更多了</div>
+	   </div>
+     </div>	   	
+</div>
+
+<script type='text/javascript' src='../js/min/zepto.min.js' charset='utf-8'></script> 
+<script type='text/javascript' src='../js/mains.js' charset='utf-8'></script>  
+<script type='text/javascript' src='../js/config.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm-extend.min.js' charset='utf-8'></script> 
+<script type='text/javascript' src='../js/demos.js' charset='utf-8'></script>
+
+ <script> 
+  $.ready(function () {
+         
+		  function ajax_del(){//删除ajax
+		   //console.log($(this))
+		   var dom 				= $(this);
+		       mssage           = new Object(),
+		       mssage.id        = dom.parents('li').find('a').attr('djid'),
+	           mssage.SessionId = localStorage.getItem('SessionId'),
+		       ParamJson 	    = JSON.stringify(mssage);
+		       console.info(ParamJson);
+			$.https({
+				   url:mainURL,
+				   data:{
+				     ClassName:"JobDiary",
+					 MethodName:"JobLogDel",
+					 ParamJson : ParamJson
+				   },
+				   type:"post",
+				   dataType:"json",
+				   success:function(res,status,xhr){
+					 // console.log(res)
+                      if( res.Code == 1){
+					    $.toast("删除成功");
+						dom.parents('li').remove();//删除静态html
+					  }else{
+					    $.toast("删除失败");
+					  }	
+					 },
+				  error:function(){
+				     $.toast("请求失败");
+				  }
+					 
+				});
+		 }
+		
+	      function momeAlert(){      // 修改
+            var _that = $(this).parents('.item-content').find('a');
+			    local('job_id',_that.attr('djid'));
+				local('job_title',_that.attr('title'));
+				local('job_logdate',_that.attr('logdate'));
+				local('job_content',_that.attr('content'));
+				local('job_remark',_that.attr('remark'));
+			    $.uexOpen('job_log_edit');
+		  }
+	
+		  function touchLeft(dom){   // 滑动删除
+			$.slideFun({
+					this:dom,
+					delete:ajax_del,
+					change:momeAlert
+				})
+		  }
+		//touchLeft();
+		
+	     $("title").text("工作日志");
+		  function json_arr (title,dateStart,dateEnd,pageIndex,lineSize) {
+				var obj            = new Object(),
+					getLocal       = localStorage.getItem('SessionId');
+					obj.ser_title  = title     != "" ? title : "";//日志标题
+					obj.begin_date = dateStart != "" ? dateStart : "";//开始日期
+					obj.end_date   = dateEnd   != "" ? dateEnd : "";//结束日期
+					obj.pageNo     = pageIndex != "" ? pageIndex : "";//当前开始的页数(不传默认显示第一页的数据)
+					obj.pageSize   = lineSize  != "" ? lineSize : "";//每页显示的行数(不传默认显示20行的数据)
+					obj.SessionId   = typeof(getLocal) == "Object" ? "" : getLocal;
+					return obj;
+			}
+				var mssage         = json_arr('','','',1,10);
+				//mssage.ser_title = 999;
+			   // mssage.pageNo    = mssage.pageNo+1;
+
+		      //下拉无限加载数据	 
+		       var loading         = false,// 加载flag
+		           siftings        = false,// 判断是否为筛选
+			       htmlList        = '';   // 动态生成的html
+		 
+         function setCahe(html_div){//为编辑存储localstorage缓存数据
+		   html_div.find('a').on('click',function(){
+				local('job_id',$(this).attr('djid'));
+				local('job_title',$(this).attr('title'));
+				local('job_logdate',$(this).attr('logdate'));
+				local('job_content',$(this).attr('content'));
+				local('job_remark',$(this).attr('remark'));
+			})
+		 }
+
+		 
+		 
+		 
+		 function touchLeftDle(dom){//touchLeft删除和编辑按钮
+			 $(dom).on('click',function(e){
+				$(this).hasClass('hewenqi-btn') ? $(this).parents('a').remove():"";
+				if($(this).hasClass('hewenqi-btn')){
+				  e.stopPropagation();
+				  e.preventDefault();
+				  ajax_del($(this))
+				}
+			 })
+		 }
+		 
+		 
+		  function ajax_load1(){//下拉加载ajax 
+		  $('#toogle').hide();
+		  var ParamJson = JSON.stringify(mssage); 
+			$.https({
+				   url: mainURL,
+				   data:{
+				     ClassName:"JobDiary",
+					 MethodName:"JobLogData",
+					 ParamJson : ParamJson
+				   },
+				   type:"post",
+				   dataType:"json",
+				   success:function(res,status,xhr){
+					  console.log(res)
+					  var resObj     = res.Result.Rows,
+						  temp_jsDiv = $("#page_job_log_list #commentTemplate"),
+						  html_div   = $("#page_job_log_list .organize_list .delete"),
+					 //javascript commentTemplate中的模板HTML
+						htmlTemp   = temp_jsDiv.text(); 
+						
+						if(siftings){
+						   htmlList = "";
+						   console.log(htmlList+'初始了htmk')
+						   siftings = false;
+						}
+					  	res.Result.Rows.forEach(function(obj,index,json) {
+						  	htmlList  += htmlTemp.temp(obj);
+						});
+						
+						html_div.html(htmlList);//塞入动态页面
+						touchLeft('#hewenqi .delete li');//加载侧滑删除
+						
+						setCahe(html_div);//为编辑存储localstorage缓存数据
+						loading = false;
+						$.refreshScroller();
+						if(resObj.length < mssage.pageSize){
+							$('#toogle').show();  
+							// 加载完毕，则注销无限加载事件，以防不必要的加载
+							$.detachInfiniteScroll($('.infinite-scroll'));
+							// 删除加载提示符
+							$('.infinite-scroll-preloader').hide();
+							return;
+						}
+                       // alert(resObj.length)						
+						mssage.pageNo = mssage.pageNo+1;
+					 },
+				   error:function(xhr,errorText,errorStatus){
+					 //console.log(xhr.response)
+					 if(xhr.status==0){
+						  return $.toast("服务器出车祸了");
+						}else{
+						  if(xhr.status==200){
+							$.toast(xhr.response);
+							setTimeout(function(){
+							 $.uexOpen('login');
+							 },1000)
+						  }
+						}
+					
+
+				   }
+				});
+		 }
+
+
+        // <!--筛选功能-->--------------------------------------
+		  $("#time_begin").calendar({
+		    
+		  });
+		  $("#time_over").calendar();
+		  function classHide(){
+			 $('#wrap_siftings').removeClass('active_siftings')
+				.on('webkitTransitionEnd',function(){
+				  $('#job_siftings2').hide();
+				  $('#job_siftings').hide();
+				  
+				})
+		  }
+		  $('.pull-right').on('click',function(){//点击触发筛选下拉
+			 if($('#wrap_siftings').hasClass('active_siftings')){
+				classHide();
+			 }else{
+			   $('#job_siftings2').show();
+			   $('#job_siftings').show();
+			   $('#wrap_siftings').addClass('active_siftings')
+			 }
+		  })
+
+		  $('#add_book').on('click',function(){//新增日志跳转地址
+			$.uexOpen("job_log_edit");
+		  })
+		  
+		  $('#job_siftings2,#rest,#submit_siftings').on('click',function(e){//筛选框关闭，及筛选功能后台数据处理 
+			 if($(this).attr('id') == 'submit_siftings'){      //是否为提交筛选的按钮
+			    mssage.begin_date   = $('#time_begin').val(); //开始日期
+			    mssage.end_date     = $('#time_over').val(); //结束日期
+				mssage.pageNo       = 1;                    //重置页数为第一页
+				siftings            = true;
+				$.attachInfiniteScroll($('.infinite-scroll'));
+				$('.infinite-scroll-preloader').show();
+				ajax_load1();
+			 }
+			 classHide();
+		  })
+		 
+ 
+		  //下拉加载功能begin --预先加载20条------------------------
+		  ajax_load1(); 
+			  
+		  $(document).on('infinite', '.infinite-scroll-bottom',function() { 
+			  if (loading) return;
+			  console.log('注册infinite加载')
+			  // 设置flag
+			  loading = true;
+			  //ajax加载数据 
+			  ajax_load1(); 
+		  });
+	 
+	// 添加'refresh'监听器
+	$(document).on('refresh', '.pull-to-refresh-content',function(e) {
+	        $.attachInfiniteScroll($('.infinite-scroll'));
+			$('.infinite-scroll-preloader').show();
+	         htmlList = "";
+			 mssage.pageNo = 1;     
+			 ajax_load1(); 
+			// 加载完毕需要重置
+			$.pullToRefreshDone('.pull-to-refresh-content');
+			//$.refreshScroller();
+
+	});
+	
+	$.monitorVal2({setIntervalReloadCacheJobList:''});//定时监听setIntervalReloadCacheJobList值是否为1，是否需要刷新页面
+	
+  })
+  $('.icon-close').on('click', function(event) {  
+	  	    $(this).siblings('input').val('') 
+	       });	
+</script>
+</body>
+</html>

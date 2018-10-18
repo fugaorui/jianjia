@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>移动签到</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<meta content="telephone=no,email=no" name="format-detection" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="description" content="">
+<link rel="stylesheet" href="../fonts/iconfont.css">
+<link rel="stylesheet" href="../css/min/sm.css">
+<link rel="stylesheet" href="../css/min/sm-extend.css">
+<link rel="stylesheet" href="../css/min/flexBox.css">
+<link rel="stylesheet" href="../css/tonXin.css">
+
+<style>
+#back, .title{color: white;}
+#headTop{background:red;height:24%;max-height:10rem;z-index:20;
+     background:#0EBEE6 url(../img/q1750-304.png) no-repeat left top;background-size:cover;
+	 }
+#rest_no{color:white;font-size:.85rem;-webkit-text-stroke-width:0;}
+#weekTime{
+    position: absolute;right: 0;color:#fff;
+    left: .6rem;z-index: 10;bottom:.6rem;
+}
+#weekTime>div:first-child{font-size:1.1rem;}    
+#weekTime>div:last-child{font-size:.8rem;}   
+.apply_top{color:#0eafe0;padding-left:.15rem;background: #eafbff;padding:.5rem .5rem 0;border-radius: .3rem  .3rem 0 0}
+.apply_time{color:#666!important;font-size:.65rem!important;background: #eafbff;padding:0rem .5rem .5rem;border-radius: 0 0 .3rem  .3rem}
+.page_leave_sq_detail .apply_content{background-color:#eafbff;  }
+.page_leave_sq_detail .apply_content i {border-top: 10px solid #eafbff;}
+em.iconfont{color:#23ceac;font-size:.8rem;margin-right:.1rem;}
+.apply_shen~div.apply_top{color:#f1742e!important;}
+.page_leave_sq_detail .apply_left2{min-width:1.6rem;max-width:1.6rem;}
+.page_leave_sq_detail .apply_content .apply_shen,
+.page_leave_sq_detail .apply_content .apply_guo{width:.8rem;height:.8rem;left:-1.5rem;top:.5rem;background:#23ceac;}
+.page_leave_sq_detail .apply_content .apply_shen{background:#f1742e;}
+.page_leave_sq_detail .apply_left2 div{background:#eaeaea;}
+.toact_button{height:6rem;background-color:#eafbff;}
+.qianDao{margin:1rem auto 0 auto;width:4rem;height:4rem;text-align:center;color:#fff;
+		border-radius:4rem;overflow:hidden;font-size:.8rem;}
+#qianDao{line-height:1.2rem;position:relative;z-index;2;font-size:.7rem;}
+#quanLoad.loadQ1{
+   background:url(../img/q3-200-200.png) no-repeat center center;background-size:cover;
+   width:4rem;height:4rem;position:absolute;z-index:0;left:0;top:0;
+}
+#quanLoad.loadQ2{
+   background:url(../img/q2200-200.png) no-repeat center center;background-size:cover;
+   width:4rem;height:4rem;position:absolute;z-index:0;left:0;top:0;
+   -webkit-animation: loadingAnimate 1.5s infinite linear;
+   animation: loadingAnimate 1.5s infinite linear;
+}
+@-webkit-keyframes loadingAnimate {
+    0% {-webkit-transform: rotate(0deg);}
+    50% {-webkit-transform: rotate(180deg);}
+    100% {-webkit-transform: rotate(360deg);}
+}
+keyframes loadingAnimate {
+    0% {-webkit-transform: rotate(0deg);}
+    50% {-webkit-transform: rotate(180deg);}
+    100% {-webkit-transform: rotate(360deg);}
+}
+
+.padd{padding:.4rem;width:100%;font-size:.7rem;color:#aaa;margin-top:8%;}
+	.apply_content{
+		margin-top: 0!important;
+		padding: 0rem!important;
+		display: flex;
+		/*margin: .5rem 0;*/
+		background-color: #ffffff!important;
+		border-left: 1px solid #eeeeee;
+		margin-left:1rem;
+		width:90%!important;
+		border-radius:0!important;
+		position: relative;
+	}
+	.lian{
+		width:1.5rem;
+		height: 100%;
+	}
+.lian > div{
+	background: #000000;
+	height: 100%;
+	width:1px;
+}
+.apply_top-box{
+	padding:1rem 0;
+	width: 100%;
+}
+.apply_guo{
+	left: -.35rem!important;
+	top:2rem!important;
+}
+.page_leave_sq_detail .apply_content i{
+	left: 1.1rem;
+	top: 2.1rem;
+}
+</style>
+</head>
+<body>
+
+	<div class="page-group" >
+	   <!-- 单个page ,第一个.page默认被展示page_msn-->
+    	<div class="page page-current leave page_leave_sq page_leave_sq_detail page_leave_toact_detail" id="page_leave_toact_detail">
+		
+		<div class="ub ub-f1 ub-ver" id="headTop">
+			<header class="bar bar-nav" style="background:none;position:static;">
+				<a id="back" class="icon icon-left pull-left back"></a>
+				<h1 class="title">移动签到</h1>
+				<!--<a class="icon pull-right" id="rest_no" onclick="$.uexOpen('sign-statistics')">统计</a>-->
+			</header>
+			<div class="ub ub-f1 ub-ver ub-as ub-pc" id="weekTime">
+			 <div id="week_sign">星期二</div>
+			 <div id="topTime_get">2016.02.15</div>
+			</div>
+		</div>
+
+		 <!--签到按钮-->
+			<div class="toact_button bar bar-tab">
+			  <div class="ub ub-ac ub-pc qianDao" id="qdClick">
+				 <div id="quanLoad" class="loadQ1"></div>
+				 <div id="qianDao"><!-- 14:23<br/> -->签到</div>
+			  </div>
+			  
+			</div>
+		
+		<div class="content infinite-scroll infinite-scroll-bottom" style="background-color:#fff;" >
+
+		 <div class="ub ub-f1 ub-as ">
+
+			  
+		      <div class="ub ub-f1 ub-as ub-ps ub-ver" style="padding-right:.4rem;margin-left:.3rem;" id="list_dinWei_sign" >
+
+			  </div>
+
+		   </div>
+		  
+		</div>
+		</div>
+	</div>
+
+	<script type='text/javascript' src='../js/min/zepto.min.js' charset='utf-8'></script>
+	<script type='text/javascript' src='../js/mains.js' charset='utf-8'></script>
+	<script type='text/javascript' src='../js/config.js' charset='utf-8'></script>
+	<script type='text/javascript' src='../js/min/sm.js' charset='utf-8'></script>
+	<script type='text/javascript' src='../js/min/sm-extend.min.js' charset='utf-8'></script>
+	<script type='text/javascript' src='../js/demos.js' charset='utf-8'></script>
+<script type="text/javascript">
+
+
+ function html_start(){
+      /*   var content_height		      = $(".content").height(),
+			 organize_height          = $(".organize").height(),
+			 apply_load_bottom_height = $('.apply_load_bottom').height(),
+			 apply_contentHeight      = $('.apply_content:last-child').height()/2;
+			 //alert(content_height)
+		  if(content_height > apply_load_bottom_height+15){
+			$('.apply_load_bottom').height(content_height);
+		 }else{
+		   $('.apply_load_bottom').height(apply_load_bottom_height);
+		 }*/
+		}
+		
+ $(function(){
+        $('#topTime_get').html($.time('',0)+" "+$.time('',1));
+        $('#week_sign').html($.time('',2));
+    var timeSet = '';    //分秒跳定时器 变量名
+		function setIn(){//分秒跳定时器
+		  timeSet = setInterval(function(){
+			  $('#topTime_get').html($.time('',0)+" "+$.time('',1));
+			},1000)
+		}
+		setIn();
+		$('.content').css({
+		    'top':$('#headTop').height(),
+		    'height':$('body').height()-$('#headTop').height()-$('.toact_button').height()
+		})
+		
+$.ready(function () {
+       
+    function pageLoad(obj){  //初始化
+	    var dom = $('#list_dinWei_sign'),
+		    _hl = "";
+	    if(obj.length <= 0){
+            loadEnd = 0
+	        return
+		}else{
+		  for(var i in obj){
+		    var time = obj[i].dt
+		    _hl += '<div class="apply_content">\
+		    		 <div class="lian"><div></div></div>\
+					  <div class="apply_top-box"><div class="apply_top">'+time+' 打卡签到</div>\
+					  <div class="apply_time">\
+					   <em class="iconfont icon-locationfill"></em>\
+					   <span>'+obj[i].location+'</span></div>\
+					  </div>\
+					  <i></i>\
+					  <span class="apply_guo"></span>\
+				    </div>';
+
+		  }
+          dom.append(_hl)
+		  html_start();
+         loading = false;
+         $.refreshScroller();
+
+		}
+	}
+ 
+    
+	function getTime(lat,lon,location){
+	  var ParamJson = JSON.stringify({
+	    "userid" :   $.getUserData().userid,
+		'lat'       : lat != "" && lat != null ? lat : "", //纬度
+		'lon'       : lon != "" && lon != null ? lon : "", //经度
+		'location'  : location != "" && location != null ? location : "", //地理地址
+		'dt'        : $('#topTime_get').text()
+		});
+	  $.https({
+		   url:mainURL+'outSideSave.do',
+		   data:{
+				ParamJson : ParamJson
+		   },
+		   type:"post",
+		   dataType:"json", 
+		   success:function(res,status,xhr){
+               $.toast('打卡成功',2000, function () {
+                   window.location.reload();
+               });
+			}
+		});
+	}
+	var parameter = {
+        "pageNo": 1,//当前开始的页数(不传默认显示第一页的数据)
+        "pageSize": "10",//每页显示的行数(不传默认显示20行的数据)
+        "userid" :   $.getUserData().userid,
+	}
+    init()
+	function init(){
+        $.https({
+            url:mainURL+'outSideList.do',
+            data:{
+                ParamJson : JSON.stringify(parameter)
+            },
+            type:"post",
+            dataType:"json",
+            success:function(res){
+                pageLoad(res.Row.outsideList);
+            }
+        });
+	}
+    var loading = false, loadEnd = 1;
+    $(document).on('infinite','.infinite-scroll-bottom', function () {
+        if (loading) return;
+        if (loadEnd == 0) return;
+        loading = true;
+        parameter.pageNo++;
+        init()
+    });
+
+//  getTime();//初始化打卡记录列表
+
+	function dizhi(url,longitude,latitude){   
+	  $.https({
+		   url:url,
+		   type:"post",
+		   dataType:"json", 
+		   success:function(res,status,xhr){
+		      getTime(latitude,longitude,res.regeocode.formatted_address);//向服务器发送经纬度及地理位置数据
+			},
+			error:function(xhr,errorText,errorStatus){
+			  //alert(xhr)
+			  $('#quanLoad').removeClass('loadQ2');
+              $.alert('地理地址获取失败');
+			}
+		});
+	} 
+
+
+	   //html_start();
+	   $('#qdClick').on('click',function (){
+           //clearInterval(timeSet);
+           $(this).find('#quanLoad').addClass('loadQ2').next('#qianDao').text('正在定位');
+           $(this).off('click');
+           uexLocation.getLocation();
+       })
+	   
+	   /*定位回调*/
+       uexLocation.cbGetLocation = function(opCode, dataType, data) {
+			if(Number(opCode)==0){
+			  longitude = data.match(/"longitude":(\d+\.\d+)/)[1];
+              latitude = data.match(/"latitude":(\d+\.\d+)/)[1];
+			  uexLocation.stopLocation();//关闭GPS
+		      var key ="7731ced0b57ada090d89eb9879a2fa4a"
+		      var url = 'http://restapi.amap.com/v3/geocode/regeo?key='+key+'&location='+ longitude +','+ latitude +';'
+		      dizhi(url,longitude,latitude);
+			}else{
+			  $('#quanLoad').removeClass('loadQ2');
+			  uexLocation.stopLocation();//关闭GPS
+			  $.alert('GPS定位失败');
+			}
+
+       };
+     
+    })	
+	
+ })
+ 
+
+</script>
+
+</body>
+</html>

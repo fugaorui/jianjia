@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>站内信</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta content="telephone=no,email=no" name="format-detection"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="description" content="">
+    <!-- <link rel="shortcut icon" href="/favicon.ico"> -->
+    <link rel="stylesheet" href="../fonts/iconfont.css">
+    <link rel="stylesheet" href="../css/min/sm.css">
+    <link rel="stylesheet" href="../css/min/sm-extend.css">
+    <link rel="stylesheet" href="../css/min/flexBox.css">
+    <link rel="stylesheet" href="../css/tonXin.css">
+    <script type='text/javascript' src='../js/vue.min.js' charset='utf-8'></script>
+    <style>
+        .content-block {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        li {
+            background-color: #fff;
+        }
+
+        .tabs ul li {
+            padding: .2rem 0 0 .5rem;
+            height: 3rem;
+        }
+
+        dt {
+            background: none;
+            width: 100%;
+            height: 0px;
+            border-top: 1px solid #d8d8d8;
+            color: #d9d9d9;
+            -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+            -webkit-transform: scaleY(.5);
+            transform: scaleY(.5);
+        }
+
+        #job_siftings {
+            position: fixed;
+            font-size: .7rem;
+            top: 2.2rem;
+            z-index: 99999;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, .5);
+            overflow: hidden;
+            display: none;
+        }
+
+        #job_siftings .bg_siftings {
+            background: #fff;
+            padding: 0 .4rem;
+            color: #333;
+            transform: translate3d(0, -8.1rem, 0);
+            -webkit-transform: translate3d(0, -8.1rem, 0);
+            transition: all 0.2s ease-in-out;
+            -webkit-transition: all 0.2s ease-in-out;
+        }
+
+        #job_siftings .active_siftings {
+            transform: translate3d(0, 0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
+            transition: all 0.2s ease-in-out;
+            -webkit-transition: all 0.2s ease-in-out;
+        }
+
+        .time_siftings {
+            margin-top: .5rem;
+        }
+
+        .time_siftings div:nth-child(1) {
+            margin-right: .4rem;
+        }
+
+        .time_siftings div:nth-child(2) input {
+            height: 1.5rem;
+            text-indent: .3rem;
+            border: 1px solid #d8d8d8;
+            /*-webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+            -webkit-transform: scaleY(.5);
+            transform: scaleY(.5);*/
+        }
+
+        .time_siftings div:nth-child(4) input {
+            height: 1.5rem;
+            text-indent: .3rem;
+            border: 1px solid #d8d8d8;
+        }
+
+        .time_siftings div:nth-child(3) {
+            width: 1rem;
+        }
+
+        .submit_siftings {
+            background: #0894ec;
+            height: 1.8rem;
+            color: #fff;
+            border-radius: 1.8rem;
+            max-width: 70%;
+            margin: .8rem auto;
+        }
+
+        .icon-close {
+            position: absolute;
+            right: .2rem;
+        }
+        li{
+            padding:.2rem .5rem;
+        }
+         [v-cloak] {
+             display: none;
+         }
+        .line1{
+            font-size: .85rem;
+            position: relative;
+            display: inline-block!important;
+            width:100%;
+        }
+        .email_Admin_right{
+            margin-top: -.5rem;
+        }
+        .page_email_Admin .email_Admin_right {
+            color: #999;
+            font-size: .6rem;
+        }
+        .shenhe1{
+            position: relative;
+        }
+        .shenhe1:after{
+            content: '';
+            display: inline-block;
+            width: 3rem;
+            height:3rem;
+            background: url("../img/operationpxkkxx3.png") no-repeat;
+            background-size: contain;
+            position: absolute;
+            right:0;
+            bottom:0;
+        }
+        .shenhe2:after{
+            background-image: url("../img/operationpxkkxx2.png");
+        }
+        .shenhe3:after{
+            background-image: url("../img/operationpxkkxx0.png");
+        }
+        .shenhe4:after{
+            background-image: url("../img/operationpxkkx3.png");
+        }
+        .shenhe5:after{
+            background-image: url("../img/operationpxkkx4.png");
+        }
+        .search-input input{
+
+            display: inline-block;
+        }
+        .mp0{
+
+            margin:0;
+        }
+        .mp0.list-block li{
+            margin:0;
+            font-size:0.75rem;
+
+        }
+        .mp0.list-block ul{
+            background: #cccccc;
+
+        }
+        .mp0.list-block .item-inner{
+            min-height:1.1rem
+        }
+        .searceh{
+            height: 7rem;
+            background: #ffffff;
+            position: absolute;
+            top:2.2rem;
+            left: 0;
+            z-index: 999999;
+            width: 100%;
+        }
+        .isIOS .searceh{
+            top: 3.7rem;
+        }
+        .searceh .list-block{
+            background: #ffffff;
+            position: absolute;
+            top:2.1rem;
+            z-index: 999;
+            width:100%;
+        }
+        .bar-header-secondary{
+            top: 0;
+        }
+        .searceh .rowunit{
+            position: absolute;
+            top: 5rem!important;
+            width: 100%;
+            z-index: 999;
+            width:90%;
+            margin: 0 auto;
+            right:0!important;
+            left:50%;
+            margin-left: -45%;
+        }
+        .card-header{
+            position: relative;
+        }
+        .icon-down{
+            position: absolute;
+            bottom:.15rem;
+            font-size:.5rem;
+            left:50%;
+            margin-left: -.25rem;
+        }
+        .rsa{
+            font-size: .65rem;
+            color: #999999;
+        }
+    </style>
+</head>
+<body>
+<div class="page-group" id="app">
+    <!-- 单个page ,第一个.page默认被展示page_msn-->
+    <div class="page page-current leave page_email_Admin page_memo page_msn" id="page_inEmail">
+        <!--站内信头部-->
+
+        <header class="bar bar-nav">
+            <!--<a class="icon icon-left pull-left" onclick="$openHome()"></a>-->
+            <a class="icon icon-left pull-left" onclick="$.uexBack()"></a>
+            <a class="icon icon-search pull-right" @click="searchDom = !searchDom"></a>
+            <h1 class="title">耗卡记录</h1>
+        </header>
+        <div class="searceh" v-show="searchDom" v-cloak>
+            <div class="bar bar-header-secondary">
+                <div class="searchbar">
+                    <div class="searchbar row" style="width: 90%;padding: 0;margin: 0 auto;">
+                        <div class="search-input">
+                            <div class="row no-gutter">
+                                <div class="col-40"> <input type="search" id='search' placeholder='请选择开始时间'   v-model="startTime" /></div>
+                                <div class="col-20" style="text-align: center;height: 1.5rem;background: #ffffff"> -</div>
+                                <div class="col-40"> <input type="search" id='search1' placeholder='请选择结束时间'  v-model="endTime" /></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="list-block mp0">
+                <div class="item-content">
+                    <div class="item-media"><i class="icon icon-form-name"></i></div>
+                    <div class="item-inner">
+                        <div class="item-input">
+                            <input type="number" v-model="gkbh"  placeholder="请输入客户编号" style="    font-size: .65rem;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row rowunit">
+                <div class="col-33">
+                    <a class="button button-fill button-primary" style="top:0;right: .3rem;" @click="gkbh = startTime = endTime = ''">重置</a>
+                </div>
+                <div class="col-33">
+                    <a class="button button-fill button-primary" style="top:0;right: .3rem;" @click="submit">生成记录</a>
+                </div>
+                <div class="col-33">
+                    <a class="button button-fill button-primary" style="top:0;right: .3rem;" @click="searchClick">搜索</a>
+                </div>
+            </div>
+        </div>
+        <div class="fixed_button bar bar-tab" v-if="openCard" v-cloak>
+            <a href="javascript:;" @click="addCard" class="button button-fill button-warning bottoms">
+               开卡
+            </a>
+        </div>
+        <div class="content infinite-scroll infinite-scroll-bottom" data-distance="500" v-cloak>
+            <ul>
+
+                <li v-for="el in list"  @click="clickShowList(el)">
+                    <!--{{el}}-->
+                    <a href="javascript:;">
+                        <div class="ub ub-f1 ub-as ub-pc ub-ver"  >
+                            <div class="ub ub-f1 ub-ac ub-pj email_Admin_list">
+                            <span class="ub ub-as ub-pc ub-f1 ub-ver ut-m line1">
+                                {{el.artisan}}
+                                </span>
+                                <div class="ub ub-ac ub-pc email_Admin_right" @click="openm(el.cid)">
+                                    <span class="rsa">查看详情</span>
+                                </div>
+                            </div>
+                            <span class="icon icon-down"></span>
+                            <div class="ub ub-f1 ub-ac ub-ps email_Admin_list_bottom"><span>{{el.createtime}}</span></div>
+                        </div>
+                        <div class="list-block mp0" v-show="showList == el">
+                            <ul>
+                                <li class="item-content" v-for="(e,ei) in el" v-if="ei != 'cid' && ei != 'createtime' && ei != 'artisan'">
+                                    <div class="item-inner">
+                                        <div class="item-title">{{ei}}</div>
+                                        <div class="item-after">{{e}}</div>
+                                    </div>
+                                </li>
+                               <!-- <li class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title">本次耗卡次数</div>
+                                        <div class="item-after">{{el.bchkcs}}</div>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title">本次耗卡金额</div>
+                                        <div class="item-after">{{el.bchkje}}元</div>
+                                    </div>
+                                </li>-->
+                            </ul>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+            <div class="infinite-scroll-preloader" >
+                <div class="preloader"v-if="preloaderShow"></div>
+                <div v-else style="color: #999999;    font-size: .65rem;">没有更多数据了</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type='text/javascript' src='../js/min/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/mains.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/config.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm-extend.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/demos.js' charset='utf-8'></script>
+
+
+<script type="text/javascript">
+    var vm
+    $.ready(function () {
+        $.monitorVal({operationkakaxx:''})
+        vm = new Vue({
+            el:'#app',
+            data: {
+                list:[],
+                userData: $.getUserData(),
+                openCard:  true,
+                page:1,
+                loading:false,
+                preloaderShow:false,
+                searchVal:'',
+                startTime:'',
+                endTime:'',
+                showList:'',
+                gkbh:'',
+                searchDom:false
+            },
+            created: function (){
+//            	$.showIndicator()
+                this.loadData();
+
+            },
+            mounted: function () {
+                this.$nextTick(function () {
+                    $("#search").calendar({
+                        onChange:function (v1,v2,v3) {
+                            vm.startTime = v3[0]
+                        }
+                    });
+                    $("#search1").calendar({
+                        onChange:function (v1,v2,v3) {
+                            vm.endTime = v3[0]
+                        }
+                    });
+                    var xiangmuleixing = $.getStorage('xiangmuleixing')
+                    if(xiangmuleixing == 2 || xiangmuleixing == 3 || xiangmuleixing == 4){
+                        this.openCard = false
+                    }
+
+                    $('.infinite-scroll-bottom').scroll(function(){
+                        var $this =$(this),
+                            viewH =$(this).height(),//可见高度
+                            contentH =$(this).get(0).scrollHeight,//内容高度
+                            scrollTop =$(this).scrollTop();//滚动高度
+                        if(scrollTop/(contentH -viewH) >= 0.95){ //到达底部100px时,加载新内容
+                            if (vm.loading) return;
+                            vm.loading = true;
+                            vm.loadData()
+                        }
+                    });
+                })
+
+            },
+            methods: {
+                openm:function (id) {
+                    $.setStorage('operation_detail_id',id)
+                    $.uexOpen('operation_detail')
+                },
+                submit:function () {
+                    if(this.startTime == ''){
+                        $.toast("请选择开始时间");
+                        return
+                    }
+                    if(this.endTime == ''){
+                        $.toast("请选择结束时间");
+                        return
+                    }
+                    var start = new Date(this.startTime + ' 00:00:00').getTime()
+                    var end = new Date(this.endTime + ' 00:00:00').getTime()
+                    if(end < start){
+                        $.toast("结束日期不能小于开始日期");
+                        return
+                    }
+
+
+                    var vm = this
+                    var user = $.getUserData()
+                    $.https({
+                        url:mainURL + 'ysHKRecord.do',
+                        type:"post",
+                        data:{
+                            ParamJson : JSON.stringify({
+                                start:this.startTime,
+                                end:this.endTime,
+                                username:user.username,
+                                userid:user.userid
+                            })
+                        },
+                        success:function(data) {
+                            $.toast(data.Msg)
+                        }
+                    })
+                },
+                clickShowList:function (el) {
+                    if(this.showList == el){
+                        this.showList = ''
+                    }else{
+                        this.showList = el
+                    }
+
+                },
+                searchClick:function(){
+                    if(this.startTime != '' && this.endTime == ''){
+                        $.toast("请选择结束时间");
+                        return
+                    }else if(this.endTime != '' && this.startTime == ''){
+                        $.toast("请选择开始时间");
+                        return
+                    }
+
+                    this.page = 1
+                    this.list = []
+                    this.loading = false
+                    this.preloaderShow = true
+                    this.loadData()
+                    this.searchDom = false
+                },
+                loadData:function (callBack) {
+                    var page = this
+                    console.log(page.page)
+                    var user = $.getUserData()
+                    var id = ''
+                    if($.getStorage('dange_detail_id') == "1"){
+                       id =  $.getStorage('operation_detail_id')
+
+                    }
+                    $.https({
+                        url: mainURL+'initJSHKRecord.do',
+                        data: {
+                            ParamJson: JSON.stringify({
+                                pageNo:page.page,
+                                pageSize:"20",
+                                start:this.startTime,
+                                end:this.endTime,
+                                roleid:user.roleid,
+                                gkbh:this.gkbh,
+                                artisanid:user.userid,
+                                id:id
+                            })
+                        },
+                        type: "post",
+                        dataType: "json",
+                        success: function (json) {
+                            vm.page ++
+                            vm.list = vm.list.concat(json.Row.cardList)
+                            vm.$nextTick(function () {
+                                $.hideIndicator()
+                                $.refreshScroller();
+                                if(json.Row.cardList.length <= 0 || json.Row.cardList.length < 20){
+                                    vm.preloaderShow = false
+                                }else{
+                                    vm.loading = false
+                                }
+                            })
+                        }
+                    });
+
+                },
+                detail:function(id){
+                    $.setStorage('operation_detail_id',id)
+                    $.uexOpen('operation_detail')
+                },
+                addCard:function () {
+                    $.setStorage('operation_detail_id',"")
+                    $.uexOpen('operation_detail2')
+                }
+            }
+        })
+    })
+
+
+</script>
+</body>
+</html>

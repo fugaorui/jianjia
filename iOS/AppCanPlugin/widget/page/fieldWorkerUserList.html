@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>外勤轨迹</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<meta content="telephone=no,email=no" name="format-detection"/> 
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="description" content="">
+<!-- <link rel="shortcut icon" href="/favicon.ico"> -->
+<link rel="stylesheet" href="../fonts/iconfont.css">
+<link rel="stylesheet" href="../css/min/sm.css">
+<link rel="stylesheet" href="../css/min/sm-extend.css"> 
+<link rel="stylesheet" href="../css/min/flexBox.css"> 
+<link rel="stylesheet" href="../css/tonXin.css"> 
+<style>
+.content{background:#fff;}
+.iconImgGouTon{width:1rem;height:1rem;position:absolute;right:.8rem;top:50%;margin-top:-.5rem;z-index:2;}
+.phoneIcon{right:2.5rem;}
+#countMax{display:none;}
+.icon-search:before{font-size:.8rem;}
+/*
+.leave header.bar.bar-nav,header.bar {background: #0ebee6;}
+header h1.title,.leave header.bar.bar-nav .icon,.bar .pull-left{color:#fff;}
+*/	
+#rest_no {/*color: white;*/font-size: .85rem; -webkit-text-stroke-width: 0;}
+.head_jg{padding:0;}
+.liv{padding:.4rem 0;}
+
+.phone_number_list a.head_jg{padding:0;}
+.head_jg img{margin-left:0;}
+header.bar.bar-nav .icon {
+  color: #1ac6ee;
+}
+ #toogle{width:100%;height:1.5rem;line-height:1.5rem;text-align:center;font-size:.7rem;color:#666;}
+ .phone_number_list a:last-child:after{border-top: 0px solid #d8d8d8;}
+</style>
+</head>
+<body>
+ <div class="page-group">
+    <div class="page page-current" id="mail_list">
+
+      <!-- 用户信息html -->
+        <script id="userTemp" type="text/html"> 
+            <a href="javascript:;" class="ub ub-f1 ub-ver ub-as ubb" userId="$value$" 
+			onclick="$.uexOpen('fieldWorkerGuiJiDetail'),$.setStorage('cuserUserId','$value$'),$.setStorage('cuserName-FX','$key$')">
+				<div class="user_name">$key$</div>
+				<!-- <div class="user_phone_number">工程部 18888888888</div> -->
+			</a>
+		</script> 
+
+			<!-- search input -->
+		<header class="bar bar-nav">
+			<a class="icon icon-left pull-left back"></a> 
+			<h1 class='title'>外勤轨迹</h1>
+			<!--<a class="icon pull-right" id="rest_no" onclick="$.uexOpen('fieldWorkerGaodeMap')">轨迹底图</a>-->
+		</header>
+			 
+		<div class="bar bar-header-secondary searchForm">
+			<div class="searchbar">
+				<a class="searchbar-cancel">取消</a>
+				<div class="search-input">
+				   <label class="icon icon-search" for="search"></label>
+				   <input type="search" id='search' placeholder='输入姓名'/>
+				  <label for="search" class="weui_search_text ub ub-f1 ub-ac ub-pc">
+				   <i class="icon2 icon-search"></i>
+				   <span style="">搜索人员</span>
+				  </label>
+				</div>
+			</div>
+		</div>
+			
+        <div class="content infinite-scroll infinite-scroll-bottom pull-to-refresh-content" data-ptr-distance="55">
+			
+			   <!-- 默认的下拉刷新层 -->
+				<div class="pull-to-refresh-layer">
+					<div class="preloader"></div>
+					<div class="pull-to-refresh-arrow"></div>
+				</div>
+			
+			<div class="ub ub-ver ub-f1 phone_number_info">
+				<div id="people">
+				  <div class="ub ub-f1 ub-as ub-pc ub-ver phone_number_list">   
+				  <!-- <a href="javascript:;" class="ub ub-f1 ub-ver ub-as ubb" onclick="$.uexOpen('fieldWorkerGuiJiDetail')">
+				    <div class="user_name">欧阳修</div>-->
+				    <!--<div class="user_phone_number">工程部 18888888888</div>
+				   </a>-->
+				  <!--  <a href="javascript:;" class="ub ub-f1 ub-ver ub-as ubb" onclick="$.uexOpen('fieldWorkerGuiJiDetail')">
+				    <div class="user_name">欧阳修</div>
+				   </a> -->
+				   
+				  </div> 
+				</div>
+			</div>
+			
+			  <!-- 加载提示符 -->
+			  <div class="infinite-scroll-preloader">
+				  <div class="preloader"></div>
+			  </div>
+			  <div id="toogle" style="display:none;">没有更多了</div>
+		  
+        </div>
+
+    </div>
+	   
+</div>
+
+
+<script type='text/javascript' src='../js/min/zepto.min.js' charset='utf-8'></script> 
+<script type='text/javascript' src='../js/mains.js' charset='utf-8'></script>  
+<script type='text/javascript' src='../js/config.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm-extend.min.js' charset='utf-8'></script> 
+<script type='text/javascript' src='../js/demos.js' charset='utf-8'></script>
+
+<script>  
+ $.ready(function () { 
+ 
+	var loading  = false,		// 加载flag
+		htmlList = '',   		// 动态生成的html
+		mssage = {
+			"SessionId" : $.getStorage('SessionId'),
+			"pageNo"	: 1,	//第几页
+			"pageSize"	: 20,	//一页多少条
+			"username"	: ""	// 用户中文名称
+		};	
+		
+	function uploadAjax(){//下拉加载ajax 
+		$('#toogle').hide();
+		$.https({
+			url: mainURL,
+			data:{
+				ClassName:"MyOutsideWork",
+				MethodName:"isLeader",
+				ParamJson : JSON.stringify(mssage)
+			},
+			type:"post",
+			dataType:"json",
+			success:function(res,status,xhr){
+			console.log(res)
+			var r = res.Result.Rows[0],
+			    o = r.list,
+				t = $("#userTemp"),
+				h = $("#people .phone_number_list"),
+				m = t.text(); 	
+				if(Number(r.Code)!==1) return $.alert(r.Msg),$('.infinite-scroll-preloader').hide();
+				
+				o.forEach(function(obj,index,json) {
+					htmlList  += m.temp(obj);
+				});	
+				h.html(htmlList);//塞入动态页面	
+				loading = false;
+				$.refreshScroller();
+				if(o.length < mssage.pageSize){
+					$('#toogle').show();  
+					// 加载完毕，则注销无限加载事件，以防不必要的加载
+					$.detachInfiniteScroll($('.infinite-scroll'));
+					// 删除加载提示符
+					$('.infinite-scroll-preloader').hide();
+					return;
+				}					
+				mssage.pageNo = mssage.pageNo+1;
+			},
+			error:function(xhr,errorText,errorStatus){
+				if(xhr.status==0){
+					return $.toast("服务器出车祸了");
+				}else if(xhr.status==200){
+					$.toast(xhr.response);
+					setTimeout(function(){
+						$.uexOpen('login');
+					},1000)	  
+				}
+			}
+		});
+	}
+
+	//下拉加载功能begin --预先加载20条------------------------
+	uploadAjax(); 
+			  		  
+	function serchUser(){  //搜索通讯录
+	   var s = $('#search').val(),
+		   b = $('#search').is(':focus');
+		   if(!b) return;
+		   console.log(s);
+		   mssage.username = s;  //存储搜索字段
+		   htmlList='';
+		   uploadAjax();
+	}				
+	var $timeOut;
+	$('#search').on('input propertychange',function(){
+	    clearTimeout($timeOut);
+        $timeOut = setTimeout(serchUser,500);
+	})
+$('.searchbar-cancel').on('click',function(){
+    $('#search').val("");
+    mssage.username="";  
+})	
+
+document.onkeydown = function(e){ 
+    var ev = document.all ? window.event : e;
+    if(ev.keyCode==13) {
+	    clearTimeout($timeOut);
+        serchUser();
+     }
+}		  
+			  
+			  
+			  
+			  
+			  
+	$(document).on('infinite', '.infinite-scroll-bottom',function() { 
+		if (loading) return;
+		// 设置flag
+		loading = true;
+		//ajax加载数据 
+		uploadAjax(); 
+	});
+	 
+	// 添加'refresh'监听器
+	$(document).on('refresh', '.pull-to-refresh-content',function(e) {
+	   	$('#search').blur();
+		$.attachInfiniteScroll($('.infinite-scroll'));
+		$('.infinite-scroll-preloader').show();
+		htmlList = "";
+		$('#search').val("");
+		mssage.username = '';  		
+		mssage.pageNo = 1;     
+		uploadAjax(); 
+		// 加载完毕需要重置
+		$.pullToRefreshDone('.pull-to-refresh-content');
+		//$.refreshScroller();
+	});
+
+		
+ }); 
+</script>
+
+</body>
+</html>

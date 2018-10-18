@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>应用</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta content="telephone=no,email=no" name="format-detection"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="../fonts/iconfont.css">
+    <link rel="stylesheet" href="../css/min/sm.css">
+    <link rel="stylesheet" href="../css/min/sm-extend.css">
+    <link rel="stylesheet" href="../css/min/flexBox.css">
+    <link rel="stylesheet" href="../css/tonXin.css">
+    <style>
+        #page_news .content {
+            background-color: #f2f2f2;
+        }
+        #page_news .content .news_list {
+            background-color: #fff;
+        }
+        #countMax {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="page-group">
+    <div class="page page-current" id="page_apply">
+
+
+        <header class="bar bar-nav">
+            <h1 class='title'>管理员模块</h1>
+            <a class="icon icon-left pull-left" onclick="$.uexBack()"></a>
+        </header>
+
+        <div class="content pull-to-refresh-content" data-ptr-distance="55">
+
+
+            <div class="ub ub-f1 ub-ver apply_list">
+                <div class="ub ub-f1 ub-ac padd ubb" style="font-size:.85rem;">常用应用</div>
+                <div class="apply_list_a ubb">
+                    <!-- <a href="javascript:;" class="ub ub-ac ub-ver" onclick="$.uexOpen('receiveMail_detail')">
+                      <div class="apply_list_img"><img src="../img/zlx.png"/></div>
+                      <p>收件箱</p>
+                    </a>
+                    <a href="javascript:;" class="ub ub-ac ub-ver" onclick="$.uexOpen('sendMail_detail')">
+                      <div class="apply_list_img"><img src="../img/sw.png"/></div>
+                      <p>发件箱</p>
+                    </a> -->
+                    <a href="javascript:;" class="ub ub-ac ub-ver" onclick="$.uexOpen('operationpxkkxxAdmin');$.setStorage('xiangmuleixing','10')">
+                        <div class="apply_list_img"><img src="../img/shiyongka.png"/></div>
+                        <p>审核</p>
+                    </a>
+                    <a href="javascript:;" class="ub ub-ac ub-ver" onclick="$.uexOpen('operationpxkkxxAdmin');$.setStorage('xiangmuleixing','11')">
+                        <div class="apply_list_img"><img src="../img/shiyongka.png"/></div>
+                        <p>修改卡信息</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type='text/javascript' src='../js/min/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/mains.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/config.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm-extend.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/demos.js' charset='utf-8'></script>
+<script>
+
+
+</script>
+</body>
+</html>

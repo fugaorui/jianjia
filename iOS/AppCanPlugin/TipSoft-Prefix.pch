@@ -1,0 +1,40 @@
+//
+// Prefix header for all source files of the 'AppCan' target in the 'AppCan' project
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_3_0
+#warning "This project uses features only available in iOS SDK 3.0 and later."
+#endif
+
+#ifdef __OBJC__
+
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import <AppCanKit/AppCanKit.h>
+#import "uexUploadHelper.h"
+#import <UserNotifications/UserNotifications.h>
+#import "JPUSHService.h"
+
+
+#define UEX_LOCALIZEDSTRING(...) [NSString ac_plugin:@"uexFileMgr" localizedString:__VA_ARGS__,nil]
+
+#define UEX_FILEMGR_IMAGE_NAMED(name) _UEX_FILEMGR_IMAGE_NAMED(name)
+
+
+#define _UEX_FILEMGR_BUNDLE ([NSBundle ac_bundleForPlugin:@"uexFileMgr"])
+#define _UEX_FILEMGR_BUNDLE_IAMGE_PATH(name,ext) ([[_UEX_FILEMGR_BUNDLE resourcePath]stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.%@",name,ext]])//这里不能用pathForResource 否则2x 3x会有问题
+#define _UEX_FILEMGR_IMAGE_NAMED(name) ([UIImage imageWithContentsOfFile:_UEX_FILEMGR_BUNDLE_IAMGE_PATH(name,@"png")])
+
+
+#define UEXIMAGE_RESOURCE_BUNDLE [NSBundle ac_bundleForPlugin:@"uexImage"];
+#define UEXIMAGE_LOCALIZEDSTRING(...) [NSString ac_plugin:@"uexImage" localizedString:__VA_ARGS__,nil]
+
+#define UEXIMAGE_ASYNC_DO_IN_GLOBAL_QUEUE(x) dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), x)
+#define UEXIMAGE_ASYNC_DO_IN_MAIN_QUEUE(x) dispatch_async(dispatch_get_main_queue(), x)
+
+#endif
+
+
+

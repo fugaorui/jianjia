@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>站内信</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta content="telephone=no,email=no" name="format-detection"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="description" content="">
+    <!-- <link rel="shortcut icon" href="/favicon.ico"> -->
+    <link rel="stylesheet" href="../fonts/iconfont.css">
+    <link rel="stylesheet" href="../css/min/sm.css">
+    <link rel="stylesheet" href="../css/min/sm-extend.css">
+    <link rel="stylesheet" href="../css/min/flexBox.css">
+    <link rel="stylesheet" href="../css/tonXin.css">
+    <style>
+        .content-block {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        li {
+            background-color: #fff;
+        }
+
+        .tabs ul li {
+            padding: .2rem 0 0 .5rem;
+            height: 3rem;
+        }
+
+        dt {
+            background: none;
+            /* transform: translate3d(.4rem,0,0);
+             -webkit-transform: translate3d(.4rem,0,0);*/
+            width: 100%;
+            height: 0px;
+            border-top: 1px solid #d8d8d8;
+            color: #d9d9d9;
+            -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+            -webkit-transform: scaleY(.5);
+            transform: scaleY(.5);
+        }
+
+        #job_siftings {
+            position: fixed;
+            font-size: .7rem;
+            top: 2.2rem;
+            z-index: 99999;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, .5);
+            overflow: hidden;
+            display: none;
+        }
+
+        #job_siftings .bg_siftings {
+            background: #fff;
+            padding: 0 .4rem;
+            color: #333;
+            transform: translate3d(0, -8.1rem, 0);
+            -webkit-transform: translate3d(0, -8.1rem, 0);
+            transition: all 0.2s ease-in-out;
+            -webkit-transition: all 0.2s ease-in-out;
+        }
+
+        #job_siftings .active_siftings {
+            transform: translate3d(0, 0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
+            transition: all 0.2s ease-in-out;
+            -webkit-transition: all 0.2s ease-in-out;
+        }
+
+        .time_siftings {
+            margin-top: .5rem;
+        }
+
+        .time_siftings div:nth-child(1) {
+            margin-right: .4rem;
+        }
+
+        .time_siftings div:nth-child(2) input {
+            height: 1.5rem;
+            text-indent: .3rem;
+            border: 1px solid #d8d8d8;
+            /*-webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+            -webkit-transform: scaleY(.5);
+            transform: scaleY(.5);*/
+        }
+
+        .time_siftings div:nth-child(4) input {
+            height: 1.5rem;
+            text-indent: .3rem;
+            border: 1px solid #d8d8d8;
+        }
+
+        /*.time_siftings div:nth-child(5) input{height:1.5rem;text-indent:.3rem;border:1px solid #d8d8d8;}*/
+        .time_siftings div:nth-child(3) {
+            width: 1rem;
+        }
+
+        .submit_siftings {
+            background: #0894ec;
+            height: 1.8rem;
+            color: #fff;
+            border-radius: 1.8rem;
+            max-width: 70%;
+            margin: .8rem auto;
+        }
+
+        .icon-close {
+            position: absolute;
+            right: .2rem;
+        }
+    </style>
+</head>
+<body>
+<div class="page-group">
+    <!-- 单个page ,第一个.page默认被展示page_msn-->
+    <div class="page page-current leave page_email_Admin page_memo page_msn" id="page_inEmail">
+        <!--站内信头部-->
+        <header class="bar bar-nav">
+            <a class="icon icon-left pull-left" onclick="$.setStorage('index',1),$.uexOpen('application')"></a>
+            <!--<a class="icon pull-right">筛选</a>-->
+            <h1 class="title">我的信息</h1>
+        </header>
+        <!--筛选功能-->
+        <div class="job_siftingss" id="job_siftings">
+            <div class="ub ub-f1 ub-ver bg_siftings" id="wrap_siftings">
+                <div class="ub ub-f1 ub-ac ub-ps time_siftings">
+                    <div class="tx-r" style="width:3.5rem;">标题：</div>
+                    <div class="ub ub-f1"><input style="height:1.5rem;text-indent:.3rem;border:1px solid #d8d8d8;"
+                                                 id="title_sx" class="ub ub-f1 ub-ac ub-ps" type="text"
+                                                 placeholder="文件标题"/></div>
+                </div>
+                <div class="ub ub-f1 ub-ac ub-ps time_siftings">
+                    <div class="tx-r" style="width:3.5rem;">发送人：</div>
+                    <div class="ub ub-f1"><input id="name" class="ub ub-f1 ub-ac ub-ps" type="text" placeholder="发送人"/>
+                    </div>
+                </div>
+                <div class="ub ub-f1 ub-ac ub-ps time_siftings">
+                    <div class="tx-r" style="width:3.5rem;">日期：</div>
+                    <div class="ub ub-f1"><input id="time_begin" class="ub ub-f1 ub-ac ub-ps" type="text"
+                                                 placeholder="日期"/><i class="iconfont icon-close"></i></div>
+                </div>
+
+
+                <div class="ub ub-f1 ub-ac ub-pc submit_siftings" id="submit_siftings">查询</div>
+            </div>
+        </div>
+        <div class="fixed_button bar bar-tab">
+            <a href="javascript:;" onclick="$.uexOpen('msn_in')"
+               class="button button-fill button-warning bottoms">写信</a>
+        </div>
+        <div class="content" >
+            <div class="buttons-tab">
+                <a href="#tab1" class="tab-link active button">收到的信息</a>
+                <a href="#tab2" class="tab-link button">已发送的信息</a>
+            </div>
+            <div class="content-block">
+                <div class="tabs">
+                    <div id="tab1" class="tab active">
+                        <div class="content-block">
+                            <ul class="getMsg infinite-scroll">
+
+                            </ul>
+                            <!-- 加载提示符 -->
+                            <div class="infinite-scroll-preloader">
+                                <div class="preloader">
+                                </div>
+                            </div>
+                            <div class="toogle" style="display:none;">没有更多了</div>
+                        </div>
+                    </div>
+                    <div id="tab2" class="tab">
+                        <div class="content-block">
+                            <ul class="sendMsg infinite-scroll">
+
+                            </ul>
+                            <div class="infinite-scroll-preloader">
+                                <div class="preloader">
+                                </div>
+                            </div>
+                            <div class="toogle" style="display:none;">没有更多了</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type='text/javascript' src='../js/min/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/mains.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/config.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm-extend.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/demos.js' charset='utf-8'></script>
+<script type="text/javascript" src="../js/flipsnap.js"></script>
+
+<script type="text/javascript">
+
+    //跳去详情页面
+    function toReceiveDetail(id, name, n, senduserid) {
+        $.setStorage('receive_id', id)
+        $.setStorage('receive_name', name)
+        $.setStorage('receive_num', n);
+        $.setStorage('receive_senduserid', senduserid);
+        $.uexOpen('receiveMail_detail');
+    }
+    function $openHome() {
+        $.getStorage('homeEmail') == "1" ? $.uexOpen('index') : $.uexOpen('application');
+        $.setStorage('homeEmail', '0');
+    }
+    $.ready(function () {
+        if (typeof uexWindow === "object") (function () {
+        	uexWindow.setReportKey(0, 1);
+            uexWindow.onKeyPressed = function () {
+                $.setStorage('index', 1)
+                $.uexOpen('application')
+            };
+        })();
+        $.monitorVal({
+            seeEmail: function () {
+                $('[data-id="' + $.getStorage('receive_id') + '"]').find('.line1').removeClass('news_msn').addClass('news_msn_red');
+            },
+            addEmail: ''
+        })
+        $('.tab-link').click(function (event) {
+            setTimeout($.refreshScroller, 1000)
+        });
+
+        var SessionId = $.getStorage('SessionId');
+        var userData = $.getUserData();
+        var parameter = [];
+        parameter[0] = {
+            "pageNo": 1,//当前开始的页数(不传默认显示第一页的数据)
+            "pageSize": "20",//每页显示的行数(不传默认显示20行的数据)
+            "title": '',
+            "dateStr": '',
+            "sendusername": '',
+            userid : userData.userid
+        }
+        parameter[1] = {
+            "pageNo": 1,//当前开始的页数(不传默认显示第一页的数据)
+            "pageSize": "20",//每页显示的行数(不传默认显示20行的数据)
+            "title": '',
+            "dateStr": '',
+            "receiveusername": '',
+             userid : userData.userid
+        }
+        $get_list(parameter[0], 0);
+        $get_list(parameter[1], 1);
+        //收到的信列表
+        function $get_list(parameter, n) {
+            var Method =  'receiveMsg.do'
+            var obj = '.getMsg';
+            if (n == 1) {
+                Method =  'sendMsg.do'
+                obj = '.sendMsg';
+            }
+            $.https({
+                url: mainURL + Method,
+                type: "post",
+                data: {
+                    ParamJson: JSON.stringify(parameter)
+                },
+                success: function (data) {
+                    data = data.Row
+                    var list_item = '';
+                    $.each(data.messageReceiveList, function (index, mail) {
+                        console.log(mail)
+                        read_class = mail.state == 0 ? 'news_msn' : 'news_msn_red';
+                        list_item += '<li data-id="' + mail.id + '">'
+                                + '<a href="javascript:;">'
+                                + '<div class="ub ub-f1 ub-as ub-pc ub-ver" onclick="toReceiveDetail(' + mail.id + ',\'' + (n == 1 ? mail.receivename : mail.sendname) + '\',' + n + ',' + mail.senduserid + ')" >'
+                                + '<div class="ub ub-f1 ub-ac ub-pj email_Admin_list">'
+                                + '<span class="ub ub-as ub-pc ub-f1 ub-ver ut-m line1 ' + read_class + '">'
+                                + mail.title
+                                + '</span>'
+                                + '<div class="ub ub-ac ub-pc email_Admin_right">'
+                                + '<span>' + mail.createtime + '</span>'
+                                + '<span class="icon icon-right"></span>'
+                                + '</div>'
+                                + '</div>'
+                                + '<div class="ub ub-f1 ub-ac ub-ps email_Admin_list_bottom"><span>' + (n == 1 ? '发送给' : '来自') + '</span><span>' + (n == 1 ? mail.receivename : mail.sendname) + '</span></div>'
+                                + '</div>'
+                                + '</a>'
+                                + '</li>'
+                                + '<dt></dt>';
+
+                    })
+                    $(obj).append(list_item);
+                    loading = false;
+                    $.refreshScroller();
+                    if (data.messageReceiveList.length < 20) {
+                        $('.toogle').eq(n).show();
+                        $('.infinite-scroll-preloader').eq(n).hide();
+                        return;
+                    }
+                }
+            })
+        }
+
+        var loading = false, tabIndex = 0;
+        $(document).on('infinite', function () {
+            if (loading) return;
+            loading = true;
+            tabIndex = $('.tab.active').attr('id') == 'tab1' ? 0 : 1
+            parameter[tabIndex].pageNo++;
+            var name = $('#name').val();
+            var title_sx = $('#title_sx').val();
+            var time_begin = $('#time_begin').val();
+            if (tabIndex == 0) {
+                parameter[tabIndex].sendusername = name
+            } else {
+                parameter[tabIndex].receiveusername = name
+            }
+            parameter[tabIndex].title = title_sx;
+            parameter[tabIndex].dateStr = time_begin;
+            $get_list(parameter[tabIndex], tabIndex);
+        });
+        $("#time_begin").calendar();
+        $(document).on('click', '.pull-right', function () {//点击触发筛选下拉
+            tabIndex = $('.tab.active').attr('id') == 'tab1' ? 0 : 1
+            var text = tabIndex == 1 ? '发送人' : '来自'
+            $('#name').attr('placeholder', text).parent().siblings().text(text + '：')
+            if ($('#wrap_siftings').hasClass('active_siftings')) {
+                classHide();
+            } else {
+                $('#job_siftings').show();
+                $('#wrap_siftings').addClass('active_siftings')
+            }
+        })
+        function classHide() {
+            $('#wrap_siftings').removeClass('active_siftings')
+                    .on('webkitTransitionEnd', function () {
+                        $('#job_siftings').hide();
+                    })
+        }
+
+        $(document).on('click', '.submit_siftings', function (event) {
+            classHide()
+            parameter[tabIndex].pageNo = 1;
+            var name = $('#name').val();
+            var title_sx = $('#title_sx').val();
+            var time_begin = $('#time_begin').val();
+            var obj = tabIndex == 0 ? '.getMsg' : '.sendMsg';
+            if (tabIndex == 0) {
+                parameter[tabIndex].sendusername = name
+            } else {
+                parameter[tabIndex].receiveusername = name
+            }
+            parameter[tabIndex].title = title_sx;
+            parameter[tabIndex].dateStr = time_begin;
+            $(obj).children().remove();
+            $get_list(parameter[tabIndex], tabIndex);
+        });
+        $(document).on('click', '.icon-close', function (event) {
+            $(this).siblings('input').val('')
+        });
+    })
+</script>
+</body>
+</html>

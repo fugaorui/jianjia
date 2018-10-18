@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>应用</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta content="telephone=no,email=no" name="format-detection"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="../fonts/iconfont.css">
+    <link rel="stylesheet" href="../css/min/sm.css">
+    <link rel="stylesheet" href="../css/min/sm-extend.css">
+    <link rel="stylesheet" href="../css/min/flexBox.css">
+    <link rel="stylesheet" href="../css/tonXin.css">
+    <style>
+        #page_news .content {
+            background-color: #f2f2f2;
+        }
+        #page_news .content .news_list {
+            background-color: #fff;
+        }
+        #countMax {
+            display: none;
+        }
+        #xiaosou,#jishu,#guanliyuan{
+            display: none!important;
+        }
+    </style>
+</head>
+<body>
+<div class="page-group">
+    <div class="page page-current" id="page_apply">
+        <nav class="bar bar-tab">
+            <a class="tab-item external active" href="javascript:;"
+               onclick="$.uexOpen2('index'),$.setStorage('index','1')">
+                <div class="tab-item_img"><img src="../img/xx_off.png"/><span id="countMax"></span></div>
+                <span class="tab-label">消息</span>
+            </a>
+            <a class="tab-item external" href="javascript:;"
+               onclick="$.uexOpen2('mail_list'),$.setStorage('mail_list','1')">
+                <div class="tab-item_img"><img src="../img/ts_off.png"/></div>
+                <span class="tab-label">通讯录</span>
+            </a>
+            <a class="tab-item external" href="javascript:;">
+                <div class="tab-item_img"><img src="../img/yy_on.png"/></div>
+                <span class="tab-label">应用</span>
+            </a>
+            <a class="tab-item external" href="javascript:;"
+               onclick="$.uexOpen2('my_appConfig'),$.setStorage('my_appConfig','1')">
+                <div class="tab-item_img"><img src="../img/my_off.png"/></div>
+                <span class="tab-label">我的</span>
+            </a>
+        </nav>
+		
+        <header class="bar bar-nav">
+            <h1 class='title'>应用</h1>
+        </header>
+
+        <div class="content pull-to-refresh-content" data-ptr-distance="55">
+
+            <div class="pull-to-refresh-layer">
+                <div class="preloader"></div>
+                <div class="pull-to-refresh-arrow"></div>
+            </div>
+
+            <div class="ub ub-f1 ub-ver apply_list">
+                <div class="ub ub-f1 ub-ac padd ubb" style="font-size:.85rem;">常用应用</div>
+                <div class="apply_list_a ubb">
+                    <!-- <a href="javascript:;" class="ub ub-ac ub-ver" onclick="$.uexOpen('receiveMail_detail')">
+                      <div class="apply_list_img"><img src="../img/zlx.png"/></div>
+                      <p>收件箱</p>
+                    </a>
+                    <a href="javascript:;" class="ub ub-ac ub-ver" onclick="$.uexOpen('sendMail_detail')">
+                      <div class="apply_list_img"><img src="../img/sw.png"/></div>
+                      <p>发件箱</p>
+                    </a> -->
+                    <a href="javascript:;" class="ub ub-ac ub-ver" onclick="$.uexOpen('in_email')">
+                        <div class="apply_list_img"><img src="../img/sw.png"/></div>
+                        <p>我的信息</p>
+                    </a>
+                    <a href="javascript:;" class="ub ub-ac ub-ver" onclick="$.uexOpen('sign_detail')">
+                        <div class="apply_list_img"><img src="../img/yd.png"/></div>
+                        <p>移动签到</p>
+                    </a>
+
+                    <a href="javascript:;" id="xiaosou" class="ub ub-ac ub-ver" onclick="$.uexOpen('operationkaika')" >
+                        <div class="apply_list_img"><img src="../img/gonePer.png"/></div>
+                        <p>销售</p>
+                    </a>
+                    <a href="javascript:;" id="jishu" class="ub ub-ac ub-ver" onclick="$.uexOpen('operationjishu')" >
+                        <div class="apply_list_img"><img src="../img/bw.png"/></div>
+                        <p>技术</p>
+                    </a>
+                    <a href="javascript:;" id="guanliyuan" class="ub ub-ac ub-ver" onclick="$.uexOpen('operationadmin')" >
+                        <div class="apply_list_img"><img src="../img/admin.png"/></div>
+                        <p>管理员</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type='text/javascript' src='../js/min/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/mains.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/config.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm-extend.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/demos.js' charset='utf-8'></script>
+<script>
+    var setInterTimeGlobal;
+    $.ready(function () {
+        !isiOS && $.toolBack();
+        $.setStorage('listVal','')
+         var roleid = $.getUserData().roleid
+        if(roleid == "3"){
+            $('#jishu').css('display','-webkit-box !important')
+        }else if(roleid == "4"){
+            $('#xiaosou').css('display','-webkit-box !important')
+        }else{
+            $.https({
+                url: mainURL+'initAuditing.do',
+                data: {
+                    ParamJson: JSON.stringify({"userid": $.getUserData().userid})
+                },
+                async: false,
+                type: "post",
+                dataType: "json",
+                success: function (json) {
+                    console.log(json.Row.state)
+                    if(json.Row.state == 1){
+                        $('#guanliyuan').css('display','-webkit-box !important')
+                    }
+                }
+            });
+
+        }
+        if (typeof uexWindow === "object") (function () {
+            var c1c = 0;
+            uexWindow.setReportKey(0, 1);
+            uexWindow.onKeyPressed = function () {
+                if (c1c > 0) {
+                    uexWidgetOne.exit(0);
+                } else {
+                    uexWindow.toast(0, 8, '再按一次退出应用', 1000);
+                    c1c = 1;
+                    setTimeout(function () {
+                        c1c = 0;
+                    }, 2000);
+                }
+            };
+        })();
+        //消息数量监测
+        function checkCount() {
+            var userData = $.getUserData();
+            $.https({
+                url: mainURL+'myMsgCount.do',
+                data: {
+                    ParamJson: JSON.stringify({"userid": userData.userid})
+                },
+                type: "post",
+                dataType: "json",
+                success: function (json) {
+                    var row = json.Row
+                    var countAll = row.count ,countMax = $('#countMax')
+                    countAll > 99 ? countMax.text("99+") : countMax.text(countAll);
+                    countAll > 0 && countAll != null && countAll != "" ? countMax.show() : countMax.hide();
+                }
+            });
+        }
+
+        checkCount();
+
+        // 添加'refresh'监听器
+        $(document).on('refresh', '.pull-to-refresh-content', function (e) {
+            checkCount();
+            // 加载完毕需要重置
+            $.pullToRefreshDone('.pull-to-refresh-content');
+        });
+
+        setInterTimeGlobal = setInterval(checkCount, 30000)
+        $.monitorVal2({
+            application: function () {
+                checkCount();
+            }, mail_list_time3: function () {
+                clearInterval(setInterTimeGlobal)
+            },
+            refresh2:''
+        })
+
+    });
+    if($.getUserData().roleid  == 3){
+        $('#xiaosou').remove()
+    }else if($.getUserData().roleid == 4){
+        $('#jishu').remove()
+    }
+
+
+
+    function saveIsHas() {
+        localStorage.setItem("isHas", "2");
+        $.uexOpen('my_pending_items');
+    }
+
+</script>
+</body>
+</html>

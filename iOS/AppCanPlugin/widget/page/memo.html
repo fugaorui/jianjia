@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>备忘录</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<meta content="telephone=no,email=no" name="format-detection"/> 
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="description" content="">
+<!-- <link rel="shortcut icon" href="/favicon.ico"> -->
+<link rel="stylesheet" href="../fonts/iconfont.css"> 
+<link rel="stylesheet" href="../css/min/sm.css">
+<link rel="stylesheet" href="../css/min/sm-extend.css"> 
+<link rel="stylesheet" href="../css/min/flexBox.css">
+<link rel="stylesheet" href="../css/tonXin.css"> 
+<style>
+ #page_news .content{background-color:#f2f2f2;}
+ #page_news .content .news_list{background-color:#fff;}
+ #fixed_header{position:fixed;z-index:2;left:0;top:2rem;}
+ #tabBox1-bd{padding-top:2rem;}
+ #toogle{width:100%;height:1.5rem;line-height:1.5rem;text-align:center;font-size:.7rem;color:#666;}
+ .buttons-tab{background:#f2f2f2;position:fixed;z-index:9;width:100%;}
+ .content-block{margin:0;padding:0;overflow:hidden;background:#fff;}
+
+#job_siftings{
+		        position: fixed;font-size:.7rem;top: 2.2rem;z-index:99999;right: 0;bottom: 0;left: 0;
+				width:100%;background:rgba(0,0,0,.5);overflow:hidden;display:none;
+		}
+#job_siftings .bg_siftings{
+		        background:#fff;padding:0 .4rem;color:#333;
+				transform: translate3d(0,-8.1rem,0);
+				-webkit-transform: translate3d(0,-8.1rem,0);
+				transition: all 0.2s ease-in-out;
+				-webkit-transition: all 0.2s ease-in-out;
+		}
+#job_siftings .active_siftings{
+				transform: translate3d(0,0,0);
+				-webkit-transform: translate3d(0,0,0);
+				transition: all 0.2s ease-in-out;
+				-webkit-transition: all 0.2s ease-in-out;
+		}
+.bg_siftings div:nth-child(1){
+		  padding:.5rem 0 .5rem 0;
+		}
+.bg_siftings div:nth-child(1) a{
+		  background:#eee;height:1.5rem;display:block;padding:0 .4rem;border-radius:1.5rem;color:#1ac6ee;
+		}
+		
+.time_siftings div:nth-child(1){margin-right:.4rem;}
+.time_siftings div:nth-child(2) input{
+		    height:1.5rem;text-indent:.3rem;border:1px solid #d8d8d8;
+			}
+.time_siftings div:nth-child(4) input{height:1.5rem;text-indent:.3rem;border:1px solid #d8d8d8;}
+.time_siftings div:nth-child(3){width:1rem;}
+.submit_siftings{background:#1ac6ee;height:1.8rem;color:#fff;border-radius:1.8rem;max-width:70%;margin:.8rem auto;}
+
+/*.ubb:after{bottom:0;}*/
+.delete li:last-child a.ubb:after{height:0;}
+.email_Admin_list span,.changeButton,.deleteButton,.icon-right:before{font-size:.85rem;}
+.email_Admin_list_bottom span{font-size:.7rem;}
+
+</style>
+</head>
+<body>
+ <div class="page-group">
+        <!-- 单个page ,第一个.page默认被展示page_memo-->
+        <div class="page page-current leave page_email_Admin page_memo" id="page_memo">
+
+			<!--备忘录头部-->
+			  <header class="bar bar-nav">
+                <a class="icon icon-left pull-left back"></a>
+                <h1 class="title">备忘录</h1>
+				<a class="icon pull-right"style="margin-left:.3rem;">筛选</a>
+				<!-- <a class="icon pull-right">编辑</a> -->
+              </header>
+
+			<!--申新增备忘录按钮-->
+			<div id="fixed_button" class="fixed_button bar bar-tab">
+			  <a href="javascript:;" onclick="$.uexOpen('add_memo');" class="button button-fill button-warning">新增备忘录</a>
+			</div>
+						
+			<!--筛选功能-->
+            <div class="job_siftings_sx" id="job_siftings">
+			 <div class="ub ub-f1 ub-ver bg_siftings" id="wrap_siftings">
+			  <!-- <div class="ub ub-f1 ub-ac ub-pj">
+			    <a href="javascript:;" class="ub ub-ac ub-pc" id="add_book">新增备忘录</a>
+				<div id="rest">取消</div>
+			  </div> -->
+			  
+			  <div class="ub ub-f1 ub-ac ub-ps time_siftings">
+			   <div>标题：</div>
+			   <div class="ub ub-f1"><input id="title_begin" class="ub ub-f1 ub-ac ub-ps" type="text" placeholder="输入查询的标题"/></div>
+			  </div>
+			   <div class="ub ub-f1 ub-ac ub-ps time_siftings">
+			   <div>内容：</div>
+			   <div class="ub ub-f1"><input id="content_begin" class="ub ub-f1 ub-ac ub-ps" type="text" placeholder="输入查询的内容"/></div>
+			  </div>
+			  <div class="ub ub-f1 ub-ac ub-ps time_siftings">
+			   <div>状态：</div>
+			   <div class="ub ub-f1"><input id="selectStatus" class="ub ub-f1 ub-ac ub-ps" type="text" placeholder="选择状态"/></div>
+			   <!-- <div class="ub ub-ac ub-pc">-</div>  -->
+			   <div class="ub ub-f1 ub-ac ub-pc" style="margin-left:.5rem;min-width:4rem;" id="checkboxNumber">
+			    <label class="weui_cell ub ub-ac ub-pc" for="gmo4">
+					<div class="weui_cell_hd">
+					  <input type="checkbox" name="checkbox4" class="weui_check" id="gmo4" >
+					  <i class="weui_icon_checked iconfont"></i>
+					</div>
+				</label>
+			    <span class="ub ub-ac ub-pc">有附件 </span>
+			   </div>
+			  </div>
+
+			  <div class="ub ub-f1 ub-ac ub-pc submit_siftings" id="submit_siftings">查询</div>
+			 </div>
+			</div>		
+	
+	        <div class="buttons-tab"style="position:fixed;top:2.2rem;">
+				<a href="#tab1" class="tab-link active button">我的</a>
+				<a href="#tab2" class="tab-link button">我分享的</a>
+				<a href="#tab3" class="tab-link button">他人分享的</a>
+			  </div>
+	
+	
+            <!-- 这里是页面内容区 -->
+            <div class="content infinite-scroll infinite-scroll-bottom" data-type="js" data-distance="100">
+			
+			<!--列表内容模版-->
+             <script id="myTemp" type="text/html">   
+			   	<li class="item-content ub">
+				  <a href="javascript:;" class="ub ub-f1 ub-ac ub-ps ubb padd"
+				   id="$id$" filepaths="$filepaths$" frequencytime="$frequencytime$" 
+				  frequencyday="$frequencyday$" memostt="$memostt$" content="$content$" frequency="$frequency$"
+				 remind="$remind$" sentremindtime="$sentremindtime$" shareids="$shareids$" memos="$memos$" 
+				 memoid="$memoid$" sharenames="$sharenames$"
+				 name="$name$" filenames="$filenames$" state="$state$" onclick="clickLink(this)">
+					<div class="ub ub-f1 ub-as ub-pc ub-ver">
+					  <div class="ub ub-f1 ub-ac ub-pj email_Admin_list">
+						<span class="ub ub-as ub-pc ub-f1 ub-ver ut-m line1"style="display:blcok;width:100%;">$name$</span>
+					  </div>
+					  <div class="ub ub-f1 ub-ac ub-ps email_Admin_list_bottom">
+					    <span>$state$</span><span>$ctime$</span>
+					  </div>
+					</div>
+					<span class="icon icon-right" style="color:#999;"></span>
+				  </a>
+				</li>
+			 </script> 
+			 
+			 
+			<div class="content-inner" style=""> 
+			  <div class="content-block" style="padding-top:2rem;">
+				<div class="tabs">
+				  <div id="tab1" class="tab active">
+					<div class="content-block">
+					  <ul class="delete">
+					       <!-- <li class="item-content ub">
+							   <a href="javascript:;" class="ub ub-f1 ub-ac ub-ps ubb padd">
+								<div class="ub ub-f1 ub-as ub-pc ub-ver">
+								 <div class="ub ub-f1 ub-ac ub-pj email_Admin_list">
+								   <span class="ub ub-as ub-pc ub-f1 ub-ver ut-m line1"style="display:blcok;width:100%;">1关于举办上合组织成员国际国际国际国际国际国际国际</span>
+								 </div>
+								 <div class="ub ub-f1 ub-ac ub-ps email_Admin_list_bottom"><span>未完成</span><span>2016.12.20</span></div>
+								</div>
+								 <span class="icon icon-right"></span>
+							   </a>
+							</li> -->  
+						</ul>
+					</div>
+				  </div>
+				  <div id="tab2" class="tab">
+					<div class="content-block"><ul class="delete"></div>
+				  </div>
+				  <div id="tab3" class="tab">
+					<div class="content-block"><ul class="delete"></div>
+				  </div>
+				</div>
+			  </div> 
+			
+			 
+
+
+				 <!-- 加载提示符 -->
+				  <div class="infinite-scroll-preloader">
+					  <div class="preloader"></div>
+				  </div>
+				  <div id="toogle" style="display:none;">没有更多了</div>   
+				  
+		     </div>   
+		  
+            </div>
+        </div>
+		
+     </div>
+
+
+<script type='text/javascript' src='../js/min/zepto.min.js' charset='utf-8'></script> 
+<script type='text/javascript' src='../js/mains.js' charset='utf-8'></script>  
+<script type='text/javascript' src='../js/config.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm-extend.min.js' charset='utf-8'></script> 
+<script type='text/javascript' src='../js/demos.js' charset='utf-8'></script>
+<script type='text/javascript' src="../js/TouchSlide.1.1.js" charset='utf-8'></script>
+<script>
+      function clickLink(dom){
+	     MemoSeesionJsonInRo(dom);
+		 $.uexOpen('add_memo');
+	  }
+
+
+		  var in_index = 0,							//  记录的全局tab页下标0、1
+		      htmlList = "",	                    //  html动态页面
+		      siftBool = false,	                    //  是否为筛选
+			  loading  = false,						//	加载flag
+				  para = {
+						"pager.pageSize": "20",		//	一页显示多少数据 
+						"method": "memo",			//	我的备忘录
+						"pager.pageNo": "1",		//	页码
+						"SessionId" : getlocalVal('SessionId')
+				  },
+           MomeDelJson = {
+		                  "id":"",  			  //	多文件删除变量申明，备忘录ID(存在多个用逗号分隔开)
+						  "SessionId" : getlocalVal('SessionId')
+						  },	                
+              siftJson = {
+						"pager.pageSize": "20",
+						"method": "memo",
+						"attachment": "0",//附件是否选中
+						"name": "",//标题
+						"state": "",//状态	
+						"pager.pageNo": "1",
+						"content": "",//内容
+						"SessionId" : getlocalVal('SessionId')
+					};
+
+			
+					
+	   
+    $.ready(function () {
+
+		  function domDel(){         // 删除
+			  MomeDelJson['id'] = $(this).parents('.item-content').find('a').attr('id');
+			  ajaxDelete($(this).parents('.item-content'));
+		  }
+	      function momeAlert(){      // 修改
+		    // console.log($(this))
+			MemoSeesionJsonInRo($(this).parents('.item-content').find('a'));
+			$.uexOpen('add_memo');
+		  }
+	
+		  function touchLeft(dom){   // 滑动删除
+			$.slideFun({
+					this:dom,
+					delete:domDel,
+					change:momeAlert
+				})
+		  }
+
+		  function state_alert(obj){  						  //  state状态码中文翻译
+					if(obj.state == 0) {obj.state = "无状态";return;}
+					if(obj.state == 1) {obj.state = "未完成";return;}
+					if(obj.state == 2) {obj.state = "完成";return;}
+				  }
+		  function state_back(dom,obj){  					 //  state状态码中文转英文
+					if($(dom).val() == '无状态') {obj['state'] = "0";return;}
+					if($(dom).val() == '未完成') {obj['state'] = "1";return;}
+					if($(dom).val() == '完成') {obj['state'] = "2";return;}
+				  }
+		  function aLinkView(itd,obj){                       // 页面变量设定
+		            if(itd == 0){obj.pageSrc = "add_memo.html";return;}
+		            if(itd == 1){obj.pageSrc = "add_memo.html";return;}
+		            if(itd == 2){obj.pageSrc = "add_memo.html";return;}
+		          }	
+		 function methodFun(i,o){                            // 筛选传参method设定
+		            if(i == 0){o['method'] = "memo";return;}
+		            if(i == 1){o['method'] = "mymemo";return;}
+		            if(i == 2){o['method'] = "othersmemo";return;}
+		          }	
+			
+         $('.buttons-tab a').on('click',function(){          // tab切换点击触发事件
+		    siftBool = false;//关闭筛选
+		    switch($(this).attr('href'))
+				{
+				case '#tab1':
+				   //$.attachInfiniteScroll($('.infinite-scroll'));
+				  $(document).on('infinite', '.infinite-scroll-bottom',xiaLaFun);	
+				   para['method'] 		= "memo";
+				   para['pager.pageNo'] = "1";
+				   htmlList     	    = "";
+				   in_index		        = 0;
+				   ajaxLoading(1);
+				   break;
+				case '#tab2':
+				   //$.attachInfiniteScroll($('.infinite-scroll'));
+				  $(document).on('infinite', '.infinite-scroll-bottom',xiaLaFun);	
+                   para['method'] 	    = "mymemo";
+				   para['pager.pageNo'] = "1";
+				   htmlList             = "";
+				   in_index		        = 1;
+				   ajaxLoading(1);
+				   break;
+				case '#tab3':
+				  // $.attachInfiniteScroll($('.infinite-scroll'));
+				   $(document).on('infinite', '.infinite-scroll-bottom',xiaLaFun);	
+				   para['method']       = "othersmemo";
+				   para['pager.pageNo'] = "1";
+				   htmlList             = "";
+				   in_index		        = 2;
+				   ajaxLoading(1);
+				   break;
+				default:
+				  console.log('a标签href值设置错误');
+				}
+		 })
+	      
+		  function ajaxDelete(dom){					         //  备忘录删除功能ajax
+			  var ParamMomeDel = JSON.stringify(MomeDelJson);
+			  console.info('打印的传参：',ParamMomeDel);
+			  $.https({
+				   url:mainURL,
+				   data:{
+				     ClassName:"MyMemo",
+					 MethodName:"MomeDel",
+					 ParamJson : ParamMomeDel
+				   },
+				   type:"post",
+				   dataType:"json",
+				   success:function(res,status,xhr){
+					  console.log('打印出的ajax返回数据：',res)
+															    //  0调用失败 1成功 2文件不存在
+		              res.Code == 0 ? $.toast("删除失败") : res.Code == 2 ? $.toast("文件不存在") : false;
+					  if(res.Code == 1){
+					      dom.remove();
+						  $.toast("删除成功")
+					  }
+					 }
+				});
+			}
+		  
+		  function siftingsAjax(bool){					         //  备忘录筛选功能ajax
+			  var ParamSift = JSON.stringify(siftJson);
+			  console.info('打印的传参：',ParamSift);
+			  $.https({
+				   url:mainURL,
+				   data:{
+				     ClassName:"MyMemo",   
+					 MethodName:"MomeList",
+					 ParamJson : ParamSift
+				   },
+				   type:"post",
+				   dataType:"json",
+				   success:function(res,status,xhr){
+				      $('.infinite-scroll-preloader').show(); 
+					  
+					  console.log('打印出的ajax返回数据：',res)
+					  var Result   = res.rows,
+						  tempHtml = $('#myTemp').text();
+		                  Result.forEach(function(obj,index,json) {
+								  state_alert(obj);   			        //state状态码中文翻译
+								  aLinkView(in_index,obj);                  //添加页面地址变量
+								  htmlList += tempHtml.temp(obj);  	    //动态html编绎叠加
+								});
+						  $('.tabs .tab').eq(in_index).find('ul.delete').html(htmlList);	//塞入动态html
+						  touchLeft('.tabs .tab:nth-child('+ Number(in_index+1) +') .delete li');//加载侧滑删除
+						  loading = false;
+						  $.refreshScroller();
+						  bool == 1 ? $('.content').scrollTop(0):0;
+						  if(Result.length < siftJson['pager.pageSize']){
+							$('#toogle').show();  
+							console.log(Result.length)
+																		// 加载完毕，则注销无限加载事件，以防不必要的加载
+							//$.detachInfiniteScroll($('.infinite-scroll'));
+						    $(document).off('infinite');
+																		// 删除加载提示符
+							$('.infinite-scroll-preloader').hide();
+							return;
+							} 
+						  siftJson['pager.pageNo'] = Number(siftJson['pager.pageNo']) + 1;
+
+					 }
+				});
+			}
+		  
+		  function ajaxLoading(bool){	  // 初始化，及无限下拉加载ajax
+					  $('#toogle').hide();
+					  var Param = JSON.stringify(para);
+					  console.info('打印的传参：',Param);
+					  $.https({
+							url:mainURL,
+						   data:{
+							ClassName:"MyMemo",
+							MethodName:"MomeList",
+							ParamJson : Param
+						   },
+						   type:"post",
+						   dataType:"json",
+						   success:function(res,status,xhr){
+							  console.log('打印出的ajax返回数据：',res)
+							  
+							  $('.infinite-scroll-preloader').show();
+							  
+							  var Result   = res.rows,
+								  tempHtml = $('#myTemp').text();
+							  Result.forEach(function(obj,index,json) {
+								  state_alert(obj);   			        //state状态码中文翻译
+								  aLinkView(in_index,obj);                  //添加页面地址变量
+								  htmlList += tempHtml.temp(obj);  	    //动态html编绎叠加
+								});
+								  $('.tabs .tab').eq(in_index).find('ul.delete').html(htmlList);	      //塞入动态html
+								  touchLeft('.tabs .tab:nth-child('+ Number(in_index+1) +') .delete li'); //加载侧滑删除
+								 
+								  loading = false;
+								  $.refreshScroller();
+								  bool == 1 ? $('.content').scrollTop(0):0;
+								if(Result.length < para['pager.pageSize']){
+								    console.log(Result.length)
+									$('#toogle').show();  
+																		// 加载完毕，则注销无限加载事件，以防不必要的加载
+									//$.detachInfiniteScroll($('.infinite-scroll'));
+									$(document).off('infinite');	
+																		// 删除加载提示符
+									$('.infinite-scroll-preloader').hide();
+									
+									return;
+								} 
+								para['pager.pageNo'] = Number(para['pager.pageNo']) + 1;
+										  
+							 },
+							 error:function(xhr,errorText,errorStatus){
+								 //console.log(xhr.response)
+								 if(xhr.status==0){
+									  return $.toast("服务器出车祸了");
+									}else{
+									  if(xhr.status==200){
+										$.toast(xhr.response);
+										setTimeout(function(){
+										 $.uexOpen('login');
+										 },1000)
+									  }
+									}
+				                }
+						});
+					}
+
+	// <!--筛选功能-->--------------------------------------
+		  SuiPicSelect('#selectStatus','请选择状态',['无状态', '未完成', '完成'])
+		  function classHide(){
+			 $('#wrap_siftings').removeClass('active_siftings')
+				.on('webkitTransitionEnd',function(){
+				  $('#job_siftings').hide();
+				})
+		  }
+		  $('.pull-right').on('click',function(){//点击触发筛选下拉
+			 if($('#wrap_siftings').hasClass('active_siftings')){
+				classHide();
+			 }else{
+			   $('#job_siftings').show();
+			   $('#wrap_siftings').addClass('active_siftings')
+			 }
+		  })
+		  $('#wrap_siftings').on('click',function(e){//取消默认事件和冒泡
+			 e.stopPropagation();
+			 //e.preventDefault();
+		  })
+		  $('#add_book').on('click',function(){//新增备忘录跳转地址
+			$.uexOpen("add_memo");
+		  })
+		  
+		  $('#job_siftings,#rest,#submit_siftings').on('click',function(e){//筛选框关闭，及筛选功能后台数据处理 
+		    var number = $('#checkboxNumber input[type="checkbox"]:checked').length;
+			 if($(this).attr('id')  == 'submit_siftings'){         //是否为提交筛选的按钮
+			    siftJson['content']  = $('#content_begin').val();  //搜索的内容
+			    siftJson['name']     = $('#title_begin').val();    //搜索的标题 
+				siftJson['pageNo']   = 1;                          //重置页数为第一页
+				siftJson['pager.pageNo'] = 1;                      //重置页数为第一页
+				siftJson['attachment']   = number;                 //是否有附件，有为1，无为0
+				methodFun(in_index,siftJson);                      //区分传参的method值
+				state_back('#selectStatus',siftJson);
+				//$.attachInfiniteScroll($('.infinite-scroll'));
+				$(document).on('infinite', '.infinite-scroll-bottom',xiaLaFun);	
+				htmlList = "";
+				siftingsAjax(1);
+				siftBool = true;
+			 }
+			 classHide();
+		  })				
+					
+					
+	//下拉加载功能begin --预先加载20条------------------------
+		  ajaxLoading(); 
+
+		  $(document).on('infinite', '.infinite-scroll-bottom',xiaLaFun);	
+          
+		  function xiaLaFun() { 
+			  if (loading) return;
+			  console.log('注册infinite加载')
+			  
+			 if(siftBool){
+			     loading = true;
+				 siftingsAjax(); //ajax加载数据 
+				 return;
+			 } 
+			  
+			  
+			  // 设置flag
+			 switch(in_index)
+				{
+				case 0:
+				   loading = true;
+				   ajaxLoading(); //ajax加载数据 
+				   break;
+				case 1:
+				    console.log('我分享的页面')
+				    loading = true;
+				    ajaxLoading(); //ajax加载数据 
+				   break;
+				case 2:
+				    console.log('他人分享的页面')
+				    loading = true;
+				    ajaxLoading(); //ajax加载数据 
+				   break;
+				default:
+				  console.log('in_index页面下标值获取错语')
+				} 
+			  
+			  
+		  }
+
+  $.monitorVal2({memo_list:''})
+  
+  
+    });
+</script>
+</body>
+</html>

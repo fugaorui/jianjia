@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>律协OA_组织架构</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta content="telephone=no,email=no" name="format-detection"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="description" content="">
+    <!-- <link rel="shortcut icon" href="/favicon.ico"> -->
+    <link rel="stylesheet" href="../fonts/iconfont.css">
+    <link rel="stylesheet" href="../css/min/sm.css">
+    <link rel="stylesheet" href="../css/min/sm-extend.css">
+    <link rel="stylesheet" href="../css/min/flexBox.css">
+    <link rel="stylesheet" href="../css/tonXin.css">
+    <style>
+        .content {
+            background-color: #f2f2f2;
+        }
+
+        .iconImgGouTon {
+            width: 1rem;
+            height: 1rem;
+            position: absolute;
+            right: .8rem;
+            top: 50%;
+            margin-top: -.5rem;
+            z-index: 2;
+        }
+
+        .phoneIcon {
+            right: 2.5rem;
+        }
+
+        .marL {
+            margin-left: .4rem;
+            font-size: .75rem;
+        }
+
+        /*.organize_list .ubb:last-child:after{border-top: 1px solid #d8d8d8;}*/
+        .a_list {
+            padding: .3rem 0;
+            height: 2.8rem;
+            box-sizing: border-box;
+        }
+
+        .a_list .user_name {
+            height: 1rem;
+            margin-bottom: .2rem;
+        }
+
+        .a_list .user_phone_number {
+            height: 1rem;
+        }
+
+        .ubb2:after {
+            content: " ";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 1px;
+            border-top: 0px solid #d8d8d8;
+            color: #d9d9d9;
+            -webkit-transform: scaleY(1);
+            transform: scaleY(1);
+            background-image: url(../img/sef_4x2.png);
+            background-repeat: repeat-x;
+            background-attachment: scroll;
+            background-position: top left;
+            background-size: 10px 1px;
+        }
+
+        span.icon {
+            color: #bbb;
+        }
+    </style>
+</head>
+<body>
+<div class="page-group">
+
+    <!-- 组织架构-->
+    <div class="page page-current" id="page_jiaGou">
+
+        <!--组织架构头部-->
+        <header class="bar bar-nav">
+            <a class="icon icon-left pull-left back99"></a>
+            <h1 class='title'>通讯录</h1>
+        </header>
+
+        <div class="content">
+
+            <!--组织架构内容-->
+            <div class="ub ub-f1 ub-ver organize">
+                <div class="ub ub-f1 ub-ac ub-ps ubb padd"><span class="active_color">组织架构</span>
+                    <!-- <span>律师协会</span> --></div>
+                <div class="ub ub-f1 ub-ver organize_list">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+<script type='text/javascript' src='../js/min/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/mains.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/config.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm-extend.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/demos.js' charset='utf-8'></script>
+
+<script>
+    var dipListJson = {
+        "deptid": ""
+    }
+
+    function setBuMen(dom) {
+        local("section", $(dom).attr('deptname'));
+        local("bumengId", $(dom).attr('deptid'));
+        // set_value();
+        $.uexOpen('mail_section_member')
+    }
+
+    $.ready(function () {
+        var class_ubb = 'ubb';
+        if ($.device.android) {
+            class_ubb = $.compareVersion($.device.osVersion, '5.0') == -1 ? 'ubb' : 'ubb2';
+        }
+
+        $('.back99').on('click', function () {
+            if ($.device.ios) {
+                $.setStorage('mailList', "1")
+            }
+            $.uexBack();
+        })
+
+        $(document).on('click', '.phoneIcon', function () {  //电话拨打
+            var s = $(this).parents('a').attr('phone');
+            if (s == "" || s == null) {
+                return $.toast('未存储电话号码');
+            }
+            uexCall.dial($(this).parents('a').attr('phone'));
+        })
+        $(document).on('click', '.smsIcon', function () {  //短信发送
+            //uexCall.facetime("10010");
+            var s = $(this).parents('a').attr('phone');
+            if (s == "" || s == null) {
+                return $.toast('未存储电话号码');
+            }
+            uexSMS.open($(this).parents('a').attr('phone'), "");
+        })
+
+
+        var userGroup = '';
+
+        function loadData() {
+            var data = $.getStorage('userJsonInfoDetails')
+            if (JSON.parse(data) != null && JSON.parse(data) != "") {
+                userGroup = JSON.parse(data)['usersTree'];
+                dipList();
+            } else {
+                $.toast("无缓存数据");
+            }
+        }
+
+        loadData()
+
+        function dipList(d) {
+            $.https({
+                url: mainURL + 'myMailByPid.do',
+                data: {
+                    ParamJson: JSON.stringify(dipListJson)
+                },
+                type: "post",
+                dataType: "json",
+                success: function (res, status, xhr) {
+                    console.log('打印出的组织架构数据：', res)
+                    res = res.Row
+                    if (dipListJson['deptid'] != '' && d != '' && d != null && d != 'undefined') {
+                        if (res.deptList.length == 0) {
+                            userListCache(d);
+                        } else {
+                            dipFun(res.deptList, d);
+                        }
+
+                    } else {
+                        dipFun(res.deptList);
+                    }
+                },
+                error: function (xhr) {
+                    console.log('请求失败。。。。。。')
+                }
+            });
+        }
+
+
+        function userListCache(dm) {
+            var str = '';
+            for (var x = 0; x < userGroup.length; x++) {
+                //console.log(dm)
+                if (userGroup[x]['deptid'] == dm.attr('tid')) {
+                    console.log(dm.attr('tid') + '--' + userGroup[x]['deptid'])
+                    var numberPhone = userGroup[x]['phone'] != undefined ? userGroup[x]['phone'] : '';
+                    str += '<a href="javascript:;" \
+							  account="$account$" deptid="$deptid$" userid="$userid$" \
+							  phone="' + numberPhone + '" deptname="$deptname$" username="$username$"\
+							  class="ub ub-f1 ub-ver ub-as ' + class_ubb + ' a_list">\
+								<div class="user_name">' + userGroup[x]['username'] + '</div>\
+								<div class="user_phone_number">' + userGroup[x]['deptname'] + ' ' + numberPhone + '</div>\
+								<li class="phoneIcon iconImgGouTon"><img src="../img/KX2.png"/></li>\
+								<li class="smsIcon iconImgGouTon"><img src="../img/KX.png"/></li>\
+							</a>';
+
+                }
+            }
+            dm.next('ul').html(str)
+        }
+
+        function dipFun(json, dm) {
+            var dom = dm != '' && dm != null && dm != 'undefined' ? dm.next('ul') : $('.organize_list'), str = '';
+            $.each(json, function (i, v) {
+                str += '<ul class="">\
+				    <li class="ub ub-f1 ub-ac ub-ps ' + class_ubb + ' padd ub-pj" tid="' + v.id + '" isParent="' + v.isParent + '" parentId="' + v.parentId + '">\
+					 <div class="ub ub-f1 ub-ac"><span>' + v.name + '</span><span></span></div>\
+					 <span class="icon icon-right icon-down"></span>\
+				    </li>\
+				    <ul class="marL"></ul>\
+				   </ul>';
+            })
+            if (dm != '' && dm != null && dm != 'undefined') {
+                for (var x = 0; x < userGroup.length; x++) {
+                    if (userGroup[x]['deptid'] == dm.attr('tid')) {
+                        console.log(dm.attr('tid') + '--' + userGroup[x]['deptid'])
+                        var numberPhone = userGroup[x]['phone'] != undefined ? userGroup[x]['phone'] : '';
+                        str += '<a href="javascript:;" \
+							  account="$account$" deptid="$deptid$" userid="$userid$" \
+							  phone="' + numberPhone + '" deptname="$deptname$" username="$username$"\
+							  class="ub ub-f1 ub-ver ub-as ' + class_ubb + ' a_list">\
+								<div class="user_name">' + userGroup[x]['username'] + '</div>\
+								<div class="user_phone_number">' + userGroup[x]['deptname'] + ' ' + numberPhone + '</div>\
+								<li class="phoneIcon iconImgGouTon"><img src="../img/KX2.png"/></li>\
+								<li class="smsIcon iconImgGouTon"><img src="../img/KX.png"/></li>\
+							</a>';
+
+                    }
+                }
+            }
+            dom.html(str);
+            if (dm != '' && dm != null && dm != 'undefined') return;//中断无用循环，阻止显示切换出异常
+
+            $(document).on('click', 'li.padd', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                var isc = $(this).find('span.icon').hasClass('icon-right');
+                var isb = $(this).next('ul').css('display');
+                if (isc) {
+                    $(this).find('span.icon').removeClass('icon-right').parent('li').next('ul').show();
+                    $(this).parent().siblings().find('span.icon').addClass('icon-right').parent('li').next('ul').hide();
+                    dipListJson['deptid'] = $(this).attr('tid')
+                    dipList($(this))
+                    //console.log($(this))
+                } else {
+                    $(this).find('span.icon').addClass('icon-right').parent('li').next('ul').hide();
+                }
+            })
+
+        }
+    });
+
+
+</script>
+
+</body>
+</html>

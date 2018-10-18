@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>工作日志编辑</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<meta content="telephone=no,email=no" name="format-detection"/> 
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="description" content="">
+<!-- <link rel="shortcut icon" href="/favicon.ico"> -->
+<link rel="stylesheet" href="../fonts/iconfont.css">
+<link rel="stylesheet" href="../css/min/sm.css">
+<link rel="stylesheet" href="../css/min/sm-extend.css"> 
+<link rel="stylesheet" href="../css/min/flexBox.css">  
+<link rel="stylesheet" href="../css/tonXin.css"> 
+<style>
+ #page_news .content{background-color:#f2f2f2;}
+ #page_news .content .news_list{background-color:#fff;}
+</style>
+</head>
+<body>
+ <div class="page-group">
+<!-- 单个page ,第一个.page默认被展示-->
+<!-- 工作日志编辑-->
+     <div class="page page-current leave page_leave_sq page_addMemo page_noti_edit page_job_log_edit" id="page_job_log_edit">
+
+	         <!--工作日志编辑头部-->
+			  <header class="bar bar-nav">
+                <a class="icon icon-left pull-left backEdit"></a>
+                <h1 class="title">工作日志编辑</h1>
+              </header>
+              
+		   <!--工作日志编辑保存按钮-->
+			<div class="fixed_button bar bar-tab">
+			  <a href="#" class="button button-fill button-warning" id="save">保存</a>
+			</div>
+			
+       <div class="content">
+
+			<!--工作日志编辑内容-->
+			<div class="ub ub-f1 ub-ver organize">
+		     <div class="ub ub-f1 ub-ver organize_list">
+			   <a href="#" class="ub ub-f1 ub-ac ubb padd">
+			     <span class="ub ub-ac ub-ps">日志日期</span>
+			     <div class="ub ub-f1 ub-ac ub-ps">
+				  <input class="ub ub-f1 ub-ae ub-pe tx-r" id="calendar" type="text" value="" />
+				 </div>
+				 <span class="icon icon-right"style="margin-left:.4rem;"></span>
+			   </a>
+			   <div class="ub ub-f1 ub-ac ubb padd">
+			     <span class="ub ub-ac ub-ps"style="min-width: 3.5rem;">日志标题</span>
+			     <div class="ub ub-f1 ub-ac ub-ps"style="margin-left:.3rem;">
+				  <input class="ub ub-f1 ub-ae ub-pe tx-l" id="title" type="text" value="" placeholder="请输入日志标题"/>
+				 </div>
+				 <!-- <span class="icon icon-right"style="margin-left:.4rem;"></span> -->
+			   </div>
+			   <div class="item_inner ub ub-f1" style="padding:.5rem 0;">
+				<div class="item_title">日志内容</div>
+				<div class="item_input ub ub-f1"style="margin-left:.3rem;">
+				  <textarea style="min-height:4rem;" placeholder="请输入日志内容" id="textContent" class="ub ub-f1 ub-ac"></textarea>
+				</div>
+			  </div>
+
+			   <div class="item_inner ub ub-f1" style="padding:.5rem 0;">
+				<div class="item_title"style="text-indent:1.5rem;">备注</div>
+				<div class="item_input ub ub-f1"style="margin-left:.3rem;">
+				  <textarea style="min-height:4rem;" placeholder="请输入备注" id="textRemark" class="ub ub-f1 ub-ac"></textarea>
+				</div>
+			   </div>
+			  
+			 </div>
+		   </div>
+	   </div>
+     </div>	   	
+</div>
+
+
+<script type='text/javascript' src='../js/min/zepto.min.js' charset='utf-8'></script> 
+<script type='text/javascript' src='../js/mains.js' charset='utf-8'></script>  
+<script type='text/javascript' src='../js/config.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm-extend.min.js' charset='utf-8'></script> 
+<script type='text/javascript' src='../js/demos.js' charset='utf-8'></script>
+<script src="../js/TouchSlide.1.1.js"></script>
+<script>
+ 
+$.ready(function () {
+   $('.backEdit').on('click',function(){
+       $.uexBack();
+	   clearCahe();
+   })
+ //$(document).on("pageInit", "#page_job_log_edit", function(e, pageId, $page) {//工作日志保存、查看与编辑模块
+	    function json_arr (title,logdate,content,remark,id) {//变量传参声明
+				var obj            = new Object(),
+					getLocal       = localStorage.getItem('SessionId');
+					obj.title      = title     != "" ? title : "";//日志标题
+					obj.logdate    = logdate   != "" ? logdate : "";//日志日期
+					obj.content    = content   != "" ? content : "";//日志内容
+					obj.remark     = remark    != "" ? remark : "";//备注，必填
+					obj.id         = id        != "" ? id : "";//单据id
+					obj.SessionId  = typeof(getLocal) == "Object" ? "" : getLocal;
+					return obj;
+			}
+			
+			function getlocalValue(value){//获取客户端缓存
+					return localStorage.getItem(value);
+			}	  
+			
+             var mssage2           = json_arr('','','','',''),
+			     domTitle          = $('#page_job_log_edit #title'),
+			     domCalendar       = $('#page_job_log_edit #calendar'),
+			     domContent        = $('#page_job_log_edit #textContent'),
+			     domRemark         = $('#page_job_log_edit #textRemark');
+	 
+			   if(getlocalValue('job_id')      != "" && getlocalValue('job_id')      != null) mssage2.id = getlocalValue('job_id');
+			   if(getlocalValue('job_title')   != "" && getlocalValue('job_title')   != null) domTitle.val(getlocalValue('job_title'));
+			   if(getlocalValue('job_content') != "" && getlocalValue('job_content') != null) domContent.val(getlocalValue('job_content'));
+			   if(getlocalValue('job_remark')  != "" && getlocalValue('job_remark')  != null) domRemark.val(getlocalValue('job_remark'));
+			   if(getlocalValue('job_logdate') != "" && getlocalValue('job_logdate') != null) {
+			        domCalendar.val(getlocalValue('job_logdate'));
+				    $("#page_job_log_edit #calendar").calendar({
+					   value: [getlocalValue('job_logdate')]
+				    });
+					$("title").text("工作日志编辑");
+					$("#page_job_log_edit .title").text("工作日志编辑");
+			   }else{
+			        $("#page_job_log_edit #calendar").calendar();
+			        $("#page_job_log_edit .title").text("新增工作日志");
+			        $("title").text("新增工作日志");
+					
+			   }
+
+			 function seTval (){
+			 var  editTitle        = domTitle.val(),
+				  editCalendar     = domCalendar.val(),
+				  editTextContent  = domContent.val(),
+				  editTextRemark   = domRemark.val();
+				  mssage2.title    = editTitle;
+				  mssage2.logdate  = editCalendar;
+				  mssage2.content  = editTextContent;
+				  mssage2.remark   = editTextRemark;
+			 }
+	  
+	  
+	  
+	       $('#page_job_log_edit #save').on('click',function(){//点击保存并上传
+				var _Title         = domTitle.val()       == "" ? true : false,
+					_Calendar      = domCalendar.val()    == "" ? true : false,
+					_Content       = domContent.val()     == "" ? true : false,
+					_Remark        = domRemark.val()      == "" ? true : false;
+					if(_Title)    return $.toast("标题不能为空");
+					if(_Calendar) return $.toast("日期不能为空");
+					if(_Content)  return $.toast("内容不能为空");
+					//if(_Remark)   return $.toast("备注不能为空");
+					seTval();
+					ajax_load();
+	       })
+	
+    function clearCahe(){//清空localstorage缓存数据
+			 local('job_id',"");
+			 local('job_title',"");
+			 local('job_logdate',"");
+			 local('job_content',"");
+			 local('job_remark',"");
+		 }
+	
+	  function ajax_load(){
+		  var ParamJson = JSON.stringify(mssage2);
+		    console.log(ParamJson)
+			$.https({
+				   url:mainURL,
+				   data:{
+				     ClassName:"JobDiary",
+					 MethodName:"JobLogSave",
+					 ParamJson : ParamJson
+				   },
+				   type:"post",
+				   dataType:"json",
+				   success:function(res,status,xhr){
+				      console.log("success返回："+res)
+				      console.log(res)
+					  if(res.Code == 1){
+					    $.toast('保存成功，正在跳转...');
+						clearCahe();//清空localstorage缓存数据
+						setTimeout(function(){
+						// $.uexOpen("job_log_list");
+						  $.setStorage('setIntervalReloadCacheJobList', '1');//给日志列表页缓存刷新监听值
+						  $.uexBack();
+						},200)
+					  }
+					 },
+				   error:function(xhr,errorText,errorStatus){
+					 console.log(errorStatus)
+				   }
+				});
+		 } 
+
+	//});
+});
+ 
+</script>
+
+</body>
+</html>

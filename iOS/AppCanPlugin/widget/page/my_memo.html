@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>我的备忘录</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<meta content="telephone=no,email=no" name="format-detection"/> 
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="description" content="">
+<!-- <link rel="shortcut icon" href="/favicon.ico"> -->
+<link rel="stylesheet" href="../fonts/iconfont.css"> 
+<link rel="stylesheet" href="../css/min/sm.css">
+<link rel="stylesheet" href="../css/min/sm-extend.css"> 
+<link rel="stylesheet" href="../css/min/flexBox.css">   
+<link rel="stylesheet" href="../css/tonXin.css">
+<style>
+ #page_news .content{background-color:#f2f2f2;}
+ #page_news .content .news_list{background-color:#fff;}
+ #toogle{width:100%;height:1.5rem;line-height:1.5rem;text-align:center;font-size:.7rem;color:#666;}
+ .weui_check:checked + .weui_icon_checked:before {
+    content: '\e60b';
+    color: #1ac6ee;
+    -webkit-text-stroke-width: 0.2px;
+}
+</style>
+</head>
+<body>
+ <div class="page-group">
+<!-- 单个page ,第一个.page默认被展示-->
+<!-- 申请请假-->
+     <div class="page page-current leave page_email_Admin page_my_memo" id="page_my_memo">
+	 
+	         <!--我的备忘录头部-->
+			  <header class="bar bar-nav">
+                <a class="icon icon-left pull-left back"></a>
+                <h1 class="title">我的备忘录</h1>
+				<a class="icon pull-right" id="rest_no">取消</a>
+              </header>
+              
+			 <!--删除按钮-->
+			<div class="fixed_button bar bar-tab">
+			  <a href="javascript:;" class="button button-fill button-warning" id="my_memo_del">删除(<span id="my_memo_length">0</span>)</a>
+			</div>
+			
+       <div class="content infinite-scroll infinite-scroll-bottom">
+
+	   <script id="Template" type="text/html">   
+          <a href="javascript:;" class="ub ub-f1 ub-ac ub-ps ubb padd" id="$id$">
+				 <label class="weui_cell" for="inputCheck$xbId$">
+					<div class="weui_cell_hd">
+					  <input type="checkbox" name="checkbox4" class="weui_check" id="inputCheck$xbId$" >
+					  <i class="weui_icon_checked iconfont"></i>
+					</div>
+				 </label>
+			    <div class="ub ub-f1 ub-as ub-pc ub-ver"
+				id="$id$" filepaths="$filepaths$" frequencytime="$frequencytime$" 
+				  frequencyday="$frequencyday$" memostt="$memostt$" content="$content$" frequency="$frequency$"
+				 remind="$remind$" sentremindtime="$sentremindtime$" shareids="$shareids$" memos="$memos$" memoid="$memoid$"
+				 name="$name$" filenames="$filenames$" state="$state$" onclick="MemoSeesionJsonInRo(this)">
+				 <div class="ub ub-f1 ub-ac ub-pj email_Admin_list">
+				   <span class="ub ub-as ub-pc ub-f1 ub-ver ut-m line1"style="display:blcok;width:100%;">$name$</span>
+				 </div>
+			     <div class="ub ub-f1 ub-ac ub-ps email_Admin_list_bottom"><span>$state$</span><span>$ctime$</span></div>
+				</div>
+		  </a>
+       </script> 
+	   
+			<!--我的备忘录内容-->
+			<div class="ub ub-f1 ub-ver organize">
+		     <div class="ub ub-f1 ub-ver organize_list" id="organize_list">
+             <!--   <a href="javascript:;" class="ub ub-f1 ub-ac ub-ps ubb padd">
+				 <label class="weui_cell" for="mo4">
+					<div class="weui_cell_hd">
+					  <input type="checkbox" name="checkbox4" class="weui_check" id="mo4" >
+					  <i class="weui_icon_checked iconfont"></i>
+					</div>
+				  </label>
+			    <div class="ub ub-f1 ub-as ub-pc ub-ver">
+				 <div class="ub ub-f1 ub-ac ub-pj email_Admin_list">
+				   <span class="ub ub-as ub-pc ub-f1 ub-ver ut-m line1"style="display:blcok;width:100%;">关于举办上合组织成员国际国际国际国际国际国际国际</span>
+				 </div>
+			     <div class="ub ub-f1 ub-ac ub-ps email_Admin_list_bottom"><span>未完成</span><span>2016.12.20</span></div>
+				</div>
+			   </a> -->
+			 </div>
+		    </div>
+		   
+		 <!-- 加载提示符 -->
+          <div class="infinite-scroll-preloader">
+              <div class="preloader"></div>
+          </div>
+		  <div id="toogle" style="display:none;">没有更多了</div>   
+		   
+	   </div>
+     </div>	   	
+</div>
+
+
+<script type='text/javascript' src='../js/min/zepto.min.js' charset='utf-8'></script> 
+<script type='text/javascript' src='../js/mains.js' charset='utf-8'></script>  
+<script type='text/javascript' src='../js/config.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm-extend.min.js' charset='utf-8'></script> 
+<script type='text/javascript' src='../js/demos.js' charset='utf-8'></script>
+<script src="../js/TouchSlide.1.1.js"></script>
+<script>
+  $.ready(function () {
+     
+           var htmlList  = "",				//	动态html
+		       loading   = false,			//	加载flag
+			   ParamJson = {				//	初始化，及无限下拉加载传参申明
+				"pager.pageSize": "20",		//	一页显示多少数据 
+			//	"reqCode": "queryMemo",		//	非必须
+				"method": "memo",			//	我的备忘录
+				//"cuser": "10000000",		//	登陆用户ID
+				//"page": "1",				//	页码-------- 已废除
+				"pager.pageNo": "1",		//	页码
+				//"rows": "20"				//	一页显示多少数据---- 已废除
+				"SessionId" : getlocalVal('SessionId')
+			},
+			 MomeDelJson = {				//	多文件删除变量申明
+				//"filepaths":"",			//	文件路径,后台判断已不用传
+				//uploaddata/2017/01/04/20170104124200.doc,//文件路径(存在多个用逗号分隔开)
+				"id":"",						//	备忘录ID(存在多个用逗号分隔开)
+				"SessionId" : getlocalVal('SessionId')
+			}
+  
+	   	  function checked_size(){			//	计数
+			var number=$('#page_my_memo input[type="checkbox"]:checked').length;
+			$('#page_my_memo #my_memo_length').text(number);
+			console.log(number)
+		  }
+		  function checkCount(){			//	点击选中计数
+		    $('#page_my_memo .organize_list a label').on('click',function(){
+				setTimeout(function(){
+				 checked_size()
+				},100)
+		    })
+		  }
+	     function _empyt(){					//清空计数及选中
+		      $('#page_my_memo input[type="checkbox"]:checked').prop("checked",false);
+			  $('#page_my_memo #my_memo_length').text(0);
+		 }
+	  
+	  
+	      $('#rest_no').on('click',function(){   //  取消选中
+			  _empyt();
+		  })
+	  
+		  $('#page_my_memo #my_memo_del').on('click',function(){//	删除备忘录
+		     var domA = $('#page_my_memo input.weui_check[type="checkbox"]:checked').parents('a'),
+			      arr = new Array();
+				  
+			     for(var i = 0; i < domA.length; i++){
+				    arr.push(domA.eq(i).attr('id'));           //把遍历出来的id值push到arr数组
+				 }
+				 
+				 console.log('选中的要删除元素个数',domA.length)
+				 console.log(domA.eq(0).attr('id'))
+				 console.log(arr.join())
+				 MomeDelJson['id'] = arr.join();  			   // 把保存好的arr数组join一堆字符串,并赋值给MomeDelJson
+
+			     $(this).find('#my_memo_length').text(0);
+			     ajaxDelete(domA);		  //  执行ajax请求函数，并传入要删除的选中dom对象组
+		  })
+
+	
+		  function state_alert(obj){  						  //  state状态码中文翻译
+					if(obj.state == 0) {obj.state = "无状态";return;}
+					if(obj.state == 1) {obj.state = "未完成";return;}
+					if(obj.state == 2) {obj.state = "完成";return;}
+				  }
+
+          function ajaxDelete(dom){							    //  备忘录删除功能ajax
+			  var ParamMomeDel = JSON.stringify(MomeDelJson);
+			  console.info('打印的传参：',ParamMomeDel);
+			  $.https({
+				   url:mainURL,
+				   data:{
+				     ClassName:"MyMemo",
+					 MethodName:"MomeDel",
+					 ParamJson : ParamMomeDel
+				   },
+				   type:"post",
+				   dataType:"json",
+				   success:function(res,status,xhr){
+					  console.log('打印出的ajax返回数据：',res)
+															    //  0调用失败 1成功 2文件不存在
+		              res.Code == 0 ? $.toast("删除失败") : res.Code == 2 ? $.toast("文件不存在") : false;
+					  if(res.Code == 1){
+					      dom.remove();
+						  $.toast("删除成功")
+					  }
+					 }
+				});
+			}		
+			
+			
+			
+			
+			var xbId = 0;//列表计数
+		    function ajaxLoading(){							   //初始化，及无限下拉加载ajax
+			  $('#toogle').hide();
+			  var Param = JSON.stringify(ParamJson);
+			  console.info('打印的传参：',ParamJson);
+			  $.https({
+				   url:mainURL,
+				   data:{
+				     ClassName:"MyMemo",
+					 MethodName:"MomeList",
+					 ParamJson : Param
+				   },
+				   type:"post",
+				   dataType:"json",
+				   success:function(res,status,xhr){
+					  console.log('打印出的ajax返回数据：',res)
+					  var Result   = res.rows,
+					      tempHtml = $('#Template').text();
+					  Result.forEach(function(obj,index,json) {
+						  state_alert(obj);                	    //state状态码中文翻译
+						  obj.xbId = xbId++;				  	    //增加input id选择区分值
+						  htmlList += tempHtml.temp(obj);  	    //动态html编绎叠加
+						});
+						  $('#organize_list').html(htmlList);	//塞入动态html
+						  checkCount();						 	//点击选中计数
+						  _empyt();							    //清空底部计数
+					  
+					  	loading = false;
+						$.refreshScroller();
+						if(Result.length < ParamJson['pager.pageSize']){
+							$('#toogle').show();  
+																// 加载完毕，则注销无限加载事件，以防不必要的加载
+							$.detachInfiniteScroll($('.infinite-scroll'));
+																// 删除加载提示符
+							$('.infinite-scroll-preloader').remove();
+							return;
+						} 
+						ParamJson['pager.pageNo'] = Number(ParamJson['pager.pageNo']) + 1;
+								  
+					 }
+				});
+			}
+	
+		  
+		  
+
+         //下拉加载功能begin --预先加载20条------------------------
+		  ajaxLoading(); 
+			  
+		  $(document).on('infinite', '.infinite-scroll-bottom',function() { 
+			  if (loading) return;
+			  console.log('注册infinite加载')
+			  // 设置flag
+			  loading = true;
+			  //ajax加载数据 
+			   ajaxLoading(); 
+			 
+		  });	  
+		  
+  })
+</script>
+</body>
+</html>

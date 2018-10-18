@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>写站内信</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<meta content="telephone=no,email=no" name="format-detection"/> 
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="description" content=""> 
+<link rel="stylesheet" href="../fonts/iconfont.css">
+<link rel="stylesheet" href="../css/min/sm.css">
+<link rel="stylesheet" href="../css/min/sm-extend.css"> 
+<link rel="stylesheet" href="../css/min/flexBox.css">  
+<link rel="stylesheet" href="../css/tonXin.css"> 
+</head>
+<body>
+ <div class="page-group"> 
+  <div class="page page-current leave page_leave_sq page_recReg page_msnin" id="page_msnin"> 
+ 	  <header class="bar bar-nav">
+           <a class="icon icon-left pull-left " onclick="back()"></a>
+           <h1 class="title">写站内信</h1>
+         </header> 
+ 	  <div class="fixed_button bar bar-tab">
+ 	    <a href="javascript:;" class="button button-fill button-warning bottoms">发送</a>
+ 	  </div> 
+       <div class="content">  
+ 		<div class="ub ub-f1 ub-ver organize">
+ 	     <div class="ub ub-f1 ub-ver organize_list">
+ 		   <a href="javascript:;" class="ub ub-f1 ub-ac ubb padd">
+ 		     <span class="ub ub-ac ub-ps">接收人</span>
+ 		     <div class="ub ub-f1 ub-ac ub-pj">
+ 			  <span class="ub" id="receive" receiveuserid=""></span>
+ 			  <i class="iconfont icon-roundadd" onclick="uexWindow.open('mailList','0','mailList.html',2,'','',0,0,0,0)"></i>
+ 			  <!--<i class="iconfont icon-roundadd" onclick="$.uexOpen('mailList')"></i>-->
+ 			 </div>
+ 		   </a>
+ 		   <a href="javascript:;" class="ub ub-f1 ub-ac ubb padd">
+ 		     <span class="ub ub-ac ub-ps">标题</span>
+ 		     <div class="ub ub-f1 ub-ac ub-ps"><input type="text" placeholder="请输入标题" id="title" value="" /></div>
+ 		   </a>
+ 		   <div class="item_inner ub ub-f1"style="padding:.5rem 0;">
+ 			<div class="item_title">内容</div>
+ 			<div class="item_input ub ub-f1">
+ 			  <textarea placeholder="请输入内容" id="content" class="ub ub-f1 ub-ac"></textarea>
+ 			</div>
+ 		   </div>
+ 		 </div> 
+ 	   </div> 
+    </div> 
+  </div>	   	
+</div> 
+<div class="popup popup-about page_msnin_popup">
+	<div class="page page-current">
+    <header class="bar bar-nav"> 
+	  <a  href="javascript:;" class="pull-right iconfont close-popup">&#xe60e;</a>
+	  <h1 class='title'>通讯录</h1>
+	</header>  
+    <div class="bar bar-header-secondary msn_inSearch">
+      <div class="searchbar">
+        <a class="searchbar-cancel" id='search'>搜索</a>
+        <div class="search-input">
+           <label class="icon icon-search" for="search"></label>
+           <input type="search"  autofocus placeholder='输入联系人姓名'/> 
+        </div>
+      </div>
+    </div>
+  	<div class="content" > 
+    	<div class="ub ub-ver ub-f1 phone_number_info"> 
+		</div>  
+  	</div>
+  </div>
+</div> 
+<script type='text/javascript' src='../js/min/zepto.min.js' charset='utf-8'></script> 
+<script type='text/javascript' src='../js/mains.js' charset='utf-8'></script>  
+<script type='text/javascript' src='../js/config.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm-extend.min.js' charset='utf-8'></script> 
+<script type='text/javascript' src='../js/demos.js' charset='utf-8'></script>
+<script>
+var userData = $.getUserData();   
+function back() {
+    $.uexOpen('in_email')
+}
+$.ready(function() {
+    var data = $.getStorage('userJsonInfoDetails')
+    $loadList(JSON.parse(data));
+    if (typeof uexWindow === "object") (function () {
+        uexWindow.setReportKey(0, 1);
+        uexWindow.onKeyPressed = function () {
+            back()
+        };
+    })();
+   $.monitorVal({
+      setMsnUser:function  () {
+          $setUser($.getStorage('setMsnId'),$.getStorage('setMsnName'));
+          $.setStorage('setMsnId','')
+          $.setStorage('setMsnName','')
+      },
+       in_email:''
+   }) 
+  //渲染通讯录
+  function $loadList (json) {    
+     (json.usersTree.length == 0) && $.toast("没有搜索到该联系人");
+     var arry = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","X","Y","Z","#"];  
+     var popupCon  = ""; 
+     $.each(arry,function(index, el) { 
+          index = (el == "#" ? 'end' : el); 
+          popupCon  += '<div id="'+index+'"><div class="head_pep ub ub-f1 ub-ac">'+el+'</div></div>' 
+     });  
+     $('.popup .content').html(popupCon);   
+     $.each(json.usersTree,function(index, el) {  
+        var text = el.account.replace(/[0-9]/g, '').charAt(0).toUpperCase();  
+        (text == '') && (text = 'end');
+        el.phone && $('#'+text).append('<div class="ub ub-f1 ub-as ub-pc ub-ver phone_number_list">\
+                                              <a href="javascript:$setUser('+el.userid+',\''+el.username+'\');" class="ub ub-f1 ub-ver ub-as ubb" >\
+                                                <div class="user_name">'+el.username+'</div>\
+                                                <div class="user_phone_number">'+el.phone+'</div>\
+                                              </a>\
+                                        </div>');
+     });   
+     $('.popup .content').children('div').each(function(index, el) {
+         if(!$(el).find('div').hasClass('phone_number_list')){ 
+             $(".external[t='"+$(el).attr('id')+"']").remove()
+             $(el).remove()
+         }
+     });
+     $('.external').each(function(index, el) {
+         $(el).click(function() {
+              $.toast($(el).attr('t'),500);
+         });
+     });
+    }   
+    $('#search').click(function(event) {
+        var search = $('[type="search"]'),
+            value  =  search.val().replace(/(^\s*)|(\s*$)/g, "");
+            (value == '') && search.val('');
+         
+        $.https({
+               url:mainURL,
+               data:{
+                 ParamJson : JSON.stringify({ 
+                    "username": value,
+                })
+               },
+               type:"post",
+               dataType:"json",
+               success:function(json){ 
+                   (json.Code == 1) && $loadList(json); 
+               }
+            }); 
+        });   
+});
+var sendId = $.getStorage('receive_senduserids')
+if(sendId && sendId != '0'){
+    $.setStorage('receive_senduserids','0') 
+    $setUser(sendId,$.getStorage('receive_name'))
+} 
+//设置收件人
+function $setUser (id,name) {
+    console.log(id,name)
+    var receive = false;
+    $('#receive').children().each(function(index, el) {   
+         (id == parseInt($(el).attr('data-id'))) && (receive = true); 
+    });   
+    !receive && $('#receive').append('<span data-id="'+id+'">'+name+'<i class="iconfont icon-close" onClick="$(this).parent().remove()"></i></span>');
+ 	   
+}  
+//发送邮件
+$('.button-warning').click(function(event) {
+     $.showPreloader('正在发送');
+	 var msnJson = {
+	 	"title":$('#title').val(),//标题
+	 	"content":$('#content').val(),//内容
+	 	"userid":userData.userid ,//发送者id
+	 	"nickname":userData.nickname ,//发送者姓名
+	 	"receiveid":"" ,//接收者id，多个用,分隔
+	 	"receivename":"", //接收者姓名，多个用,分隔
+	 },userID = [],userName = []; 
+	 if(msnJson.title.replace(/\s/g, '') === ''){
+        $.hidePreloader();
+	 	$.toast("标题不能为空"); 
+	 	return;
+	 }
+	 if(msnJson.content.replace(/\s/g, '') === ''){
+        $.hidePreloader();
+	 	$.toast("内容不能为空");
+	 	return;
+	 }
+     $('#receive span').each(function(index, el) {
+         userID.push($(el).attr('data-id'))
+         userName.push($(el).text()) 
+     });
+     if(userID.length == 0){
+        $.hidePreloader();
+        $.toast("请添加收件人"); 
+        return;
+     } 
+     msnJson.receiveid = userID.join(',');
+     msnJson.receivename = userName.join(',');
+     $.https({
+        url:mainURL + 'saveMsg.do',
+        type:'post',
+        data:{
+            ParamJson:JSON.stringify(msnJson) 
+        },
+        success:function (json) { 
+            $.hidePreloader();
+            if(json.Code == "1"){
+                $.toast("发送成功"); 
+                setTimeout(function () {
+                     // $.setStorage('addEmail','1');
+                     $.uexOpen('in_email');
+                },1500)
+            } 
+        },
+        error:function (json) {
+            $.hidePreloader();
+            $.toast("发送失败"); 
+        }   
+     }) 
+});
+</script>
+</body>
+</html>

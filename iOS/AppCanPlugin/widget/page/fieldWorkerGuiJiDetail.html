@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>外勤轨迹</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta content="telephone=no,email=no" name="format-detection"/> 
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="description" content="">
+<link rel="stylesheet" href="../fonts/iconfont.css">
+<link rel="stylesheet" href="../css/min/sm.css">
+<link rel="stylesheet" href="../css/min/sm-extend.css"> 
+<link rel="stylesheet" href="../css/min/flexBox.css">  
+<link rel="stylesheet" href="../css/tonXin.css"> 
+<style>
+#xian{left:1.1rem;}
+.page, .page-group {
+  background-color: #e8e8e8;
+}
+.page_leave_sq_detail .apply_left2 {
+  max-width: 4rem;
+  min-width: 4rem;
+  height: 100%;
+}
+.page_leave_sq_detail .apply_content .apply_guo,.leftTime {
+  font-size: 1rem;
+  left: -1.85rem;
+  top: .3rem;
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 1.2rem;
+  position: absolute;
+  z-index: 3;
+  background: #028db8 url(../img/adress.png) no-repeat center center;
+  background-size: .8rem .8rem;
+}
+.leftTime{
+  width:2rem;background:rgba(0,0,0,0);height:auto;border-radius:0;
+  left:-4rem;top:-.1rem;
+}
+.leftTime span{text-align:right;width:100%;display:block;line-height:1rem;}
+
+.leftTime .month{
+  font-size:.75rem;color:#333;
+}
+.leftTime .dateTime{
+  font-size:.65rem;color:#666;
+}
+#getOAOpinion{
+  padding-right:.4rem;margin-left:.3rem;
+ }
+ .year{
+	width:2.8rem;height:1.4rem;line-height:1.4rem;background:rgba(0,0,0,0.5);color:#fff;
+	font-size:.75rem;text-align:center;position:relative;
+	z-index:2;left:-2.6rem;top:0;border-radius:.2rem;margin-top:.6rem;
+	}
+.icon.pull-right{
+	-webkit-text-stroke-width:0;color: #1ac6ee;font-size: .85rem;
+	}
+header.bar.bar-nav .icon {
+  color: #1ac6ee;
+}
+.setTime{overflow:hidden;top:2.2rem;text-align:center;}
+.setTime img{width:1rem;height:1rem;display:inline-block;vertical-align:middle;}
+.setTime p{width:5.5rem;height:2.2rem;display:inline-block;vertical-align:middle;line-height:2.2rem;margin:0;}
+.bar-nav ~ .content {top: 4.4rem;}
+</style>
+</head>
+<body>
+ <div class="page-group">
+     <div class="page page-current  page_leave_sq_detail">
+	 
+			  <header class="bar bar-nav">
+                <a class="icon icon-left pull-left back"></a>
+                <h1 class="title" id="title_">某某</h1>
+				<a class="icon pull-right" onclick="$.uexOpen('fieldWorkerGaodeMap')">轨迹地图</a>
+              </header>
+			
+			  <div class="setTime bar bar-nav" id="setTime">
+			    <img src="../img/64-64-date.png"/><p></p>
+			  </div>
+			
+       <div class="content">
+	   
+		   <div class="ub ub-f1 ub-as apply_load_bottom">
+		      <div class="apply_left2 ub ub-f1 ub-ver"><div id="xian" class="ub ub-f1 ub-ver"></div></div>
+		      <div id="getOAOpinion" class="ub ub-f1 ub-as ub-ps ub-ver">
+			    
+				<!-- <div class="year">2017</div>
+
+				<div class="apply_content ub ub-f1 ub-ver" onclick="$.uexOpen('fieldWorkerDetail')">
+				  <div class="apply_top">呈阅捷秘书长阅示。</div>
+				  <div class="apply_time">广州市岗顶龙西大道西伊打羽毛球</div>
+				  <i></i>
+				  <span class="apply_guo"></span>
+				  <div class="leftTime">
+				   <span class="month">04-23</span>
+				   <span class="dateTime">16:30</span>
+				  </div>
+				</div> -->
+				
+		      </div>
+		   </div>
+		   
+	   </div>
+     </div>	   	
+</div>
+
+
+<script type='text/javascript' src='../js/min/zepto.min.js' charset='utf-8'></script> 
+<script type='text/javascript' src='../js/mains.js' charset='utf-8'></script>  
+<script type='text/javascript' src='../js/config.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm-extend.min.js' charset='utf-8'></script> 
+<script type='text/javascript' src='../js/demos.js' charset='utf-8'></script>
+<!-- 用户信息html -->
+<script id="userInfo" type="text/html"> 
+	<div class="apply_content ub ub-f1 ub-ver" onclick="$.uexOpen('fieldWorkerDetail'),$.setStorage('fwUserId','$id$')">
+		<div class="apply_top">$name$</div>
+		<div class="apply_time">$location$</div>
+		<i></i>
+		<span class="apply_guo"></span>
+		<div class="leftTime">
+			<span class="month">$monthDate$</span>
+			<span class="dateTime">$hoursMin$</span>
+		</div>
+	</div>
+	
+</script>
+<script>
+   var YMD = $.time('',0).split('-');
+		    ymdArray = [];
+			ymdArray.push(YMD[0]+'年')
+			ymdArray.push(YMD[1]<10 ? '0'+YMD[1]+'月' : YMD[1]+'月')
+            $('#setTime>p').text(ymdArray[0]+' '+ymdArray[1])
+			
+	var yearArray = function(){
+		   var arr = new Array(),
+			   yea = $.time('',0).substr(0,4)-5;
+		   for(var i=0;i<=10;i++){
+			 if(i<10){
+				arr[i]= (yea+i)+'年';
+			 }
+		   }
+		   return arr;
+		}
+		
+	var monthArray = function(){
+		   var arr = new Array();
+		   for(var i=0,y=1;i<=11;i++,y++){
+			 if(i<10&&y<10){
+			    arr[i]= '0'+y+'月';
+			 }else{arr[i]= y+'月';}
+		   }
+		   return arr;
+		}
+		
+	function html_start(){
+		  var o =$('.organize_list').height(),
+		      n =$('.content').height(),
+		      t =$('#getOAAttachPath').parent().height(),
+		      c =$('#getOAAttachPath2').parent().height(),
+	          h = $('.apply_load_bottom .apply_content:last-child').height()/2,
+		      g = $("#getOAOpinion").height(),
+			  d = $('#xian');
+			  d.height((n-o-t-c) > g ? (n-o-t-c) : g)
+	}
+	html_start();
+	$('#title_').text(getlocalVal('cuserName-FX'));
+	
+	$.ready(function () {
+	var Pa ={
+			"SessionId" : getlocalVal('SessionId'),
+			"month"		: "",
+			"cuser"		: getlocalVal('cuserUserId')
+		};
+    function getData(){
+	   	$.https({
+			url:mainURL,
+			data:{
+				ClassName : "MyOutsideWork",
+				MethodName: "outsideByUseridList",
+				ParamJson : JSON.stringify(Pa)
+			   },
+			type:"post",
+			dataType:"json", 
+			success:function(res,status,xhr){ 
+			    console.log(res)
+				var m = $('#userInfo').text(),
+					o = res.Result.Rows,
+					c = $('#getOAOpinion').text('');
+				if(Number(res.Code) == 1&&Number(res.Result.TotalCount)>0){
+			        var s = o[0].ctime.substr(0,4),
+					    htmlList = "";
+					    c.append('<div class="year">'+s+'</div>');
+ 
+					o.forEach(function(obj,index,json) {
+						obj.monthDate = obj.ctime.substr(5,5);
+						obj.hoursMin  = obj.ctime.substr(11,5);
+						htmlList += m.temp(obj);
+					});	
+					c.append(htmlList);
+					html_start();
+				}else{
+				  c.html('<div class="ub ub-f1 ub-ac ub-pc padd" style="width:calc(100% - 4rem);color:#666;">无外勤记录</div>')
+				}
+			}
+		});
+	}
+    getData();
+	$('.bar-tab ~ .content').css('bottom',0).find('div.apply_load_bottom').css('margin-bottom',0)
+		
+	$("#setTime").picker({
+		toolbarTemplate: '<header class="bar bar-nav">\
+		  <button class="button button-link pull-right close-picker" id="yes">确定</button>\
+		  <h1 class="title tit">请选择日期</h1>\
+		  </header>',
+		cols: [
+			{
+			  textAlign: 'center',
+			  values: yearArray()
+			  //如果你希望显示文案和实际值不同，可以在这里加一个displayValues: [.....]
+			},
+			{
+			  textAlign: 'center',
+			  values: monthArray()
+			}
+		],
+		value:ymdArray,
+		formatValue:function(picker, value, displayValue){
+		      $('.title.tit').text(value[0]+' '+value[1])
+			   console.log(value)
+		}
+	});	
+		
+	$(document).on('click','#yes',function(){
+	    var dom = $('.picker-item.picker-selected'),
+		year  = dom.eq(0).text(),
+		month = dom.eq(1).text(); 
+		$('#setTime>p').text($('.title.tit').text(year+' '+month).text());
+		Pa.month = year.substr(0,4)+'-'+month.substr(0,2);
+		getData();
+	})
+
+		
+
+		
+	})
+
+
+</script>
+</body>
+</html>

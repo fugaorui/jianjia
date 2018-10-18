@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>站内信</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta content="telephone=no,email=no" name="format-detection"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="description" content="">
+    <!-- <link rel="shortcut icon" href="/favicon.ico"> -->
+    <link rel="stylesheet" href="../fonts/iconfont.css">
+    <link rel="stylesheet" href="../css/min/sm.css">
+    <link rel="stylesheet" href="../css/min/sm-extend.css">
+    <link rel="stylesheet" href="../css/min/flexBox.css">
+    <link rel="stylesheet" href="../css/tonXin.css">
+    <script type='text/javascript' src='../js/vue.min.js' charset='utf-8'></script>
+    <style>
+        .content-block {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        li {
+            background-color: #fff;
+        }
+
+        .tabs ul li {
+            padding: .2rem 0 0 .5rem;
+            height: 3rem;
+        }
+
+        dt {
+            background: none;
+            /* transform: translate3d(.4rem,0,0);
+             -webkit-transform: translate3d(.4rem,0,0);*/
+            width: 100%;
+            height: 0px;
+            border-top: 1px solid #d8d8d8;
+            color: #d9d9d9;
+            -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+            -webkit-transform: scaleY(.5);
+            transform: scaleY(.5);
+        }
+
+        #job_siftings {
+            position: fixed;
+            font-size: .7rem;
+            top: 2.2rem;
+            z-index: 99999;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, .5);
+            overflow: hidden;
+            display: none;
+        }
+
+        #job_siftings .bg_siftings {
+            background: #fff;
+            padding: 0 .4rem;
+            color: #333;
+            transform: translate3d(0, -8.1rem, 0);
+            -webkit-transform: translate3d(0, -8.1rem, 0);
+            transition: all 0.2s ease-in-out;
+            -webkit-transition: all 0.2s ease-in-out;
+        }
+
+        #job_siftings .active_siftings {
+            transform: translate3d(0, 0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
+            transition: all 0.2s ease-in-out;
+            -webkit-transition: all 0.2s ease-in-out;
+        }
+
+        .time_siftings {
+            margin-top: .5rem;
+        }
+
+        .time_siftings div:nth-child(1) {
+            margin-right: .4rem;
+        }
+
+        .time_siftings div:nth-child(2) input {
+            height: 1.5rem;
+            text-indent: .3rem;
+            border: 1px solid #d8d8d8;
+            /*-webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+            -webkit-transform: scaleY(.5);
+            transform: scaleY(.5);*/
+        }
+
+        .time_siftings div:nth-child(4) input {
+            height: 1.5rem;
+            text-indent: .3rem;
+            border: 1px solid #d8d8d8;
+        }
+
+        /*.time_siftings div:nth-child(5) input{height:1.5rem;text-indent:.3rem;border:1px solid #d8d8d8;}*/
+        .time_siftings div:nth-child(3) {
+            width: 1rem;
+        }
+
+        .submit_siftings {
+            background: #0894ec;
+            height: 1.8rem;
+            color: #fff;
+            border-radius: 1.8rem;
+            max-width: 70%;
+            margin: .8rem auto;
+        }
+
+        .icon-close {
+            position: absolute;
+            right: .2rem;
+        }
+        li{
+            padding: .5rem;
+        }
+         [v-cloak] {
+             display: none;
+         }
+        .line1{
+            font-size: .85rem;
+        }
+    </style>
+</head>
+<body>
+<div class="page-group" id="app">
+    <!-- 单个page ,第一个.page默认被展示page_msn-->
+    <div class="page page-current leave page_email_Admin page_memo page_msn" id="page_inEmail">
+        <!--站内信头部-->
+        <header class="bar bar-nav">
+            <!--<a class="icon icon-left pull-left" onclick="$openHome()"></a>-->
+            <a class="icon icon-left pull-left" onclick="$.uexBack()"></a>
+            <!--<a class="icon pull-right">筛选</a>-->
+            <h1 class="title">顾客开卡信息列表</h1>
+        </header>
+        <div class="fixed_button bar bar-tab" v-if="openCard" v-cloak>
+            <a href="javascript:;" @click="addCard" class="button button-fill button-warning bottoms">
+               开卡
+            </a>
+        </div>
+        <div class="content" v-cloak>
+            <li v-for="el in list" @click="detail(el.id)">
+                <a href="javascript:;">
+                    <div class="ub ub-f1 ub-as ub-pc ub-ver"  >
+                        <div class="ub ub-f1 ub-ac ub-pj email_Admin_list">
+                            <span class="ub ub-as ub-pc ub-f1 ub-ver ut-m line1">
+                                {{el.cname}}
+                                </span>
+                            <div class="ub ub-ac ub-pc email_Admin_right">
+                               <span>{{el.kkrq}}</span>
+                               <span class="icon icon-right"></span>
+                               </div>
+                            </div>
+                        <div class="ub ub-f1 ub-ac ub-ps email_Admin_list_bottom"><span>{{el.gkxm}}</span></div>
+                        </div>
+                    </a>
+                </li>
+        </div>
+    </div>
+</div>
+<script type='text/javascript' src='../js/min/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/mains.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/config.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm-extend.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/demos.js' charset='utf-8'></script>
+
+
+<script type="text/javascript">
+    $.ready(function () {
+        $.monitorVal({operation:''})
+        var vm = new Vue({
+            el:'#app',
+            data: {
+                list:[],
+                userData: $.getUserData(),
+                openCard:  false
+            },
+            created: function (){
+            	$.showIndicator()
+                this.openCard = this.userData.roleid != 3 ? true :false;
+                $.https({
+                    url: mainURL+'cardInit.do',
+                    data: {
+                        ParamJson: JSON.stringify({
+                            roleid:$.getUserData().roleid,
+                            userid: this.userData.userid,
+                            pageNo:"1",
+                            pageSize:"20",
+                            cname:"",
+                            gkbh:""
+                        })
+                    },
+                    type: "post",
+                    dataType: "json",
+                    success: function (json) {
+                        vm.list = json.Row.cardList; 
+                        vm.$nextTick(function () {
+                        	$.hideIndicator()
+					    })
+                    }
+                });
+            },
+            mounted: function () {
+
+            },
+            methods: {
+                detail:function(id){
+                    $.setStorage('operation_detail_id',id)
+                    $.uexOpen('operation_detail')
+                },
+                addCard:function () {
+                    $.setStorage('operation_detail_id',"")
+                    $.uexOpen('operation_detail')
+                }
+            }
+        })
+    })
+</script>
+</body>
+</html>

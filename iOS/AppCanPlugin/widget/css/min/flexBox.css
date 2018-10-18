@@ -1,0 +1,55 @@
+@charset "utf-8";
+*{	
+  /*-webkit-text-stroke-width: 0.2px;*/
+  -moz-osx-font-smoothing: grayscale;
+	padding:0;margin:0;font-family: "Helvetica Neue", Helvetica, Arial, "Microsoft Yahei UI", "Microsoft YaHei", SimHei, "\5B8B\4F53", simsun, sans-serif;
+	padding:0;margin:0;outline: 0 !important; 
+}
+ul,ul li,li{list-style-type: none;}
+body{background: #fff;color:#000;} 
+img{display: block;width:100%;border:0;}
+a{text-decoration:none;}
+
+/*基础设定*/
+.ub{display: -webkit-box !important;display: box !important;position:relative;}
+.ub-ver{-webkit-box-orient:vertical;box-orient:vertical;}
+.ub-f1{position:relative;-webkit-box-flex: 1; box-flex: 1;}
+.ub-f2{position:relative;-webkit-box-flex: 2; box-flex: 2;}
+.ub-as{-webkit-box-align:start;box-align:start;}/*上*/
+.ub-ac{-webkit-box-align:center;box-align:center;}/*中*/
+.ub-ae{-webkit-box-align:end;box-align:end;}/*下*/
+.ub-ps{-webkit-box-pack:start;box-pack:start;}/*左*/
+.ub-pc{-webkit-box-pack:center;box-pack:center;}/*中*/
+.ub-pe{-webkit-box-pack:end;box-pack:end;}/*右*/
+.ub-pj{-webkit-box-pack:justify;box-pack:justify;}/*左右平分*/
+.ub-con{position:absolute;width:100%;height:100%;}
+div {outline: 0 !important;-webkit-text-size-adjust: none;-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+.ut-s {text-overflow: ellipsis;overflow: hidden;white-space: nowrap !important;outline: 0 !important;}
+.ut-m {text-overflow: ellipsis;overflow: hidden;white-space: normal !important;outline: 0 !important;}
+.line2 {-webkit-line-clamp: 2;}
+.line3 { -webkit-line-clamp: 3;}
+.line1{ -webkit-line-clamp: 1;}
+.nav-btn {min-height: 2rem;min-width: 4rem;display: -webkit-box !important;display: box !important;position: relative;
+               -webkit-box-align: center;box-align: center;-webkit-box-pack: center;box-pack: center;}
+.ub-img{-webkit-background-size:contain;background-size:contain;background-repeat:no-repeat;
+	  background-position:center;}
+.tx-l {text-align: left;}
+.tx-r {text-align: right;}
+.tx-c {text-align: center;}
+.uba {border: 1px solid;}
+.uba1 {border: 2px solid;}
+.uba2 {border: 3px solid;}
+.ubt {border-top: 1px solid;}
+.ubb {border-bottom: 1px solid;}
+.ubl {border-left: 1px solid;}
+.ubr {border-right: 1px solid;}
+.uinput input, .uinput textarea {
+    margin: 0px;border: 0px;width: 100%;height: 100%;
+    -webkit-appearance: none;/*去除系统默认appearance的样式,常用于IOS下移除原生样式*/
+    padding:0;line-height: 1.2rem;background: none;
+    text-decoration: none;font-size: 1rem;display: block;}
+.bc-head{padding:.4rem 0;}
+.btn-left{min-height: 2rem;min-width: 4rem;display: -webkit-box !important;display: box !important;position: relative;
+      -webkit-box-align: center;box-align: center;-webkit-box-pack: start;box-pack: start;}
+.br-a6 {-webkit-border-radius: .6rem;border-radius: .6rem;}
+.br-a3 {-webkit-border-radius: .3rem;border-radius: .3rem;}

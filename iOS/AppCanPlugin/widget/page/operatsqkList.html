@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>站内信</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta content="telephone=no,email=no" name="format-detection"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="description" content="">
+    <!-- <link rel="shortcut icon" href="/favicon.ico"> -->
+    <link rel="stylesheet" href="../fonts/iconfont.css">
+    <link rel="stylesheet" href="../css/min/sm.css">
+    <link rel="stylesheet" href="../css/min/sm-extend.css">
+    <link rel="stylesheet" href="../css/min/flexBox.css">
+    <link rel="stylesheet" href="../css/tonXin.css">
+    <script type='text/javascript' src='../js/vue.min.js' charset='utf-8'></script>
+    <style>
+        .content-block {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        li {
+            background-color: #fff;
+        }
+
+        .tabs ul li {
+            padding: .2rem 0 0 .5rem;
+            height: 3rem;
+        }
+
+        dt {
+            background: none;
+            /* transform: translate3d(.4rem,0,0);
+             -webkit-transform: translate3d(.4rem,0,0);*/
+            width: 100%;
+            height: 0px;
+            border-top: 1px solid #d8d8d8;
+            color: #d9d9d9;
+            -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+            -webkit-transform: scaleY(.5);
+            transform: scaleY(.5);
+        }
+
+        #job_siftings {
+            position: fixed;
+            font-size: .7rem;
+            top: 2.2rem;
+            z-index: 99999;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, .5);
+            overflow: hidden;
+            display: none;
+        }
+
+        #job_siftings .bg_siftings {
+            background: #fff;
+            padding: 0 .4rem;
+            color: #333;
+            transform: translate3d(0, -8.1rem, 0);
+            -webkit-transform: translate3d(0, -8.1rem, 0);
+            transition: all 0.2s ease-in-out;
+            -webkit-transition: all 0.2s ease-in-out;
+        }
+
+        #job_siftings .active_siftings {
+            transform: translate3d(0, 0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
+            transition: all 0.2s ease-in-out;
+            -webkit-transition: all 0.2s ease-in-out;
+        }
+
+        .time_siftings {
+            margin-top: .5rem;
+        }
+
+        .time_siftings div:nth-child(1) {
+            margin-right: .4rem;
+        }
+
+        .time_siftings div:nth-child(2) input {
+            height: 1.5rem;
+            text-indent: .3rem;
+            border: 1px solid #d8d8d8;
+            /*-webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+            -webkit-transform: scaleY(.5);
+            transform: scaleY(.5);*/
+        }
+
+        .time_siftings div:nth-child(4) input {
+            height: 1.5rem;
+            text-indent: .3rem;
+            border: 1px solid #d8d8d8;
+        }
+
+        /*.time_siftings div:nth-child(5) input{height:1.5rem;text-indent:.3rem;border:1px solid #d8d8d8;}*/
+        .time_siftings div:nth-child(3) {
+            width: 1rem;
+        }
+
+        .submit_siftings {
+            background: #0894ec;
+            height: 1.8rem;
+            color: #fff;
+            border-radius: 1.8rem;
+            max-width: 70%;
+            margin: .8rem auto;
+        }
+
+        .icon-close {
+            position: absolute;
+            right: .2rem;
+        }
+        li{
+            padding:.2rem .5rem;
+        }
+        [v-cloak] {
+            display: none;
+        }
+        .line1{
+            font-size: .85rem;
+            position: relative;
+            display: inline-block!important;
+            width:100%;
+        }
+        .email_Admin_right{
+        }
+        .page_email_Admin .email_Admin_right {
+            color: #999;
+            font-size: .75rem;
+        }
+        .shenhe1{
+            position: relative;
+        }
+        .shenhe1:after{
+            content: '';
+            display: inline-block;
+            width: 3rem;
+            height:3rem;
+            background: url("../img/operationpxkkxx3.png") no-repeat;
+            background-size: contain;
+            position: absolute;
+            right:0;
+            bottom:0;
+        }
+        .shenhe2:after{
+            background-image: url("../img/operationpxkkxx2.png");
+        }
+        .shenhe3:after{
+            background-image: url("../img/operationpxkkxx0.png");
+        }
+        li{
+            /*padding: 0;*/
+
+        }
+        .ub-ver{
+            margin: .2rem 0;
+        }
+        .mp0{
+
+            margin:0;
+        }
+        .mp0.list-block li{
+            margin:0;
+            font-size:0.75rem;
+
+        }
+        .mp0.list-block ul{
+            background: #cccccc;
+
+        }
+        .mp0.list-block .item-inner{
+            min-height:1.1rem
+        }
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="page-group" id="app">
+    <!-- 单个page ,第一个.page默认被展示page_msn-->
+    <div class="page page-current leave page_email_Admin page_memo page_msn" id="page_inEmail">
+        <!--站内信头部-->
+        <header class="bar bar-nav">
+            <!--<a class="icon icon-left pull-left" onclick="$openHome()"></a>-->
+            <a class="icon icon-left pull-left" onclick="$.uexBack()"></a>
+            <!--<a class="icon pull-right">筛选</a>-->
+            <h1 class="title" v-cloak>{{roleid == 4 ? '收欠款' : '耗卡'}}列表</h1>
+        </header>
+
+        <!--<div class="bar bar-header-secondary">
+            <div class="searchbar">
+                <div class="searchbar row" style="    padding: 0;">
+                    <div class="search-input col-85">
+                        <input type="search" id='search' placeholder='输入顾客编号...' @keyup.13="searchClick"  v-model="searchVal" />
+                    </div>
+                    <a class="button button-fill button-primary col-15" style="top:0;right: .3rem;" @click="searchClick"><span class="icon icon-search"></span></a>
+                </div>
+                &lt;!&ndash;<a class="searchbar-cancel">取消</a>
+                <div class="search-input">
+                    <label class="icon icon-search" for="search"></label>
+                    <input type="search"  v-model="searchVal"  id='search' @change="searchClick" placeholder='输入顾客编号...'/>
+                </div>&ndash;&gt;
+            </div>
+        </div>-->
+
+        <div class="content infinite-scroll infinite-scroll-bottom" data-distance="500" v-cloak>
+            <ul>
+                <li v-for="el in list" @click="clickShowList(el)">
+                    <a href="javascript:;">
+                        <div class="ub ub-f1 ub-as ub-pc ub-ver"  >
+                            <div class="ub ub-f1 ub-ac ub-pj email_Admin_list">
+                            <span class="ub ub-as ub-pc ub-f1 ub-ver ut-m line1">
+                                {{el.czr}}
+                                </span>
+                                <div class="ub ub-ac ub-pc email_Admin_right">
+                                    <span>{{el.createtime}}</span>
+                                    <span class="icon icon-down"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="list-block mp0" v-show="showList == el">
+                        <ul>
+                            <li class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title">现金</div>
+                                    <div class="item-after">{{el.xj}}</div>
+                                </div>
+                            </li>
+                            <li class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title">微信</div>
+                                    <div class="item-after">{{el.wx}}</div>
+                                </div>
+                            </li>
+                            <li class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title">支付宝</div>
+                                    <div class="item-after">{{el.zfb}}</div>
+                                </div>
+                            </li>
+                            <li class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title">刷卡</div>
+                                    <div class="item-after">{{el.sk}}</div>
+                                </div>
+                            </li>
+                            <li class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title">代金券</div>
+                                    <div class="item-after">{{el.djq}}</div>
+                                </div>
+                            </li>
+                            <li class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title">划卡</div>
+                                    <div class="item-after">{{el.hk}}</div>
+                                </div>
+                            </li>
+                            <li class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title">转卡</div>
+                                    <div class="item-after">{{el.zk}}</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            <div class="infinite-scroll-preloader" >
+                <div v-if="preloaderShow" style="color: #999999;    font-size: .65rem;">没有更多数据了</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type='text/javascript' src='../js/min/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/mains.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/config.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm-extend.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/demos.js' charset='utf-8'></script>
+
+
+<script type="text/javascript">
+    var vm
+    $.ready(function () {
+        $.monitorVal({operation:''})
+        vm = new Vue({
+            el:'#app',
+            data: {
+                list:[],
+                userData: $.getUserData(),
+                openCard:  true,
+                page:1,
+                loading:false,
+                preloaderShow:false,
+                searchVal:'',
+                showList:'',
+                roleid : $.getUserData().roleid
+            },
+            created: function (){
+
+                $.showIndicator()
+                this.loadData();
+            },
+            mounted: function () {
+                /*this.$nextTick(function () {
+                    $('.infinite-scroll-bottom').scroll(function(){
+                        var $this =$(this),
+                            viewH =$(this).height(),//可见高度
+                            contentH =$(this).get(0).scrollHeight,//内容高度
+                            scrollTop =$(this).scrollTop();//滚动高度
+                        if(scrollTop/(contentH -viewH) >= 0.95){ //到达底部100px时,加载新内容
+                            if (vm.loading) return;
+                            vm.loading = true;
+                            vm.loadData()
+                        }
+                    });
+                })*/
+
+            },
+            methods: {
+                clickShowList:function (el) {
+                    if(this.showList == el){
+                        this.showList = ''
+                    }else{
+                        this.showList = el
+                    }
+
+                },
+                searchClick:function(){
+                    this.page = 1
+                    this.list = []
+                    this.loading = false
+                    this.preloaderShow = true
+                    this.loadData()
+
+                },
+                loadData:function (callBack) {
+                    var url =  this.roleid == 4 ? 'sqkRecord.do': 'initJSHKRecord.do'
+                    $.https({
+                            url:mainURL +url ,
+                            type:"post",
+                            data:{
+                                ParamJson : JSON.stringify({
+                                    "cid" :   $.getStorage('operation_detail_id')
+                                })
+                            },
+                            success:function(data){
+                                console.log(data)
+                                if( data.Row.cardList.length == 0){
+                                    vm.preloaderShow = true
+                                }
+                                vm.list = data.Row.cardList
+                                $.hideIndicator()
+                            }
+                        })
+                },
+                loadData2:function (callBack) {
+                    $.https({
+                        url:mainURL + 'sqkRecord.do ',
+                        type:"post",
+                        data:{
+                            ParamJson : JSON.stringify({
+                                "cid" :   $.getStorage('operation_detail_id')
+                            })
+                        },
+                        success:function(data){
+                            console.log(data)
+                            if( data.Row.cardList.length == 0){
+                                vm.preloaderShow = true
+                            }
+                            vm.list = data.Row.cardList
+                            $.hideIndicator()
+                        }
+                    })
+                }
+            }
+        })
+    })
+
+
+</script>
+</body>
+</html>

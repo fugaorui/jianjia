@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>我的备忘录</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<meta content="telephone=no,email=no" name="format-detection"/> 
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="description" content="">
+<link rel="stylesheet" href="../css/min/sm.css">
+<link rel="stylesheet" href="../css/min/sm-extend.css"> 
+<link rel="stylesheet" href="../css/tonXin.css">
+<link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css"/>
+<style>
+ .info-tip {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 12px;
+            background-color: #fff;
+            height: 35px;
+            text-align: left;
+ }
+</style>
+	
+<script src="http://cache.amap.com/lbs/static/es5.min.js"></script>
+<script src="http://webapi.amap.com/maps?v=1.3&key=6af865ee739670f77a1b1afb01b55f71"></script>
+<!--<script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>-->	
+</head>
+<body>
+ <div class="page-group">
+<!-- 单个page ,第一个.page默认被展示-->
+<!-- 申请请假-->
+     <div class="page page-current leave page_email_Admin page_my_memo" id="page_my_memo">
+	 
+	         <!--我的备忘录头部-->
+			  <header class="bar bar-nav">
+                <a class="icon icon-left pull-left back"></a>
+                <h1 class="title">打卡记录</h1>
+				<a class="icon pull-right" id="rest_no">取消</a>
+              </header>
+              
+			 <!--删除按钮-->
+		<!--	<div class="fixed_button bar bar-tab">
+			  <a href="javascript:;" class="button button-fill button-warning" id="my_memo_del">删除(<span id="my_memo_length">0</span>)</a>
+			</div>-->
+			
+       <div class="content infinite-scroll infinite-scroll-bottom">
+	   
+			<div id="container"></div>
+			<div class="button-group">
+				<input id="setFitView" class="button" type="button" value="地图自适应显示"/>
+			</div>
+			<div class="info-tip">
+				<div id="centerCoord"></div>
+				<div id="tips"></div>
+			</div>
+			
+			
+	   </div>
+     </div>	   	
+</div>
+
+
+<script type='text/javascript' src='../js/min/zepto.min.js' charset='utf-8'></script> 
+<script type='text/javascript' src='../js/mains.js' charset='utf-8'></script>  
+<script type='text/javascript' src='../js/config.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm-extend.min.js' charset='utf-8'></script> 
+<script type='text/javascript' src='../js/demos.js' charset='utf-8'></script>
+
+<script>
+function getMapLocation(longitude,latitude){
+  	
+    var map = new AMap.Map('container', {
+        resizeEnable: true,
+        center: [longitude, latitude],
+        zoom: 13
+    });    
+    map.clearMap();  // 清除地图覆盖物
+    var markers = [{
+        icon: 'http://webapi.amap.com/theme/v1.3/markers/n/mark_b1.png',
+        position: [longitude, latitude],
+		title: 'this is title'
+    }, {
+        icon: 'http://webapi.amap.com/theme/v1.3/markers/n/mark_b2.png',
+        position: [113.270,23.140],
+		title: '这就一个'
+    }];
+    // 添加一些分布不均的点到地图上,地图上添加三个点标记，作为参照
+	var markersCount = 1,markeID;
+    markers.forEach(function(marker) {
+	   markeID = 'markeID' + markersCount++;
+       markeID = new AMap.Marker({
+            map: map,
+            icon: marker.icon,
+            position: [marker.position[0], marker.position[1]],
+            offset: new AMap.Pixel(-12, -36)
+        });
+	markeID.setLabel({//label默认蓝框白底左上角显示，样式className为：amap-marker-label
+        offset: new AMap.Pixel(20, 20),//修改label相对于maker的位置
+        content: marker.title
+	  });
+    });
+    var center = map.getCenter();
+    var centerText = '当前中心点坐标：' + center.getLng() + ',' + center.getLat();
+    document.getElementById('centerCoord').innerHTML = centerText;
+    document.getElementById('tips').innerHTML = '成功添加三个点标记，其中有两个在当前地图视野外！';
+
+    // 添加事件监听, 使地图自适应显示到合适的范围
+    AMap.event.addDomListener(document.getElementById('setFitView'), 'click', function() {
+        var newCenter = map.setFitView();
+        document.getElementById('centerCoord').innerHTML = '当前中心点坐标：' + newCenter.getCenter();
+        document.getElementById('tips').innerHTML = '通过setFitView，地图自适应显示到合适的范围内,点标记已全部显示在视野中！';
+    });
+}
+
+$.ready(function () {
+    getMapLocation(113.264,23.129);
+
+  /*  uexLocation.getLocation(); 
+    uexLocation.cbGetLocation = function(opCode, dataType, data) {
+			if(Number(opCode)==0){
+			  longitude = data.match(/"longitude":(\d+\.\d+)/)[1];//经度
+              latitude = data.match(/"latitude":(\d+\.\d+)/)[1];//纬度
+			  uexLocation.stopLocation();//关闭GPS
+              getMapLocation(longitude,latitude);
+			}else{
+			  uexLocation.stopLocation();//关闭GPS
+			  $.alert('GPS定位失败');
+			}
+    }; 
+	*/
+})
+
+</script>
+
+</body>
+</html>

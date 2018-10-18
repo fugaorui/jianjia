@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>外勤签到</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<meta content="telephone=no,email=no" name="format-detection" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="description" content="">
+<link rel="stylesheet" href="../fonts/iconfont.css">
+<link rel="stylesheet" href="../css/min/sm.css">
+<link rel="stylesheet" href="../css/min/sm-extend.css">
+<link rel="stylesheet" href="../css/min/flexBox.css">
+<link rel="stylesheet" href="../css/tonXin.css">
+
+<style>
+#back, .title{color: white;}
+#headTop{overflow:hidden;background:red;height:24%;max-height:10rem;position:relative;z-index:20;
+     background:#0EBEE6 url(../img/wai750-304.png) no-repeat left top;background-size:cover;
+	 }
+#rest_no{color:white;font-size:.85rem;-webkit-text-stroke-width:0;}
+#weekTime{
+    position: absolute;right: 0;color:#fff;
+    left: .6rem;z-index: 10;bottom:.6rem;
+}
+#weekTime>div:first-child{font-size:1.1rem;}    
+#weekTime>div:last-child{font-size:.8rem;}   
+.apply_top{color:#0eafe0;padding-left:.15rem;} 
+.apply_time{color:#666!important;font-size:.65rem!important;}
+.page_leave_sq_detail .apply_content{background-color:#eafbff;}
+.page_leave_sq_detail .apply_content i {border-top: 10px solid #eafbff;}
+em.iconfont{color:#23ceac;font-size:.8rem;margin-right:.1rem;}
+.apply_shen~div.apply_top{color:#f1742e!important;}
+.page_leave_sq_detail .apply_left2{min-width:1.6rem;max-width:1.6rem;}
+.page_leave_sq_detail .apply_content .apply_shen,
+.page_leave_sq_detail .apply_content .apply_guo{width:.8rem;height:.8rem;left:-1.5rem;top:.5rem;background:#23ceac;}
+.page_leave_sq_detail .apply_content .apply_shen{background:#f1742e;}
+.page_leave_sq_detail .apply_left2 div{background:#eaeaea;}
+.toact_button{height:6rem;background-color:#eafbff;}
+.qianDao{margin:1rem auto 0 auto;width:4rem;height:4rem;text-align:center;color:#fff;
+		border-radius:4rem;overflow:hidden;font-size:.8rem;}
+#qianDao{line-height:1.2rem;position:relative;z-index;2;font-size:.7rem;}
+#quanLoad.loadQ1{
+   background:url(../img/q3-200-200.png) no-repeat center center;background-size:cover;
+   width:4rem;height:4rem;position:absolute;z-index:0;left:0;top:0;
+}
+#quanLoad.loadQ2{
+   background:url(../img/q2200-200.png) no-repeat center center;background-size:cover;
+   width:4rem;height:4rem;position:absolute;z-index:0;left:0;top:0;
+   -webkit-animation: loadingAnimate 1.5s infinite linear;
+   animation: loadingAnimate 1.5s infinite linear;
+}
+@-webkit-keyframes loadingAnimate {
+    0% {-webkit-transform: rotate(0deg);}
+    50% {-webkit-transform: rotate(180deg);}
+    100% {-webkit-transform: rotate(360deg);}
+}
+keyframes loadingAnimate {
+    0% {-webkit-transform: rotate(0deg);}
+    50% {-webkit-transform: rotate(180deg);}
+    100% {-webkit-transform: rotate(360deg);}
+}
+
+.padd{padding:.4rem;width:100%;font-size:.7rem;color:#aaa;margin-top:8%;}		
+#week_sign{margin-right:.2rem;}	
+</style>
+</head>
+<body>
+
+	<div class="page-group" >
+    	<div class="page page-current  page_leave_sq_detail">
+		
+		<div class="ub ub-f1 ub-ver" id="headTop">
+			<header class="bar bar-nav" style="background:none;position:static;">
+				<a id="back" class="icon icon-left pull-left back"></a>
+				<h1 class="title">外勤签到</h1>
+				<a class="icon pull-right" id="rest_no" onclick="$.uexOpen('fieldWorkerUserList')">外勤轨迹</a>
+			</header>
+			<div class="ub ub-f1 ub-ver ub-as ub-pc" id="weekTime">
+			 <div id="deptname">律协咨询部</div>
+			 <div>
+			  <span id="week_sign"></span>
+			  <span id="topTime_get"></span>
+			 </div>
+			</div>
+		</div>
+
+		 <!--签到按钮-->
+			<div class="toact_button bar bar-tab">
+			  <div class="ub ub-ac ub-pc qianDao" id="qdClick" onclick="$.uexOpen('fieldWorker')">
+				 <div id="quanLoad" class="loadQ1"></div>
+				 <div id="qianDao"><!-- 14:23<br/> -->签到</div>
+			  </div>
+			  
+			</div>
+		
+		<div class="content" style="background-color:#fff;" data-type="js">	
+
+		 <div class="ub ub-f1 ub-as apply_load_bottom">
+		      <div class="apply_left2 ub ub-f1 ub-ver"><div id="xian" class="ub ub-f1 ub-ver"></div></div>
+			  
+		      <div class="ub ub-f1 ub-as ub-ps ub-ver" style="padding-right:.4rem;margin-left:.3rem;" id="list_dinWei_sign">
+			     
+			    <!-- <div class="apply_content ub ub-f1 ub-ver">
+				  <div class="apply_top">9:55 外勤签到</div>
+				  <div class="apply_time">
+				   <em class="iconfont icon-locationfill"></em>
+				   <span>广东省广州市天河区龙口东路192号</span>
+				  </div>
+				  <i></i>
+				  <span class="apply_guo"></span>
+				</div>
+				-->
+				
+			  </div>
+		   </div>
+		  
+		</div>
+		</div>
+	</div>
+
+	<script type='text/javascript' src='../js/min/zepto.min.js' charset='utf-8'></script>
+	<script type='text/javascript' src='../js/mains.js' charset='utf-8'></script>
+	<script type='text/javascript' src='../js/config.js' charset='utf-8'></script>
+	<script type='text/javascript' src='../js/min/sm.min.js' charset='utf-8'></script>
+	<script type='text/javascript' src='../js/min/sm-extend.min.js' charset='utf-8'></script>
+	<script type='text/javascript' src='../js/demos.js' charset='utf-8'></script>
+<script type="text/javascript">
+ $(function(){
+    $('#deptname').text($.getUserData().deptname);
+	var _top = $('#topTime_get'),
+		_wee = $('#week_sign'),
+		_tim = '';  //分秒跳定时器 变量名
+		
+	function setHeight(){
+		var d = $(".content"),
+			e = $('.apply_load_bottom'),
+			c = d.height(),
+			a = e.height();
+			c > (a+15) ? e.height(c) : e.height(a);
+	}	
+	
+	function _h(d,s){
+		if(!isNaN(s)){
+		  return $(d).height(s);
+		}else{
+		  return $(d).height();
+		}
+	}
+   
+    _top.html($.time('',0)+" "+$.time('',1));
+    _wee.html($.time('',2));
+
+	(function setIn(){//分秒跳定时器
+		_tim = setInterval(function(){
+			_top.html($.time('',0)+" "+$.time('',1));
+		},1000)
+	})();
+		
+	$('.content').css({
+		'top':_h('#headTop'),
+		'height':_h('body')-_h('#headTop')-_h('.toact_button')
+	})
+		
+$.ready(function () {
+       
+    function listGet(obj){  //初始化
+	    var d = $('#list_dinWei_sign'),
+		    m = "";
+	    if(obj.length <= 0){
+		  d.html('<div class="ub ub-f1 ub-ac ub-pc padd" style="width:calc(100% - 1.6rem);">无外勤记录</div>')
+		}else{
+		  for(var i in obj){
+		    var o = obj[i],
+				t = o.ctime;
+		        m += '<div class="apply_content ub ub-f1 ub-ver" \
+							cuser="'+o.cuser+'" userid="'+o.id+'" \
+							onclick="$.uexOpen(\'fieldWorkerDetail\'),$.setStorage(\'fwUserId\','+o.id+'),$.setStorage(\'cuserUserId\','+o.cuser+')">\
+						<div class="apply_top">'+t+' 外勤签到</div>\
+						<div class="apply_time">\
+						   <em class="iconfont icon-locationfill"></em>\
+						   <span>'+o.location+'</span>\
+						</div>\
+						<i></i>\
+						<span class="apply_guo"></span>\
+				      </div>';
+			d.html(m)
+		  }
+		  setHeight();
+		  $.refreshScroller();
+		}
+	}
+ 
+	function getTime(lat,lon,ad){ 
+		var _T = new Date(),
+			_Y = _T.getFullYear(),
+			_M = _T.getMonth(),
+			_D = _T.getDate(),
+			YM = _Y +'-'+((Number(_M)+1)<10 ? '0'+(Number(_M)+1) : (Number(_M)+1)),
+		   YMD = YM +'-'+ (Number(_D)<10 ? '0'+ _D : _D);
+		var Pa = JSON.stringify({
+			"SessionId" : getlocalVal('SessionId'),
+			"pageNo"	: 1,
+			"pageSize"	: 30
+			});
+		$.https({
+			url:mainURL,
+			data:{
+				ClassName:"MyOutsideWork",
+				MethodName:"outsideByUserid",
+				ParamJson : Pa
+			   },
+			type:"post",
+			dataType:"json", 
+			success:function(res,status,xhr){ 
+			    console.log(res)
+				switch(Number(res.Code))
+					{
+					case 1:                   //初始化
+					   listGet(res.Result.Rows);
+					  break;
+					default:                  //用户未登录
+					  $.toast(res.Msg); 
+					  setTimeout(function(){
+						$.uexOpen('login');
+					 },1000)
+					 break;
+					}
+			},
+			error:function(xhr,errorText,errorStatus){
+				if(xhr.status == 0){
+					d.html('<div class="ub ub-f1 ub-ac ub-pc padd">服务器请求失败</div>')
+					$.toast("服务器请求失败");
+				}else if(xhr.status == 404){
+					d.html('<div class="ub ub-f1 ub-ac ub-pc padd">服务器出车祸啦404</div>');
+					$.toast("服务器出车祸啦");
+				}  
+			}
+		});
+	}	
+
+    getTime();//初始化打卡记录列表
+	 
+	$.monitorVal2({fieldWorkerSignDetail:getTime}) 
+	 
+	 
+	 
+    })	
+	
+ })
+ 
+
+</script>
+
+</body>
+</html>

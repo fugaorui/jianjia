@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>律协OA_通讯录</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta content="telephone=no,email=no" name="format-detection"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="../fonts/iconfont.css">
+    <link rel="stylesheet" href="../css/min/sm.css">
+    <link rel="stylesheet" href="../css/min/sm-extend.css">
+    <link rel="stylesheet" href="../css/min/flexBox.css">
+    <link rel="stylesheet" href="../css/tonXin.css">
+    <style>
+        .content {
+            background-color: #f2f2f2;
+        }
+
+        .iconImgGouTon {
+            width: 1rem;
+            height: 1rem;
+            position: absolute;
+            right: .8rem;
+            top: 50%;
+            margin-top: -.5rem;
+            z-index: 2;
+        }
+
+        .phoneIcon {
+            right: 2.5rem;
+        }
+
+        #countMax {
+            display: none;
+        }
+
+        .icon-search:before {
+            font-size: .8rem;
+        }
+    </style>
+</head>
+<body>
+<div class="page-group">
+    <div class="page page-current" id="mail_list">
+        <!-- 字母分类html -->
+        <script id="commentTemplate" type="text/html">
+            <div id="zhiMuIndex">
+                <div class="head_pep ub ub-f1 ub-ac">zhiMuIndex</div>
+                <div class="ub ub-f1 ub-as ub-pc ub-ver phone_number_list">
+                    <a href="javascript:;" class="ub ub-f1 ub-ver ub-as ubb">
+                        <div class="user_name">用户名</div>
+                        <div class="user_phone_number">部门 电话号码</div>
+                        <li class="phoneIcon iconImgGouTon"><img src="../img/KX2.png"/></li>
+                        <li class="smsIcon iconImgGouTon"><img src="../img/KX.png"/></li>
+                    </a>
+                </div>
+            </div>
+        </script>
+
+
+        <!-- 用户信息html -->
+        <script id="userTemp" type="text/html">
+            <a href="javascript:;"
+               account="$account$" deptid="$deptid$" userid="$userid$"
+               phone="$phone$" deptname="$deptname$" username="$username$"
+               class="ub ub-f1 ub-ver ub-as ubb">
+                <div class="user_name">$username$</div>
+                <div class="user_phone_number">$deptname$ $phone$</div>
+                <li class="phoneIcon iconImgGouTon"><img src="../img/KX2.png"/></li>
+                <li class="smsIcon iconImgGouTon"><img src="../img/KX.png"/></li>
+            </a>
+        </script>
+
+        <!-- 工具栏 -->
+        <nav class="bar bar-tab">
+            <a class="tab-item external active" href="javascript:"
+               onclick="$.uexOpen2('index'),$.setStorage('index','1')">
+                <div class="tab-item_img"><img src="../img/xx_off.png"/><span id="countMax"></span></div>
+                <span class="tab-label">消息</span>
+            </a>
+            <a class="tab-item external" href="javascript:;">
+                <div class="tab-item_img"><img src="../img/ts_on.png"/></div>
+                <span class="tab-label">通讯录</span>
+            </a>
+            <a class="tab-item external" href="javascript:;"
+               onclick="$.uexOpen2('application'),$.setStorage('application','1')">
+                <div class="tab-item_img"><img src="../img/yy_off.png"/></div>
+                <span class="tab-label">应用</span>
+            </a>
+            <a class="tab-item external" href="javascript:;"
+               onclick="$.uexOpen2('my_appConfig'),$.setStorage('my_appConfig','1')">
+                <div class="tab-item_img"><img src="../img/my_off.png"/></div>
+                <span class="tab-label">我的</span>
+            </a>
+        </nav>
+
+        <header class="bar bar-nav">
+            <h1 class='title'>通讯录</h1>
+        </header>
+        <div class="bar bar-header-secondary searchForm">
+            <div class="searchbar">
+                <a class="searchbar-cancel">取消</a>
+                <div class="search-input">
+                    <label class="icon icon-search" for="search"></label>
+                    <input type="search" id='search' placeholder='输入联系人姓名'/>
+                    <label for="search" class="weui_search_text ub ub-f1 ub-ac ub-pc">
+                        <i class="icon2 icon-search"></i>
+                        <span style="">搜索联系人姓名</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="content pull-to-refresh-content" data-ptr-distance="55">
+            <!-- 默认的下拉刷新层 -->
+            <div class="pull-to-refresh-layer">
+                <div class="preloader"></div>
+                <div class="pull-to-refresh-arrow"></div>
+            </div>
+
+            <div class="ub ub-ver ub-f1 phone_number_info">
+
+                <div class="ub ub-f1 ub-ac ub-ps head_jg" onclick="$.uexOpen('mail_jiaGou')">
+                    <img src="../img/80-80.png"/>
+                    <a href="javascript:;">组织架构</a>
+                </div>
+
+                <div id="people" >
+                   <!-- <div class="ub ub-f1 ub-ac ub-ps head_jg" onclick="$.uexOpen('mail_user_cy')">
+                        <img src="../img/80-80.png"/>
+                        <a href="javascript:;">常用联系人</a>
+                    </div>-->
+                    <!-- <div class="head_pep ub ub-f1 ub-ac">常用联系人</div> -->
+                    <!--  <div class="ub ub-f1 ub-as ub-pc ub-ver phone_number_list">
+                      <a href="javascript:;" class="ub ub-f1 ub-ver ub-as ubb">
+                        <div class="user_name">小明同学</div>
+                        <div class="user_phone_number">工程部 18888888888</div>
+                      </a>
+
+                     </div> -->
+                    <div id="mail_Pepo_List">
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="page" id="serch_pepo" style="background:none;">
+
+        <!-- search input -->
+        <header class="bar bar-nav">
+            <a class="icon icon-left pull-left" id="leftClose"></a>
+            <h1 class='title'>搜索</h1>
+        </header>
+        <div class="bar bar-header-secondary">
+            <div class="searchbar searchbar-active searchbar-active">
+                <a class="searchbar-cancel">取消</a>
+                <div class="search-input">
+                    <label class="icon icon-search" for="search2"></label>
+                    <input type="search" id='search2' autofocus placeholder='输入联系人姓名'/>
+                    <!-- <label for="search2" class="weui_search_text ub ub-f1 ub-ac ub-pc">
+                      <i class="icon2 icon-search"></i>
+                      <span style="">搜索联系人姓名</span>
+                    </label> -->
+                </div>
+            </div>
+        </div>
+
+        <div class="content" style="background:rgba(255,255,255,.5)">
+
+            <div class="ub ub-f1 ub-as ub-pc ub-ver phone_number_list searchHtmlDomParent">
+                <!-- <a href="javascript:;" class="ub ub-f1 ub-ver ub-as ubb">
+                  <div class="user_name">小明同学</div>
+                  <div class="user_phone_number">工程部 18888888888</div>
+                </a> -->
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+<script type='text/javascript' src='../js/min/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/mains.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/config.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm-extend.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/demos.js' charset='utf-8'></script>
+
+<script>
+    var setInterTimeGlobal;
+    function scrollToTip(id) { //页面滚动到指定位置
+        var getTipTop = $('#' + $(id).attr('sid')).offset().top;
+        //console.log(getTipTop)
+        //$('#'+$(id).attr('sid'))[0].scrollIntoView(true);
+        var sr = $('#' + $(id).attr('sid')).find('.head_pep').height();
+        dr = $('#' + $(id).attr('sid')).find('.phone_number_list a').eq(0).height();
+        $('.content').scrollTop(getTipTop + $('.content').scrollTop() - sr - dr);
+    }
+
+    $.ready(function () {
+        !isiOS && $.toolBack();
+        $(document).on('click', '.phoneIcon', function () {  //电话拨打
+            var s = $(this).parents('a').attr('phone');
+            if (s == "" || s == null) {
+                return $.toast('未存储电话号码');
+            }
+            uexCall.dial($(this).parents('a').attr('phone'));
+        })
+        $(document).on('click', '.smsIcon', function () {  //短信发送
+            //uexCall.facetime("10010");
+            var s = $(this).parents('a').attr('phone');
+            if (s == "" || s == null) {
+                return $.toast('未存储电话号码');
+            }
+            uexSMS.open($(this).parents('a').attr('phone'), "");
+        })
+
+        if (typeof uexWindow === "object") (function () {
+            var c1c = 0;
+            uexWindow.setReportKey(0, 1);
+            uexWindow.onKeyPressed = function () {
+                if (c1c > 0) {
+                    uexWidgetOne.exit(0);
+                } else {
+                    uexWindow.toast(0, 8, '再按一次退出应用', 1000);
+                    c1c = 1;
+                    setTimeout(function () {
+                        c1c = 0;
+                    }, 2000);
+                }
+            };
+        })();
+
+        //右侧字母锚点循环html 
+        var arry = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "X", "Y", "Z", "#"];
+
+        (function () {//分类框架html循环遍历，动态插入
+            var temp_jsDiv = $("#commentTemplate"),
+                    html_div = $("#mail_Pepo_List"),
+                    htmlList = "",
+            //javascript commentTemplate中的模板HTML
+                    htmlTemp = temp_jsDiv.text();
+            for (var q = 0; q < arry.length; q++) {
+                if (arry[q] == "#") {
+                    var kou = htmlTemp.replace(/zhiMuIndex/g, arry[q]);
+                    htmlList += kou.replace(/#/, "endStratOne");
+                } else {
+                    htmlList += htmlTemp.replace(/zhiMuIndex/g, arry[q]);
+                }
+            }
+            $('#mail_Pepo_List').append(htmlList).css('visibility', 'hidden;');
+        })();
+
+
+        //给部门下级页加上头部分类sessionStorage数据
+        var set_value = (function set_value() {
+            var section = sessionStorage.getItem("section") || "数据未存储";
+            $('#page_section_member .organize .session').text(section);
+            return set_value;
+        })();
+
+        $('#page_1 .fixed_right a').on('click', function () {
+            $.toast($(this).text());
+        })
+
+        $('#page_jiaGou .organize_list a').on('click', function () {
+            session("section", $(this).find("div span:first-child").text());
+            set_value();
+        })
+        //});
+
+
+        var mailListJson = {   //	通讯录传参集
+                    "SessionId": getlocalVal('SessionId')
+                },
+                uex_gonGonJsonInfo = "";
+
+        function coutLengthRight() { //计算右边图标所占距离，并给左侧'.user_phone_number'长度赋值
+            var leng = parseInt($('.phoneIcon').css('right')) + Number($('.phoneIcon').width() + $('.smsIcon').width())
+            console.log($('.phoneIcon').css('right'))
+            $('.user_phone_number').css({
+                'width': $(window).width() - leng
+            })
+        }
+
+        function chuLiJiaMi(data) {
+//            var res = JSON.parse(data);
+            var res = data
+
+            var jsonUser = res.usersTree,//用户信息
+                    jsonDeptTree = res.deptTree, //部门信息
+                    jsonUserCout = jsonUser.length;
+            var setArrayinfo = new Array(),//把已经存储过的字母加入该数组
+                    indexq = 0;
+            for (var y = 0; y < jsonUserCout; y++) {
+                var dd = JSON.stringify(jsonUser[y].account)
+
+                        var dd = dd.substr(1, 1).toUpperCase(),//json的首字母数据
+                        htmlStr = "", 			//动态html
+                        html1 = "", 			//要放动态html的父级div
+                        temp1 = $("#userTemp"),
+                        reg = /^[A-Za-z]+$/;  //判断是否为字母
+                strTemp = temp1.text();   //js userTemp中的模板HTML
+
+                for (var i = 0; i < arry.length; i++) {
+
+                    var str = arry[i]; //A B C D...数组遍历
+                    if (str == "#") {
+                        html1 = $('#endStratOne').find('.phone_number_list');
+                    } else {
+                        html1 = $('#' + str).find('.phone_number_list');
+                    }
+
+                    if (dd == str && setArrayinfo.indexOf(str) == -1) {
+                        setArrayinfo.push(arry[i]);//把未存储过的字母加入该数组
+                        html1.text("");
+                        indexq++;
+                    }
+                    if (dd == str) {
+                        htmlStr += strTemp.temp(jsonUser[y]);
+                        html1.append(htmlStr);//塞入动态页面
+                    } else {
+                        if (!reg.test(dd)) {
+                            htmlStr += strTemp.temp(jsonUser[y]);
+                            $('#endStratOne').find('.phone_number_list').append(htmlStr);
+                            break;
+                        }
+                    }
+                }
+            }
+            coutLengthRight();
+            $('#endStratOne .phone_number_list').find('a').eq(0).remove();
+            var inXR = "";
+            for (var y = 0; y < arry.length; y++) {
+                inXR = $.inArray(arry[y], setArrayinfo);
+                if (inXR < 0) {
+                    if (arry[y] == "#") {
+                        $('#endStratOne').remove();
+                    } else {
+                        $('#' + arry[y]).remove();
+                    }
+                }
+            }
+
+            $.hideIndicator();
+            $('#mail_Pepo_List').css('visibility', 'visible')
+        }
+
+        function getSuccess() {   //通讯录ajax回调数据处理函数
+
+            var data = $.getStorage('userJsonInfoDetails')
+            data = JSON.parse(data)
+            uex_gonGonJsonInfo = data;
+            chuLiJiaMi(data);
+        }
+
+        function versionIfRun(val) {   //判断版本号是否一致，不同则请求获取新的通讯录数据
+            if (getlocalVal("mailVersionSetLocalCache") != "" && getlocalVal("mailVersionSetLocalCache") != null) {
+                if (getlocalVal("mailVersionSetLocalCache") == val) {
+                    getSuccess();
+                    return false;
+                } else {
+                    $.showPreloader("正在更新通讯录");
+                    mailListAjax(val);
+                    return false;
+                }
+            } else {
+                $.showPreloader("正在更新通讯录");
+                mailListAjax(val);
+                return false;
+            }
+        }
+
+        function versionGet() {    //版本号获取ajax
+            $.https({
+                url: mainURL+'myMailBBH.do',
+                type: "post",
+                dataType: "json",
+                success: function (res, status, xhr) {
+                    console.log('打印出的ajax返回数据：', res)
+                    if (res.Code == 1) {
+                        $.showIndicator();
+                        versionIfRun(res.Row.bbh)
+                    }
+                }
+
+            });
+        }
+
+        versionGet();
+
+        function mailListAjax(val) {	//  通讯录列表ajax
+            var jsonArg = JSON.stringify(mailListJson);
+            console.info('打印的传参：', jsonArg);
+            $.https({
+                url: mainURL+'myMail.do',
+                type: "post",
+                dataType: "json",
+                success: function (res, status, xhr) {
+                    console.log('打印出的ajax返回数据：', res)
+                    if (res.Code == 1) {
+                        $.hidePreloader();
+                        //local("mailUserInfoCache",JSON.stringify(res));
+                        $.setStorage('userJsonInfoDetails',JSON.stringify(res.Row))
+                        if(val != "" && val != null) local("mailVersionSetLocalCache", val);
+                        getSuccess();
+                    } else {
+                        $.toast("通讯录更新错误");
+                    }
+
+                },
+                error: function (xhr) {
+                    $.hidePreloader();
+                    $.toast("服务器更新失败");
+                }
+            });
+        }
+
+        $(document).on('refresh', '.pull-to-refresh-content', function (e) {
+            versionGet();
+            checkCount();
+            // 加载完毕需要重置
+            $.pullToRefreshDone('.pull-to-refresh-content');
+        });
+
+
+		//通讯录搜索
+        $('#search').on('focus', function () {
+            $('#serch_pepo').show()
+        })
+        $('#search2').blur(function () {
+            $(this).focus();
+        });
+
+        $('#leftClose').on('click', function () {
+            $('#search2').val('');
+            $('.searchHtmlDomParent').html('');
+            $(this).parents('.page').hide();
+        })
+
+        var mailserchListJson = {   //	通讯录搜索传参集
+            "username": ""
+        }
+
+        function serchGetMailCl(res) {  			 //通讯录ajax回调数据处理函数
+
+            var jsonUser = res.usersInfoList,//用户信息
+                    jsonUserCout = jsonUser.length;
+            if (jsonUserCout == 0) {
+                var html_MO = '<div style="width:100%;text-align:center;line-height:2rem;font-size:.8rem;color:#999;">竟然没有！！</div>'
+                $('.searchHtmlDomParent').html(html_MO);
+                return;
+            }
+
+            var htmlStr = "", 			//动态html
+                    temp1 = $("#userTemp"),
+                    strTemp = temp1.text();   //js userTemp中的模板HTML
+
+            jsonUser.forEach(function (obj, index, json) {
+                htmlStr += strTemp.temp(obj);
+            });
+            $('.searchHtmlDomParent').html(htmlStr);
+
+        }
+
+        function serchAjaxList() {					         //  通讯录搜索
+            var jsonArg2 = JSON.stringify(mailserchListJson);
+            console.info('通讯录搜索打印的传参：', jsonArg2);
+            $.https({
+                url: mainURL + 'myMailByUsername.do',
+                data: {
+                    ParamJson: jsonArg2
+                },
+                type: "post",
+                dataType: "json",
+                success: function (res, status, xhr) {
+                    console.log('打印出的ajax返回数据：', res)
+                    if (res.Code == 1) {
+                        serchGetMailCl(res.Row);
+                    }
+                }
+            });
+        }
+
+        function serchMail() {  //搜索通讯录
+            var va = $('#search2').val(),
+                    sw = $('#search2').is(':focus');
+            if (!sw) return;
+            console.log(va);
+            mailserchListJson['username'] = va;  //存储搜索字段
+            serchAjaxList();
+        }
+
+        $('#search2').on('input propertychange', function () {
+            serchMail();
+        })
+        $('#serch_pepo .searchbar-cancel').on('click', function () {
+            $('#serch_pepo').hide()
+            $('#search2').val("");
+            mailserchListJson['username'] = "";
+            $('.searchHtmlDomParent').html("");
+            //serchAjaxList();
+        })
+
+        document.onkeydown = function (e) {
+            var ev = document.all ? window.event : e;
+            if (ev.keyCode == 13) {
+                serchMail();
+            }
+        }
+
+
+        //消息数量监测
+        function checkCount() {
+            var userData = $.getUserData();
+            $.https({
+                url: mainURL+'myMsgCount.do',
+                data: {
+                    ParamJson: JSON.stringify({"userid": userData.userid})
+                },
+                type: "post",
+                dataType: "json",
+                success: function (json) {
+                    var row = json.Row
+                    var countAll = row.count ,countMax = $('#countMax')
+                    countAll > 99 ? countMax.text("99+") : countMax.text(countAll);
+                    countAll > 0 && countAll != null && countAll != "" ? countMax.show() : countMax.hide();
+                }
+            });
+        }
+        checkCount();
+        setInterTimeGlobal = setInterval(checkCount, 30000)
+        $.monitorVal2({
+            mail_list: function () {
+                versionGet();
+                checkCount();
+            }, mail_list_time1: function () {
+                clearInterval(setInterTimeGlobal)
+            },
+            refresh4:''
+        })
+    });
+</script>
+
+</body>
+</html>

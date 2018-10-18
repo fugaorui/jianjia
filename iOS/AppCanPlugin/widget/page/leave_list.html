@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>请假审批通知</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta content="telephone=no,email=no" name="format-detection"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="../fonts/iconfont.css">
+    <link rel="stylesheet" href="../css/min/sm.css">
+    <link rel="stylesheet" href="../css/min/sm-extend.css">
+    <link rel="stylesheet" href="../css/min/flexBox.css">
+    <link rel="stylesheet" href="../css/tonXin.css">
+    <style>
+        #page_news .content {
+            background-color: #f2f2f2;
+        }
+
+        #page_news .content .news_list {
+            background-color: #fff;
+        }
+
+        #toogle0, #toogle1 {
+            width: 100%;
+            height: 1.5rem;
+            line-height: 1.5rem;
+            text-align: center;
+            font-size: .7rem;
+            color: #666;
+        }
+
+        .buttons-tab .button.active {
+            color: #1ac6ee;
+            border-color: #1ac6ee;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+<div class="page-group">
+    <div class="page page-current leave" id="page_leave_list">
+        <header class="bar bar-nav">
+            <a class="icon icon-left pull-left" onclick="$.setStorage('index',1),$.uexBack()"></a>
+            <h1 class="title">请假审批通知</h1>
+        </header>
+        <div class="content">
+            <div class="buttons-tab">
+                <a href="#tab1" class="tab-link button">我的申请</a>
+                <a href="#tab2" class="tab-link active button">我的审批</a>
+            </div>
+            <div class="tabBox">
+                <div class="tabs bd">
+                    <div id="tab1" class="tab infinite-scroll">
+                        <ul></ul>
+
+                        <!-- 加载提示符 -->
+                        <div class="infinite-scroll-preloader">
+                            <div class="preloader">
+                            </div>
+                        </div>
+                        <div id="toogle0" style="display:none;">没有更多了</div>
+                    </div>
+                    <div id="tab2" class="tab active infinite-scroll">
+                        <ul></ul>
+                        <!-- 加载提示符 -->
+                        <div class="infinite-scroll-preloader">
+                            <div class="preloader">
+                            </div>
+                        </div>
+                        <div id="toogle1" style="display:none;">没有更多了</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script type='text/javascript' src='../js/min/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/mains.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/config.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm-extend.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/demos.js' charset='utf-8'></script>
+<script type='text/javascript' src="../js/TouchSlide.1.1.js" charset='utf-8'></script>
+<script>
+    var pageNo0 = 1;
+    var pageNo1 = 1;
+    var pageSize = 20;
+    var loading = '';
+    var ndTabLink = $('.buttons-tab .tab-link.button'),
+            ndTabBox = $('.tabBox .tabs .infinite-scroll'),
+            ndTabsIndex = $.getStorage('leaveListTabsIndex');
+    ndTabsIndex == 0 ? $('.title').text('请假申请记录') : $('.title').text('请假审批通知');
+    ndTabLink.removeClass('active').eq(ndTabsIndex).addClass('active');
+    ndTabBox.removeClass('active').eq(ndTabsIndex).addClass('active');
+
+    $.ready(function () {
+    	if (typeof uexWindow === "object") (function () {
+        	uexWindow.setReportKey(0, 1);
+            uexWindow.onKeyPressed = function () {
+                $.setStorage('index', 1)
+                $.uexBack();
+            };
+        })();
+        loadList(0);
+        loadList(1);
+    })
+    //是否显示申请请假按钮
+    $(document).on('click', '.tab-link', function (index, el) {
+        var str = $(this).html();
+        if (str == "我的申请") {
+            $.setStorage('leaveListTabsIndex', 0)
+            $('.title').text('请假申请记录')
+            $('#page_leave_list #fixed_button').css("display", "block");//显示申请请假按钮
+        } else if (str == "我的审批") {
+            $.setStorage('leaveListTabsIndex', 1)
+            $('.title').text('请假审批通知')
+            $('#page_leave_list #fixed_button').css("display", "none");//隐藏申请请假按钮
+        }
+    })
+    //多个标签页下的无限滚动
+    $(document).on("pageInit", function () {
+        loading = false;
+        $(document).on('infinite', function () {
+            // 如果正在加载，则退出
+            if (loading) return;
+            loading = true;
+            var tabIndex = 0;
+            if ($(this).find('.infinite-scroll.active').attr('id') == "tab1") {
+                tabIndex = 0;
+            }
+            if ($(this).find('.infinite-scroll.active').attr('id') == "tab2") {
+                tabIndex = 1;
+            }
+            // 重置加载flag
+            loadList(tabIndex);
+
+        });
+    });
+    //加载数据
+    function loadList(tabIndex) {
+        //$.showIndicator();
+        var getLocal = localStorage.getItem('SessionId');
+        var SessionId = typeof(getLocal) == "Object" ? "" : getLocal;
+        var pageNo = '', state = '', str = '', leaveUrl = '', docid = '', title = '', dealusername = '', mtime = '', doctplid = '', currnodeid = '', id = '', processinstid = '';
+        if (tabIndex == 0) {
+            leaveUrl = "MyLeaveList&ClassName=MyLeave";
+            pageNo = pageNo0;
+        } else if (tabIndex == 1) {
+            leaveUrl = "GetMyLeaveApproval&ClassName=MyLeave";
+            pageNo = pageNo1;
+        }
+        var data = '{"SessionId":"' + SessionId + '","pageNo":"' + pageNo + '","type":"9","pageSize":"' + pageSize + '"}';
+        console.info(data);
+        $.https({
+            type: "post",
+            url: dbURL + leaveUrl,
+            data: {
+                ParamJson: data
+            },
+            success: function (data) {
+                console.info(data);
+                $.hideIndicator();
+                if (data.Code == 1) {
+
+                    //遍历数据拼接数据
+                    $.each(data.Result.Rows, function (index, el) {
+                        title = el.title;
+                        dealusername = el.dealusername;
+                        if (tabIndex == 1) {
+                            mtime = el.sendtime.slice(5, 16);
+                        } else {
+                            mtime = el.sendrectime.slice(5, 16);
+                        }
+                        doctplid = el.doctplid;
+                        currnodeid = el.currnodeid == "undefined" ? '' : el.currnodeid;
+                        processinstid = el.processinstid;
+                        docid = el.docid;
+                        id = el.id;
+                        state = el.state;
+                        str += addItems(title, dealusername, mtime, doctplid, currnodeid, id, processinstid, docid, tabIndex, state, el.dealuserid);
+                        //console.log(el)
+                    });
+
+                    //判断是哪个页面的页数增加
+                    if (tabIndex == 0) {
+                        pageNo0 = pageNo0 + 1;
+                        $("#tab1 ul").append(str);
+                    } else if (tabIndex == 1) {
+                        pageNo1 = pageNo1 + 1;
+                        $("#tab2 ul").append(str);
+                    }
+                    $.refreshScroller();
+                    console.info(pageNo0 + "--" + pageNo1);
+                    loading = false;
+                    //判断此次请求的数据是否已经不足pageSize，不足则显示没有更多
+                    if (data.Result.Rows.length < pageSize) {
+                        setTimeout(function () {
+                            delTips(tabIndex);
+                        }, 500);
+                        return;
+                    }
+                }
+            },
+            error: function () {
+
+            }
+        });
+    }
+    //拼接列表
+    function addItems(title, dealusername, mtime, doctplid, currnodeid, id, processinstid, docid, tabIndex, state, dealuserid) {
+        // 生成新条目的HTML
+        if (state == 1 || state == 0) {
+            state = 1;
+        }
+        var html = '';
+        if (state == 1 && tabIndex == 1) {
+            html += '<li onclick="openDetails(\'' + doctplid + '\',\'' + currnodeid + '\',\'' + id + '\',\'' + processinstid + '\',\'' + docid + '\',\'' + tabIndex + '\',\'' + dealuserid + '\')"><a class="ub ub-f1 ub-ver" >'
+                    + '<div style="position: absolute;top: 50%;background-image: url(../img/q3-200-200.png);width: 0.5rem;height: 0.5rem;background-size: 100% 100%;"></div>'
+                    + '<div style="padding-left: 1rem;"><div class="title_ ub ub-f1 ub-ver ut-m line1 ub-pc" >' + title + '</div>'
+                    + '<div class="ub ub-f1 ub-ac"><div class="ub ub-f1 ub-ac"><div class="ti_contet">请假人：' + dealusername + '</div>'
+                    + '</div><div class="ti_time">' + mtime + '</div></div></div></a></li>';
+        } else {
+            html += '<li onclick="openDetails(\'' + doctplid + '\',\'' + currnodeid + '\',\'' + id + '\',\'' + processinstid + '\',\'' + docid + '\',\'' + tabIndex + '\',\'' + dealuserid + '\')"><a class="ub ub-f1 ub-ver"><div class="title_ ub ub-f1 ub-ver ut-m line1 ub-pc">' + title + '</div>'
+                    + '<div class="ub ub-f1 ub-ac"><div class="ub ub-f1 ub-ac"><div class="ti_contet">请假人：' + dealusername + '</div></div>'
+                    + '<div class="ti_time">' + mtime + '</div></div></a></li>';
+        }
+
+        return html;
+        // 添加新条目
+    }
+    //打开详情页
+    function openDetails(doctplid, currnodeid, id, processinstid, docid, tabIndex, dealuserid) {
+        //alert(docid);
+        localStorage.setItem("leavve_doctplid", doctplid);
+        localStorage.setItem("leavve_currnodeid", currnodeid);
+        localStorage.setItem("leavve_id", id);
+        localStorage.setItem("leavve_processinstid", processinstid);
+        localStorage.setItem("leavve_docid", docid);
+        localStorage.setItem("leavve_tabIndex", tabIndex);
+        localStorage.setItem("leavve_dealuserid", dealuserid);
+        $.uexOpen('leave_apply_detail');
+    }
+    //删除提示符
+    function delTips(tabIndex) {
+        console.info("tabIndex" + tabIndex);
+        $('.infinite-scroll-preloader').eq(tabIndex).hide();
+        $('#toogle' + tabIndex).show();
+        return;
+    }
+    $.monitorVal({org_list: ''});
+</script>
+</body>
+</html>

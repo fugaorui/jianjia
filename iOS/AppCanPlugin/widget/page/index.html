@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>消息</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!-- <link rel="shortcut icon" href="/favicon.ico"> -->
+    <link rel="stylesheet" href="../fonts/iconfont.css">
+    <link rel="stylesheet" href="../css/min/sm.min.css">
+    <link rel="stylesheet" href="../css/min/sm-extend.css">
+    <link rel="stylesheet" href="../css/min/flexBox.css">
+    <link rel="stylesheet" href="../css/tonXin.css">
+    <style>
+        #page_news .content {
+            background-color: #f2f2f2;
+        }
+
+        #page_news .content .news_list {
+            background-color: #fff;
+        }
+
+        #countMax {
+            display: none;
+        }
+
+        .news_list_top {
+            height: 1.5rem;
+            overflow: hidden;
+        }
+
+        .news_list_bottom {
+            height: 1rem;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+<div class="page-group">
+    <div class="page page-current" id="page_news">
+        <nav class="bar bar-tab">
+            <a class="tab-item external active" href="javascript:;">
+                <div class="tab-item_img"><img src="../img/xx_on.png"/><span id="countMax"></span></div>
+                <span class="tab-label">消息</span>
+            </a>
+            <a class="tab-item external" href="javascript:;"
+               onclick="$.uexOpen2('mail_list'),$.setStorage('mail_list','1')">
+                <div class="tab-item_img"><img src="../img/ts_off.png"/></div>
+                <span class="tab-label">通讯录</span>
+            </a>
+            <a class="tab-item external" href="javascript:;"
+               onclick="$.uexOpen2('application'),$.setStorage('application','1')">
+                <div class="tab-item_img"><img src="../img/yy_off.png"/></div>
+                <span class="tab-label">应用</span>
+            </a>
+            <a class="tab-item external " href="javascript:;"
+               onclick="$.uexOpen2('my_appConfig'),$.setStorage('my_appConfig','1')">
+                <div class="tab-item_img"><img src="../img/my_off.png"/></div>
+                <span class="tab-label">我的</span>
+            </a>
+        </nav>
+
+        <header class="bar bar-nav">
+            <h1 class='title'>消息</h1>
+        </header>
+
+        <div class="content pull-to-refresh-content" data-ptr-distance="55">
+
+            <!-- 默认的下拉刷新层 -->
+            <div class="pull-to-refresh-layer">
+                <div class="preloader"></div>
+                <div class="pull-to-refresh-arrow"></div>
+            </div>
+
+            <a href="javascript:;" onclick="saveIsHas(1)" class="ub ub-f1 ub-ac ub-ps news_list count001">
+                <img src="../img/tz.png"/>
+                <div class="ub ub-f1 ub-ver ub-pc ubb">
+                    <div class="ub ub-f1 ub-ac news_list_top">
+                        <div class="ub ub-f1 ub-ac">通知</div>
+                        <span id="time001"></span></div>
+                    <div class="ub ub-f1 ub-ac news_list_bottom">
+                        <div class="ub ub-f1 ub-ac" id="info001">您暂无通知</div>
+                        <span id="count001"></span></div>
+                </div>
+            </a>
+            <!--<a href="javascript:;" class="ub ub-f1 ub-ac ub-ps news_list count002"
+               onclick="$.uexOpen('in_email');$.setStorage('homeEmail','1');">
+                <img src="../img/tz.png"/>
+                <div class="ub ub-f1 ub-ver ub-pc ubb">
+                    <div class="ub ub-f1 ub-ac news_list_top">
+                        <div class="ub ub-f1 ub-ac">待阅信息</div>
+                        <span id="time002"></span></div>
+                    <div class="ub ub-f1 ub-ac news_list_bottom">
+                        <div class="ub ub-f1 ub-ac" id="info002">您暂无待阅信息</div>
+                        <span id="count002"></span></div>
+                </div>
+            </a>-->
+           <!-- <a href="javascript:;" onclick="openOrgList(1)" class="ub ub-f1 ub-ac ub-ps news_list count003">
+                <img src="../img/duban.png"/>
+                <div class="ub ub-f1 ub-ver ub-pc ubb">
+                    <div class="ub ub-f1 ub-ac news_list_top">
+                        <div class="ub ub-f1 ub-ac">机构群组待办通知</div>
+                        <span id="time003"></span></div>
+                    <div class="ub ub-f1 ub-ac news_list_bottom">
+                        <div class="ub ub-f1 ub-ac" id="info003">您暂无机构群组待办通知</div>
+                        <span id="count003"></span></div>
+                </div>
+            </a>
+            <a href="javascript:;" class="ub ub-f1 ub-ac ub-ps news_list count004"
+               onclick="$.uexOpen('leave_list'),$.setStorage('leaveListTabsIndex',1)">
+                <img src="../img/groupNotic.png"/>
+                <div class="ub ub-f1 ub-ver ub-pc ubb">
+                    <div class="ub ub-f1 ub-ac news_list_top">
+                        <div class="ub ub-f1 ub-ac">请假审批</div>
+                        <span id="time004"></span></div>
+                    <div class="ub ub-f1 ub-ac news_list_bottom">
+                        <div class="ub ub-f1 ub-ac" id="info004">您暂无请假审批通知</div>
+                        <span id="count004"></span></div>
+                </div>
+            </a>-->
+            <!--<a href="javascript:;" class="ub ub-f1 ub-ac ub-ps news_list count005"-->
+            <!--onclick="$.uexOpen('egression_list'),$.setStorage('egressionListTabsIndex',1)">-->
+            <!--<img src="../img/waichu.png"/>-->
+            <!--<div class="ub ub-f1 ub-ver ub-pc ubb">-->
+            <!--<div class="ub ub-f1 ub-ac news_list_top">-->
+            <!--<div class="ub ub-f1 ub-ac">外出审批</div>-->
+            <!--<span id="time005"></span></div>-->
+            <!--<div class="ub ub-f1 ub-ac news_list_bottom">-->
+            <!--<div class="ub ub-f1 ub-ac" id="info005">您暂无外出审批通知</div>-->
+            <!--<span id="count005"></span></div>-->
+            <!--</div>-->
+            <!--</a>-->
+            <!--<a href="javascript:;" class="ub ub-f1 ub-ac ub-ps news_list count006"-->
+            <!--onclick="$.uexOpen('pendingDocList')">-->
+            <!--<img src="../img/daiRenLin.png"/>-->
+            <!--<div class="ub ub-f1 ub-ver ub-pc ubb">-->
+            <!--<div class="ub ub-f1 ub-ac news_list_top">-->
+            <!--<div class="ub ub-f1 ub-ac">待认领通知</div>-->
+            <!--<span id="time006"></span></div>-->
+            <!--<div class="ub ub-f1 ub-ac news_list_bottom">-->
+            <!--<div class="ub ub-f1 ub-ac" id="info006">您暂无待认领通知</div>-->
+            <!--<span id="count006"></span></div>-->
+            <!--</div>-->
+            <!--</a>-->
+        </div>
+    </div>
+
+
+</div>
+
+
+<script type='text/javascript' src='../js/min/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/mains.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/config.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm-extend.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/demos.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/comet4j.js' charset='utf-8'></script>
+<script type="text/javascript">
+    var setInterTimeGlobal;
+    $.loginReload()
+    function saveIsHas(num) {
+//        localStorage.setItem("isHas", num);
+        $.uexOpen('in_email');
+    }
+
+    function openOrgList(num) {
+        localStorage.setItem("OrgList", num);
+        $.uexOpen('OrgList');
+    }
+
+    function $setListInfo(el, text, jsonCout, jsontime) {
+        var _this = $(el)
+        var cout = _this.find('.news_list_bottom span')
+        var info = _this.find('.news_list_bottom div')
+        var time = _this.find('.news_list_top span')
+        if (jsonCout >= 99) {
+            cout.text("99+");
+            info.text('您有' + jsonCout + '条' + text + '通知');
+            time.text(jsontime);
+            return false;
+        }
+        if (jsonCout != 0 && jsonCout != null && jsonCout != "") {
+            info.text('您有' + jsonCout + '条' + text + '通知');
+            cout.text(jsonCout)
+            time.text(jsontime);
+        } else {
+            info.text('您暂无' + text + '通知');
+            cout.text('');
+            time.text('');
+        }
+    }
+
+    $.ready(function () {
+        var userData = $.getUserData();//$.getStorage(userDataIndexInfo)//$.getUserData();
+        if (!userData) return $.uexOpen('login'), $.toast("未登录");
+        if (typeof uexWindow === "object") (function () {
+            var c1c = 0;
+            uexWindow.setReportKey(0, 1);
+            uexWindow.onKeyPressed = function () {
+                if (c1c > 0) {
+                    uexWidgetOne.exit(0);
+                } else {
+                    uexWindow.toast(0, 8, '再按一次退出应用', 1000);
+                    c1c = 1;
+                    setTimeout(function () {
+                        c1c = 0;
+                    }, 2000);
+                }
+            };
+
+            /*检查版本*/
+            /*if (!isiOS) {
+                var flag_sdcard = 1;
+                var updateurl = ""; //下载新apk文件地址
+                var filepath2 = "/sdcard/"; //保存到sd卡
+                var fileName = ''; //新版本文件名
+                var platform = ''; //平台版本
+                //获取平台版本回调   data   0 iphone 1 android
+                uexWidgetOne.cbGetPlatform = function (opId, dataType, data) {
+                    if (data == 0) {
+                       // uexWidgetOne.getCurrentWidgetInfo();
+					  // uexVersion.getCurrentVersion()
+                    } else if (data == 1) {
+                        flag_sdcard = 0;
+                        uexFileMgr.isFileExistByPath('/sdcard/');
+                    }
+                };
+                //判断sdcard   data  0 sdcard不存在
+                uexFileMgr.cbIsFileExistByPath = function (opCode, dataType, data) {
+                    if (flag_sdcard == 0 && data != 0) {
+                        //uexWidgetOne.getCurrentWidgetInfo();
+						uexVersion.getCurrentVersion()
+                        flag_sdcard = 1;
+                    }
+                }
+                //检查版本号 uexVersion.cbCurrentVersion回调方法
+               // uexWidgetOne.cbGetCurrentWidgetInfo = function (opId, dataType, data) {
+                uexVersion.cbCurrentVersion = function (opId, dataType, data) {
+                    $.https({
+                        url: ipAddress + '/versioninfo.json',
+                        type: 'post',
+                        success: function (obj) {
+                            updateurl = obj.apkurl
+                            fileName = updateurl.substr(updateurl.lastIndexOf('/') + 1).split('.')[0];
+                            var _thisVersion = data.replace(/\./igm, '');
+                            var _newVersion = obj.version.replace(/\./igm, ''); 
+                            if (Number(_thisVersion) < Number(_newVersion)) {
+                                var modal = $.modal({
+                                    text: '检测到最新版本，是否更新！',
+                                    buttons: [{
+                                        text: '取消',
+                                        onClick: function () {
+                                            $.closeModal(modal);
+                                        }
+                                    },
+                                        {
+                                            text: '下载',
+                                            onClick: function () {
+                                                uexDownloaderMgr.createDownloader("14");
+												$.destroyPullToRefresh('.content')
+                                            }
+                                        }]
+                                })
+                            }
+                        }
+                    })
+                }
+                //显示下载进度
+                uexDownloaderMgr.onStatus = function (opId, fileSize, percent, status) {
+                    if (status == 0) {
+                        uexWindow.toast('1', '5', '下载进度：' + percent + '%', '');
+                    } else if (status == 1) { // 下载完成.
+						$.initPullToRefresh('.content')
+                        uexWindow.closeToast();
+                        uexDownloaderMgr.closeDownloader('14'); //关闭下载对象
+                        uexWidget.installApp(filepath2 + fileName); // 安装下载apk文件
+                    } else {
+                        uexWindow.toast('1', '5', '下载出错，请关闭软件再次运行!', '');
+						$.initPullToRefresh('.content')
+                    }
+                };
+                //创建下载对象回调函数
+                uexDownloaderMgr.cbCreateDownloader = function (opId, dataType, data) {
+                    if (data == 0) {
+                        uexDownloaderMgr.download('14', updateurl, filepath2 + fileName, '0'); //开始下载apk文件
+                    }
+                };
+                uexWidgetOne.getPlatform(); //获取平台版本
+            }
+			*/
+			//极光推送ID设置
+			/*if(!$.getStorage('appRegistrationID')) {
+				uexJPush.getRegistrationID();
+				uexJPush.cbGetRegistrationID = function (code, type, data) {
+	                var applyId = JSON.parse(data).registrationID;
+	                alert(applyId)
+					$.https({
+						url: mainURL,
+						data: {
+							ClassName: 'UserInfo',
+							MethodName: 'updateJpushparam',
+							ParamJson: JSON.stringify({
+									"SessionId": $.getStorage('SessionId'),
+									"registrationid": applyId
+							})
+						},
+						type: "post",
+						dataType: "json",
+						success: function (res) {
+							$.setStorage('appRegistrationID',applyId)
+						}
+					});
+	            }
+			}*/
+
+			
+        })();
+//        init()
+        function init(){
+
+
+            // 建立连接，conn 即web.xml中 CometServlet的<url-pattern>
+            JS.Engine.start('http://192.168.0.107:8080/conn');
+            // 监听后台某个频道
+            JS.Engine.on(
+                {
+                    msgCount : function(num1){
+                       console.log('========')
+                       console.log(num1)
+                    }
+                }
+            );
+        }
+        function checkCount() {
+            var userData = $.getUserData();
+            $.https({
+                url: mainURL+'myMsgCount.do',
+                data: {
+                    ParamJson: JSON.stringify({"userid": userData.userid})
+                },
+                type: "post",
+                dataType: "json",
+                success: function (json) {
+                    var row = json.Row
+      /*              $setListInfo('.count006', '待认领', row.pendingcount, row.pendingtime)
+                    $setListInfo('.count005', '外出审批', row.outcount, row.outtime)
+                    $setListInfo('.count004', '请假审批', row.leavecount, row.leavetime)
+                    $setListInfo('.count003', '机构群组待办', row.depcount, row.deptime)
+                    $setListInfo('.count002', '待阅信息', row.msgcount, row.msgtime)*/
+                    $setListInfo('.count001', '消息', row.count, row.todotime)
+//                    var countAll = row.todocount + row.depcount + row.leavecount,countMax = $('#countMax')
+                    var countAll = row.count ,countMax = $('#countMax')
+
+                    countAll > 99 ? countMax.text("99+") : countMax.text(countAll);
+                    countAll > 0 && countAll != null && countAll != "" ? countMax.show() : countMax.hide();
+                }
+            });
+        }
+
+        checkCount(); //检查数量
+        versionGet();  //检查版本
+
+        function versionIfRun(val) {   //判断版本号是否一致，不同则请求获取新的通讯录数据
+            if (getlocalVal("mailVersionSetLocalCache") != "" && getlocalVal("mailVersionSetLocalCache") != null) {
+                if (getlocalVal("mailVersionSetLocalCache") == val) {
+                    return false;
+                } else {
+                   // $.showPreloader("正在更新通讯录");//加载提示
+                    mailListAjax(val);
+                    return false;
+                }
+            } else {
+               // $.showPreloader("正在更新通讯录");//加载提示
+                mailListAjax(val);
+                return false;
+            }
+        }
+
+        function versionGet() {
+            $.https({
+                url: mainURL+'myMailBBH.do',
+                type: "post",
+                dataType: "json",
+                success: function (res, status, xhr) {
+                    if (res.Code == 1) {
+                        versionIfRun(res.Row.bbh)
+                    }
+                }
+            });
+        }
+
+        function mailListAjax(val) {		 //  通讯录列表ajax
+            $.https({
+                url: mainURL+'myMail.do',
+                type: "post",
+                dataType: "json",
+                success: function (res, status, xhr) {
+                    if (res.Code == 1) {
+                        $.hidePreloader();//去掉加载提示
+                        if(val != "" && val != null) local("mailVersionSetLocalCache", val);
+                        $.setStorage('userJsonInfoDetails',JSON.stringify(res.Row))
+                    } else {
+                        $.toast("通讯录更新错误");
+                    }
+                },
+                error: function (xhr) {
+                    $.hidePreloader();//去掉加载提示
+                    $.toast("服务器更新失败");
+                }
+            });
+        }
+
+
+        // 添加'refresh'监听器
+        $(document).on('refresh', '.pull-to-refresh-content', function (e) {
+            window.location.reload()
+            //checkCount();
+            //versionGet();
+            // 加载完毕需要重置
+            $.pullToRefreshDone('.pull-to-refresh-content');
+
+
+        });
+
+        setInterTimeGlobal = setInterval(checkCount, 30000); // 30秒请求一次
+        $.monitorVal2({
+            index: function () {
+                //versionGet();
+               // checkCount();
+               window.location.reload()
+            }, mail_list_time2: function () {
+                clearInterval(setInterTimeGlobal)
+            },
+            refresh1:''
+            
+        })
+    })
+
+</script>
+
+</body>
+</html>

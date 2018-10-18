@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>我的</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta content="telephone=no,email=no" name="format-detection"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="../fonts/iconfont.css">
+    <link rel="stylesheet" href="../css/min/sm.css">
+    <link rel="stylesheet" href="../css/min/sm-extend.css">
+    <link rel="stylesheet" href="../css/min/flexBox.css">
+    <link rel="stylesheet" href="../css/tonXin.css">
+    <style>
+        #page_news .content {
+            background-color: #f2f2f2;
+        }
+
+        #page_news .content .news_list {
+            background-color: #fff;
+        }
+
+        #countMax {
+            display: none;
+        }
+
+        input.modal-text-input {
+            margin-top: 0;
+        }
+
+        .tabs div.ub {
+            margin-top: .75rem;
+            font-size: .8rem;
+        }
+
+        .buttons-row-header {
+            padding-bottom: .5rem;
+            font-size: .8rem;
+        }
+
+        .titleButtonLineBottomBorder .modal-inner, .titleButtonLineBottomBorder .modal-button {
+            background: #f2f2f2;
+        }
+
+        .titleButtonLineBottomBorder .modal-inner:before {
+            content: '';
+            position: absolute;
+            right: 0;
+            bottom: auto;
+            left: auto;
+            top: 2.35rem;
+            width: 100%;
+            height: 1px;
+            background-color: rgba(204, 204, 204, .6);
+            display: block;
+            z-index: 15;
+            -webkit-transform-origin: 100% 50%;
+            transform-origin: 100% 50%;
+        }
+        .config_head{
+            height: 4rem;
+        }
+        @media only screen and (-webkit-min-device-pixel-ratio: 2) {
+            .modal .modal-in .modal-inner:before {
+                -webkit-transform: scaleY(0.5);
+                transform: scaleY(0.5);
+            }
+        }
+
+        @media only screen and (-webkit-min-device-pixel-ratio: 3) {
+            .modal .modal-in .modal-inner:before {
+                -webkit-transform: scaleY(0.33);
+                transform: scaleY(0.33);
+            }
+        }
+    .tabs>div>span{min-width:4rem;}
+    </style>
+</head>
+<body>
+<div class="page-group">
+    <div class="page page-current" id="page_myAppConfig">
+
+        <nav class="bar bar-tab">
+            <a class="tab-item external active" href="javascript:;" id="index">
+                <div class="tab-item_img"><img src="../img/xx_off.png"/><span id="countMax"></span></div>
+                <span class="tab-label">消息</span>
+            </a>
+            <a class="tab-item external" href="javascript:;"
+               onclick="$.uexOpen2('mail_list'),$.setStorage('mail_list','1')">
+                <div class="tab-item_img"><img src="../img/ts_off.png"/></div>
+                <span class="tab-label">通讯录</span>
+            </a>
+            <a class="tab-item external" href="javascript:;"
+               onclick="$.uexOpen2('application'),$.setStorage('application','1')">
+                <div class="tab-item_img"><img src="../img/yy_off.png"/></div>
+                <span class="tab-label">应用</span>
+            </a>
+            <a class="tab-item external" href="javascript:;">
+                <div class="tab-item_img"><img src="../img/my_on.png"/></div>
+                <span class="tab-label">我的</span>
+            </a>
+        </nav>
+
+        <header class="bar bar-nav">
+            <h1 class='title'>我的</h1>
+        </header>
+        <!-- 这里是页面内容区 -->
+        <div class="content">
+            <a href="javascript:;" class="ub ub-f1 ub-ac ub-pj config_head">
+                <div class="ub ub-f1 ub-as ub-pc ub-ver">
+                    <div class="appConfig_userName"></div>
+                    <div class="appConfig_phoneNumber" style="display:none">联系方式：</div>
+                </div>
+                <div class="appConfig_section ubl" style="display:none"></div>
+            </a>
+
+            <div class="ub ub-f1 ub-ver appConfig_list ubb ubt">
+              <!--  <a href="javascript:;" class="ub ub-f1 ub-ac clearAll">
+                    <div class="appConfig_list_img"><img src="../img/clear.png"/></div>
+                    <div class="appConfig_list_cache ubb ub ub-f1">清除缓存</div>
+                </a>-->
+				<a href="javascript:;" class="ub ub-f1 ub-ac" id="configDetail">
+                    <div class="appConfig_list_img"><img src="../img/userConfig.png"/></div>
+                    <div class="appConfig_list_cache ubb ub ub-f1">个人信息修改</div>
+                </a>
+				<a href="javascript:;" class="ub ub-f1 ub-ac" id="alertPass">
+                    <div class="appConfig_list_img"><img src="../img/alertPass.png"/></div>
+                    <div class="appConfig_list_cache ubb ub ub-f1">修改密码</div>
+                </a>
+            </div>
+
+            <div class="ub ub-f1 ub-ver appConfig_list ubb ubt">
+                <!-- <a href="javascript:$.uexOpen('about');" class="ub ub-f1 ub-ac">
+                  <div class="appConfig_list_img"><img src="../img/about.png"/></div>
+                  <div class="appConfig_list_cache ubb ub ub-f1">关于</div>
+                </a> -->
+                <a href="javascript:;" class="ub ub-f1 ub-ac signOut">
+                    <div class="appConfig_list_img"><img src="../img/exit.png"/></div>
+                    <div class="appConfig_list_cache ubb ub ub-f1">退出</div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type='text/javascript' src='../js/min/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/mains.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/config.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm-extend.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/demos.js' charset='utf-8'></script>
+<script>
+    var setInterTimeGlobal;
+    $.ready(function () {
+        if (typeof uexWindow === "object") (function () {
+            !isiOS && $.toolBack();
+          //  isiOS && (function () {
+               /* setTimeout(function () {
+                	isiOS ? uexUpdate.getVersionNumber() : uexVersion.getCurrentVersion();
+                }, 100)
+                function setVersion(v){
+                	$('#checkVersionPlatformJudge').removeClass('checkVersion')
+                    .find('.appConfig_list_cache').text('当前版本：' + v);
+                }
+                if(isiOS){
+                	uexUpdate.cbVersionNumber = function (data) { //回调版本号,一个参数version
+                		setVersion(data)
+                    }
+                }else{
+                	uexVersion.cbCurrentVersion = function (opId, dataType, data) {
+                		setVersion(data)
+                	}
+                }*/
+           // })();
+            var c1c = 0;
+            uexWindow.setReportKey(0, 1);
+            uexWindow.onKeyPressed = function () {
+                if (c1c > 0) {
+                    uexWidgetOne.exit(0);
+                } else {
+                    uexWindow.toast(0, 8, '再按一次退出应用', 1000);
+                    c1c = 1;
+                    setTimeout(function () {
+                        c1c = 0;
+                    }, 2000);
+                }
+            };
+        })();
+        /*用户信息*/
+        var userData = $.getUserData();
+        if(isiOS){
+            $('#checkVersionPlatformJudge').remove()
+        }
+        console.log(userData)
+        $('.appConfig_userName').html(userData.nickname);
+        (userData.deptname && userData.deptname != '') && $('.appConfig_section').append(userData.deptname).show();
+        (userData.telephone && userData.telephone != '') && $('.appConfig_phoneNumber').append(userData.telephone).show();
+        //消息数量监测
+        function checkCount() {
+            var userData = $.getUserData();
+            $.https({
+                url: mainURL+'myMsgCount.do',
+                data: {
+                    ParamJson: JSON.stringify({"userid": userData.userid})
+                },
+                type: "post",
+                dataType: "json",
+                success: function (json) {
+                    var row = json.Row
+                    var countAll = row.count ,countMax = $('#countMax')
+                    countAll > 99 ? countMax.text("99+") : countMax.text(countAll);
+                    countAll > 0 && countAll != null && countAll != "" ? countMax.show() : countMax.hide();
+                }
+            });
+        }
+        checkCount();
+		
+			
+        /*用户退出*/
+        $('.signOut').click(function () {
+            $.confirm('确认退出',
+                function () {
+                    $.loginReload()
+					var indexPageAccount = $.getStorage('indexPageAccount')
+					var indexPagePassword = $.getStorage('indexPagePassword')
+                   // $.removeStorage();
+					$.setStorage('indexPageAccount',indexPageAccount)
+					$.setStorage('indexPagePassword',indexPagePassword)
+                    $.uexOpen('login');
+                });
+        });
+       /* $('.checkVersion').click(function (event) {
+            $.toast('已经是最新版', 3000);
+        })*/
+        /*检查版本*/
+        var _bounce = true;
+        $('.checkVersion').click(function (event) {
+            if (!_bounce) return;
+            _bounce = false;
+            if (isiOS) {
+                //uexUpdate.checkVersion()
+            } else {
+                $.showPreloader('正在检查版本')
+                var flag_sdcard = 1;
+                var updateurl = ""; //下载新apk文件地址
+                var filepath2 = "/sdcard/"; //保存到sd卡
+                var fileName = ''; //新版本文件名
+                var platform = ''; //平台版本
+                //获取平台版本回调   data   0 iphone 1 android
+                uexWidgetOne.cbGetPlatform = function (opId, dataType, data) {
+                    uexVersion.getCurrentVersion()
+                };
+                //判断sdcard   data  0 sdcard不存在
+
+                //检查版本号 uexVersion.cbCurrentVersion回调方法
+               // uexWidgetOne.cbGetCurrentWidgetInfo = function (opId, dataType, data) {
+                uexVersion.cbCurrentVersion = function (opId, dataType, data) {
+                   // var json = JSON.parse(data);
+                    $.https({
+                        url: ipAddress + '/versioninfo.json',
+                        type: 'post',
+                        success: function (obj) {
+                            updateurl = obj.apkurl
+                            fileName = updateurl.substr(updateurl.lastIndexOf('/') + 1).split('.')[0];
+                            var _thisVersion = data;//parseFloat(json.version);
+                            var _newVersion = obj.version; //parseFloat();
+
+							//alert()
+
+
+                            if (_thisVersion != _newVersion) {
+                                $.hidePreloader();
+                                var modal = $.modal({
+                                    text: '检测到最新版本，是否更新！',
+                                    buttons: [{
+                                        text: '取消',
+                                        onClick: function () {
+                                            _bounce = true;
+                                            $.closeModal(modal);
+                                        }
+                                    },
+                                        {
+                                            text: '下载',
+                                            onClick: function () {
+                                                _bounce = true;
+                                                uexDownloaderMgr.createDownloader("14");
+                                            }
+                                        }]
+                                })
+                            } else {
+                                $.hidePreloader();
+                                $.toast('已经是最新版', 3000);
+                                setTimeout(function () {
+                                    _bounce = true;
+                                }, 3010)
+                            }
+                        }
+                    })
+                }
+                //显示下载进度
+                uexDownloaderMgr.onStatus = function (opId, fileSize, percent, status) {
+                    if (status == 0) {
+                        uexWindow.toast('1', '5', '下载进度：' + percent + '%', '');
+                    } else if (status == 1) { // 下载完成.
+                        uexWindow.closeToast();
+                        uexDownloaderMgr.closeDownloader('14'); //关闭下载对象
+                        uexWidget.installApp(filepath2 + fileName); // 安装下载apk文件
+                    } else {
+                        uexWindow.toast('1', '5', '下载出错，请关闭软件再次运行!', '');
+                    }
+                };
+                //创建下载对象回调函数
+                uexDownloaderMgr.cbCreateDownloader = function (opId, dataType, data) {
+                    if (data == 0) {
+                        uexDownloaderMgr.download('14', updateurl, filepath2 + fileName, '0'); //开始下载apk文件
+                    }
+                };
+                uexWidgetOne.getPlatform(); //获取平台版本
+            }
+        });
+
+        /*清除完成*/
+       /* $('.clearAll').click(function (event) {
+            uexOffice.cleanCache();
+            uexOffice.cbClean = function (code, type, data) {
+                if (code == 200) {
+                    local("mailVersionSetLocalCache", '')
+                    $.toast('清除成功');
+                }
+            }
+        });*/
+        $('#index').on('click',
+                function () {
+                    $.uexOpen2('index');
+                    $.setStorage('index', '1')
+                })
+
+        setInterTimeGlobal = setInterval(checkCount, 30000)
+        $.monitorVal2({
+            my_appConfig: function () {
+                checkCount();
+            }, mail_list_time4: function () {
+                clearInterval(setInterTimeGlobal)
+            },
+            refresh3:''
+        })
+
+
+        function $sendUserInfo(userName, phoneNmber, sex, tel, email) {
+            if (userName === '') return;
+
+			if(phoneNmber === sex) return (function(){
+				$.https({
+					url: mainURL + 'editPassword.do',
+					data: {
+						ParamJson: JSON.stringify({
+						"oldpsw": userName,
+						"password": phoneNmber,
+						"userid": userData.userid
+						})
+					},
+					type: "post",
+					dataType: "json",
+					success: function (res) {
+						if(res.Code == "1") {
+							$.alert(res.Msg,function(){
+								$.loginReload()
+								$.removeStorage();
+								$.uexOpen('login');
+							})
+						}else{
+							//$.alert(res.Msg)
+						}
+					}
+				});
+				$.hideIndicator();
+			})();
+            $.https({
+                url: mainURL + 'editUserInfo.do',
+                data: {
+                    ParamJson: JSON.stringify({
+                        "nickname": userName,
+                        "telephone": phoneNmber,
+                        "sex": sex,
+                        "email": email,
+                        "userid": userData.userid
+                    })
+                },
+                type: "post",
+                dataType: "json",
+                success: function (json) {
+                    console.log(json)
+                    if (json.Code == 1) {
+                        $.alert('用户信息修改成功');
+                        local("mailVersionSetLocalCache", '')
+                        $('.appConfig_userName').text(userName)
+                        if (phoneNmber != '') $('.appConfig_phoneNumber').show().text('联系方式：' + phoneNmber);
+                        userData.nickname = userName?userName:'';
+                        userData.sex = sex?sex:'';
+                        userData.telephone = phoneNmber?phoneNmber:'';
+                        userData.email = email?email:'';
+                        $.setStorage('userData', JSON.stringify(userData));
+                        $.hideIndicator();
+                    } else {
+                        $.alert('修改失败');
+                    }
+                }
+            });
+        }
+
+		
+		var userConfigModalHtml = 
+		    '<div class="tabs">' +
+                '<div class="ub ub-ac ub-pc ub-f1"><span class="ub ub-ac ub-pe">姓名：</span><input type="text" id="userNameInFo" class="modal-text-input ub ub-f1"></div>' +
+                '<div class="ub ub-ac ub-pc ub-f1"><span class="ub ub-ac ub-pe">性别：</span>\
+				    <label class="label-checkbox item-content ub">\
+                        <input type="radio" name="my-radio" tid="1">\
+                        <div class="item-media"><i class="icon icon-form-checkbox"></i></div>\
+                        <span class="ub ub-f1 ub-ac ub-pc" style="margin:0 2rem 0 .4rem; ">男</span>\
+                    </label>\
+					<label class="label-checkbox item-content ub">\
+                        <input type="radio" name="my-radio" tid="0">\
+                        <div class="item-media"><i class="icon icon-form-checkbox"></i></div>\
+                        <span class="ub ub-f1 ub-ac ub-pc" style="margin:0 2rem 0 .4rem; ">女</span>\
+                    </label>\
+				</div>' +
+                '<div class="ub ub-ac ub-pc ub-f1"><span class="ub ub-ac ub-pe">部门：</span><input type="text" id="userDip" readonly class="modal-text-input ub ub-f1"></div>' +
+				'<div class="ub ub-ac ub-pc ub-f1"><span class="ub ub-ac ub-pe">职务：</span><input type="text" id="userJob" readonly class="modal-text-input ub ub-f1"></div>' +
+                '<div class="ub ub-ac ub-pc ub-f1"><span class="ub ub-ac ub-pe">手机号码：</span><input type="number" id="phoneNumberInFo" class="modal-text-input ub ub-f1"></div>' +
+                '<div class="ub ub-ac ub-pc ub-f1"><span class="ub ub-ac ub-pe">电子邮箱：</span><input type="email" id="emailAdress" class="modal-text-input ub ub-f1"></div>' +
+            '</div>',
+		    alertPassModalHtml = 
+			'<div class="tabs">' +
+                '<div class="ub ub-ac ub-pc ub-f1"><span class="ub ub-ac ub-pe">原始密码：</span><input type="text" id="oldPassWord" class="modal-text-input ub ub-f1" ></div>' +
+                '<div class="ub ub-ac ub-pc ub-f1"><span class="ub ub-ac ub-pe">新密码：</span><input type="text" id="newPassWord" class="modal-text-input ub ub-f1" ></div>' +
+                '<div class="ub ub-ac ub-pc ub-f1"><span class="ub ub-ac ub-pe">确认密码：</span><input type="text" id="confirmPassWord" class="modal-text-input ub ub-f1" ></div>' +
+            '</div>';
+
+		  $(document).on('keyup input','#oldPassWord,#newPassWord,#confirmPassWord', function(){
+			var reg = /[\u4E00-\u9FA5\uF900-\uFA2D]/,str = this.value;
+			if(reg.test(str)) $.toast('密码不能为汉字');
+			this.value = str.replace(reg,'')
+		  })
+        $(document).on('click', '#configDetail, #alertPass', function () {
+		  var that = this,_text = $(that).find('.appConfig_list_cache').text();
+            setTimeout(function () {
+                $('.userConfigTitle').parents('.modal.modal-in').addClass('titleButtonLineBottomBorder');
+				$('#userNameInFo').val(userData.nickname?userData.nickname:'')
+				$('#phoneNumberInFo').val(userData.telephone?userData.telephone:'')
+				$('#emailAdress').val(userData.email?userData.email:'')
+				$('#userDip').val(userData.deptname?userData.deptname:'')
+				$('#userJob').val(userData.zw?userData.zw:'')
+				$('label.label-checkbox input[type="radio"][tid="'+userData.sex+'"]').attr('checked',true)
+            }, 100)
+			
+            $.modal({
+                title: '<div class="buttons-row buttons-row-header ub ub-ac ub-pc userConfigTitle">'+_text+'</div>',
+                text: that.id=='configDetail' ? userConfigModalHtml : alertPassModalHtml,
+                buttons: [
+                    {
+                        text: '确定',
+                        close: false,
+                        onClick: function () {
+                           if(that.id=='configDetail') {
+								 var u = $('#userNameInFo').val(),
+										p = $('#phoneNumberInFo').val(),
+										s = $('label.label-checkbox input[type="radio"]:checked'),
+										t = $('#telephoneNumber').val(),
+										e = $('#emailAdress').val();
+								if (u === '') return $.toast('姓名必填');
+								if (Boolean(s.length) ? ((s = s.attr('tid')) === false) : 1) return $.toast('请选择性别');
+						   }else{
+								var u = $('#oldPassWord').val(),
+									p = $('#newPassWord').val(),
+									s = $('#confirmPassWord').val();
+									if (u === '') return $.toast('原始密码未填写');
+									if (p === '') return $.toast('新密码未填写');
+									if (s === '') return $.toast('请再次输入新密码');
+									if (s !== p) return $.toast('两次新密码输入不一致');
+						   }
+                            $.closeModal();
+                            $.showIndicator();
+                            $sendUserInfo(u, p, s, t, e);
+                        }
+                    },
+                    {
+                        text: '取消',
+                        bold: false
+                    },
+                ]
+            })
+        });
+		
+		
+		//alertPass
+    });
+</script>
+</body>
+</html>

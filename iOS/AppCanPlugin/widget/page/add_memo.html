@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>新增备忘录</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<link rel="shortcut icon" href="/favicon.ico">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<!-- <link rel="shortcut icon" href="/favicon.ico"> -->
+<link rel="stylesheet" href="../fonts/iconfont.css">
+<link rel="stylesheet" href="../css/min/sm.css">
+<link rel="stylesheet" href="../css/min/sm-extend.css"> 
+<link rel="stylesheet" href="../css/min/flexBox.css">  
+<link rel="stylesheet" href="../css/tonXin.css"> 
+<style>
+ #page_news .content{background-color:#f2f2f2;}
+ #page_news .content .news_list{background-color:#fff;}
+ input{background-color:#fff!important;}  
+ .bg_color input{color:#bbb!important;}
+ .page_addMemo .fixed_button a{font-size:.85rem;}
+ #loading_jd{position:absolute;width:100%;height:100%;top:0;left:0;background:rgba(0,0,0,.5);font-size:.8rem;color:#fff;}
+ .load_warp{position:absolute;width:100%;height:100%;top:0;left:0;display:none;}
+ #yes{border-radius:.3rem;height:1.8rem;line-height:1.8rem;margin:.35rem 0;}
+ #no{border-radius:.3rem;height:1.8rem;line-height:1.8rem;margin:.35rem 0;}
+ 
+ /*a .ub input{width:100%!important;background:red!important;}*/
+</style>
+</head>
+<body>
+ <div class="page-group">
+<!-- 单个page ,第一个.page默认被展示-->
+<!-- 新增备忘录-->
+     <div class="page page-current leave page_leave_sq page_addMemo" id="page_addMemo">
+
+	         <!--新增备忘录头部-->
+			  <header class="bar bar-nav">
+                <a class="icon icon-left pull-left back1" ></a>
+                <h1 class="title">新增备忘录</h1>
+              </header>
+              
+		   <!--新增备忘录提交按钮-->
+			<div class="fixed_button bar bar-tab">
+			  <a href="javascript:;" id="yes">保存</a>
+			  <a href="javascript:;"  onclick="$.uexBack()" id="no">取消</a>
+			</div>
+			
+       <div class="content">
+
+			<!--新增备忘录内容-->
+			<div class="ub ub-f1 ub-ver organize">
+		     <div class="ub ub-f1 ub-ver organize_list">
+			   <a href="javascript:;" class="ub ub-f1 ub-ac ubb padd">
+			     <span class="ub ub-ac ub-ps">标题</span>
+			     <div class="ub ub-f1 ub-ac ub-ps"><input id="addTitle" class="ub ub-f1 ub-ver ut-m line1" placeholder="请输入标题" type="text" value="" /></div>
+			   </a>
+			   
+			   <div class="item_inner ub ub-f1" style="padding:.5rem 0;">
+				<div class="item_title">内容</div>
+				<div class="item_input ub ub-f1">
+				  <textarea style="min-height:4rem;" id="addTextarea" placeholder="请输入内容" class="ub ub-f1 ub-ac"></textarea>
+				</div>
+			  </div>
+			   
+		       <a href="javascript:;" class="ub ub-f1 ub-ac ubb padd">
+			     <span class="ub ub-ac ub-ps">状态</span>
+			     <div class="ub ub-f1 ub-ac ub-ps"><input class="ub ub-f1" id="pickerStatus" type="text" /></div>
+			     <span class="icon icon-right"></span>
+			   </a>
+			   <a href="javascript:;" class="ub ub-f1 ub-ac ubb padd">
+			     <span class="ub ub-ac ub-ps">标签</span>
+			     <div class="ub ub-f1 ub-ac ub-ps"><input class="ub ub-f1" id="pickerTitle" type="text" value="" /></div>
+			     <span class="icon icon-right"></span>
+			   </a>
+			   <a href="javascript:;" class="ub ub-f1 ub-ac ubb padd">
+			     <span class="ub ub-ac ub-ps">分享给</span>
+			     <div class="ub ub-f1 ub-ac ub-ps"><input class="ub ub-f1" id="give" type="text" value="" readonly /></div>
+			     <span class="icon icon-right"></span>
+			   </a>
+			   
+			   <div class="apply_upload ub ub-f1"style="padding:.5rem 0;">
+				<div class="apply_left">附件</div>
+				<div class="ub ub-f1 ub-ac apply_img_wrap">
+				  <div class="apply_img ub" id="explorer">
+				   <img src="../img/jia.png"/>
+				    <input  class="btn" type="button" id="apply_upload_input" value="启动文件浏览器">
+					 <div class="load_warp"><span class="ub ub-ac ub-pc" id="loading_jd">0%</span></div>
+				   </div>
+				  <span id="apply_img_ti">上传附件</span>
+
+				</div>
+			  </div>
+
+			  
+			  <a href="javascript:;" class="ub ub-f1 ub-ac ub-pj ubt padd" style="border-top:0;">
+			     <span class="ub ub-ac ub-ps ub-f1">提醒</span>
+			     <!-- <div class="ub ub-f1 ub-ac ub-ps"><input id="datetime-picker" type="text" value="" /></div> -->
+			     <span tdTab="0" class="add_memo_xunHuan add_memo_dinDian">定点</span>
+			     <span tdTab="1" class="add_memo_xunHuan">循环</span>
+			   </a>
+			   <a href="javascript:;" class="ub ub-f1 ub-ac ubt padd" style="border-top:0;">
+			     <span class="ub ub-ac ub-ps">时间</span>
+			     <div class="ub ub-f1 ub-ac ub-ps toogelTime" id="toogelTime">
+				   <div style="display:block;width:100%;">
+				     <input id="dateTimePic" type="text" value="" style="display:block;width:100%;" />
+				     <input id="SuiTime" type="text" value="" style="display:none;width:100%;"  />
+				   </div>
+				 </div>
+			     <span class="icon icon-right"></span>
+			   </a>
+			    <a href="javascript:;" class="ub ub-f1 ub-ac ubt padd bg_color" style="border-top:0;">
+			     <span class="ub ub-ac ub-ps">频率</span>
+			     <div class="ub ub-f1 ub-ac ub-ps"><input class="ub ub-f1" id="freq" type="text" value="" disabled="disabled"  /></div>
+			     <span class="icon icon-right"></span>
+			    </a>
+			    <a href="javascript:;" class="ub ub-f1 ub-ac ubt padd bg_color" style="border-top:0;">
+			     <span class="ub ub-ac ub-ps">第几天</span>
+			     <div class="ub ub-f1 ub-ac ub-ps"><input class="ub ub-f1" id="day" type="number" value="" disabled="disabled" /></div>
+			     <!-- <span class="icon icon-right"></span> -->
+			   </a>
+			 </div>
+
+		   </div>
+		   
+	   </div>
+     </div>	   	
+</div>
+
+
+<script type='text/javascript' src='../js/min/zepto.min.js' charset='utf-8'></script> 
+<script type='text/javascript' src='../js/mains.js' charset='utf-8'></script>  
+<script type='text/javascript' src='../js/config.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm-extend.min.js' charset='utf-8'></script> 
+<script type='text/javascript' src='../js/demos.js' charset='utf-8'></script>
+<!-- <script type='text/javascript' src='../js/uploadimg.js' charset='utf-8'></script> -->
+<script>
+  $.ready(function () {
+     $('#addTextarea').on('click',function(){//文本框光标获焦点后，跳最后
+	   createTextRangeMoveEnd(this)
+	 })
+	 
+    var fjDelJson = {
+                "id":"0",	
+				"filepath":"",
+                "SessionId" : getlocalVal('SessionId')				
+			}
+     function fjDel(dom,fn){							    //  附件删除功能ajax
+	          //alert('del')
+	          //alert(dom.attr('id'))
+			  var ParamfjDel = JSON.stringify(fjDelJson);
+			  console.info('打印的传参：',ParamfjDel);
+			  //alert(ParamfjDel)
+			  $.https({
+				   url:mainURL,
+				   data:{
+				     ClassName:"MyMemo",   
+					 MethodName:"FileDel",
+					 ParamJson : ParamfjDel
+				   },
+				   type:"post",
+				   dataType:"json",
+				   success:function(res,status,xhr){
+				     //alert(res)
+					 // console.log('打印出的ajax返回数据：',res)
+															    //  0调用失败 1成功 2文件不存在
+		              res.Code == 0 ? $.toast("删除失败") : res.Code == 2 ? $.toast("文件不存在") : false;
+					  if(res.Code == 1){
+					      dom.text('上传附件');
+						  $.toast("删除成功")
+						  MomeSaveJson['filepaths'] = "";
+				          MomeSaveJson['filenames'] = "";
+						  $('#explorer').find('img').attr('src','../img/jia.png');
+						  selectFileMgr();//绑定上传功能
+						  MemoClearJson();//清空备忘录新增缓存
+					  }
+					  
+					   if(typeof(fn)== "function"){
+						   fn(res);
+						 }
+					  
+					  
+					 }
+				});
+			}
+ 
+  
+	 
+	var fileData= "",
+	    uexid = 1;
+   	 	
+	function selectFileMgr(){
+	    $('#apply_upload_input').on('click',function(){
+	      uexFileMgr.explorer('wgts://');//打开 explorer 文件管理器
+	     //uexFileMgr.multiExplorer('wgts://');//打开 explorer 文件管理器
+	   })
+	}
+	selectFileMgr();
+	 var uploadHttp = ipAddress+'/swfupload/upload_do2.jsp?type=all';
+	 
+	 function upload (d) {
+	 
+	   uexid = Math.floor(Math.random() * (1000 + 1));
+	   //alert(uexid);
+	  var headJson = '{"Content-type":"application/json;charset=utf-8"}';
+	  uexUploaderMgr.setHeaders(uexid, headJson);
+      uexUploaderMgr.createUploader(uexid, uploadHttp);
+    }
+	 
+ 
+ uexUploaderMgr.onStatus=function (uexid, fileSize, percent, serverPath, status){
+			switch (status) {
+			case 0:
+				//document.getElementById('loading_jd').innerHTML = "文件大小:"+fileSize+"字节<br>上传进度:"+percent+"%";
+				document.getElementById('loading_jd').innerHTML = percent+"%";
+				break;
+			case 1:
+			    $.toast('上传成功');
+				MomeSaveJson['filepaths'] = JSON.parse(serverPath)['filePath'];
+				MomeSaveJson['filenames'] = JSON.parse(serverPath)['fileName'];
+				//alert(serverPath)
+				////alert(eval(serverPath))
+				//alert(JSON.stringify(serverPath))
+				//alert(JSON.parse(serverPath)['fileName'])
+				//alert(JSON.parse(serverPath)['filePath'])
+				 uexUploaderMgr.closeUploader(uexid);
+				 //uexid++;
+				 //alert(uexid)
+				$('.load_warp').hide();
+				$('#apply_img_ti').text('点击删除附件').one('click',function(){
+				   fjDelJson['filepath'] = JSON.parse(serverPath)['filePath'];
+				   fjDel($(this));
+				})
+				////alert("上传成功,服务器路径为"+serverPath);
+				break;
+			case 2:
+			    $.toast('上传失败');
+				uexUploaderMgr.closeUploader(uexid);
+				// uexFileMgr.explorer('wgts://');//打开 explorer 文件管理器
+				break;
+			}
+		}
+
+	   uexFileMgr.cbExplorer = function(opId, dataType, data) {
+            fileData=data;
+			uexFileMgr.openFile(opId, data, '1');
+			uexFileMgr.getFileSize(opId);
+			uexFileMgr.cbGetFileSize = function(id, type, _data) {
+				//alert("文件长度:" + (Number(_data)/1048576)+'MB'+'---'+(Number(_data)/1024)+'KB');
+				if((Number(_data)/1048576) >= 5){
+				   uexFileMgr.closeFile(opId);
+				   $.alert('文件大于5M，不能上传')
+				}else{
+				  uexFileMgr.closeFile(opId);
+				  upload(data);
+				}
+			}
+			
+        }
+	 
+	    uexUploaderMgr.cbCreateUploader=function(uexid, dataType, data){
+            if (data == 0) {
+                //alert("上传创建成功");
+                uexUploaderMgr.uploadFile(uexid,fileData, "inputName",1);
+	  
+				$('#explorer').find('img').attr('src','../img/timg.jpg');
+				$('.load_warp').show();
+            } else {
+                //alert("上传创建失败");
+            }
+        }
+
+	
+	function MemoClearJson(){  // 备忘录缓存清除
+            local("MemoLocal_id","0")
+			local("MemoLocal_filepaths","")
+			local("MemoLocal_frequencytime","00 : 00 : 00")
+			local("MemoLocal_frequencyday","")
+			local("MemoLocal_memostt","")
+			local("MemoLocal_content","")
+			local("MemoLocal_frequency","")
+			local("MemoLocal_remind","")
+			local("MemoLocal_sentremindtime","")
+			local("MemoLocal_shareids","")
+			local("MemoLocal_memos","")
+			local("MemoLocal_memoid","")
+			local("MemoLocal_name","")
+			local("MemoLocal_filenames","")
+			local("MemoLocal_state","")
+			local("FxUserId","")
+			local("FxUserName","")
+    }	
+	 
+	 var MomeSaveJson = {   //	备忘录新增传参集
+	            "filepaths":"",//上传的文件路径
+				//"fromuserid":"10006160",//用户id
+				//"cuser":"10000000",//用户id
+				"frequencytime":"00 : 00 : 00", //循环 时间00: 00: 00
+				"docid":"0",//默认为0
+				"id":"0",//用户ID默认0
+				"type":"6",//type字段值默认6
+				/*
+				 文件业务类型，在数据字典中的 file_type,
+				 1表示收发文登记文件，2表示公文附件，3表示公文正文文件，4表示公文痕文件，
+				 5表示公文成文文件，6表示备忘录文件，7公文批单  这个是表中的字段说明
+				*/
+				"frequencyday":"",//提醒 选循环一周以上，第几天1,2,3.....
+				"memostt":"",//标签值（重要）
+				"content":"",//内容
+				"frequency":"",//提醒  循环每天为4，周 3 月 2 年 1
+				"remind":"", //提醒 定点 1 循环 2
+				"sentremindtime":"", //定点 时间2017-01-0 416: 10: 01
+				"shareids":"",//分享人id【10005836】,无分享人，为空
+				//"reqCode":"saveMemo",//default
+				"memos":"",//标签值（重要）
+				"memoid":"",//修改备忘录要传的id ,增加时为空
+				"name":"",//title 标题
+				"filenames":"",//上传的文件name 律协OA
+				"state":"",//状态码 0、1、2
+				"SessionId" : getlocalVal('SessionId')
+	    }	                
+  
+  
+     function selectFn(value){  //设定选每天则禁用第几天输入框
+		 if(value == "每天"){
+		   $('#day').attr('disabled','disabled').parents('a').addClass('bg_color');
+		   value = value == "每天" ? 4 : value == "每周" ? 3 : value == "每月" ? 2 : value == "每年" ? 1 : "";
+		   local('MemoLocal_frequency',value);
+		   return;
+		  }
+		  $('#day').removeAttr('disabled').parents('a').removeClass('bg_color');
+		  value = value == "每天" ? 4 : value == "每周" ? 3 : value == "每月" ? 2 : value == "每年" ? 1 : "";
+		  local('MemoLocal_frequency',value);
+	 }
+     
+	 function state_back(dom,obj){  //  state状态码中文转英文
+	   ////alert($(dom).val())
+		if(dom == '无状态') {obj['state'] = "0";return;}
+		if(dom == '未完成') {obj['state'] = "1";return;}
+		if(dom == '完成') {obj['state'] = "2";return;}
+		
+	 }
+	 
+     function smollTitle(dom){    //去掉多余标签
+	    var va = $(dom).val(),
+		    ti = va == "重要" ? "重要" : "";
+		    return ti;
+	 }
+	 
+     function remindGet(){    // 提醒传参设定
+	    var td  = $('.add_memo_dinDian').attr('tdTab'),
+		    va1 = $('#dateTimePic').val(),               //定点
+		    va2 = $('#SuiTime').val(),    		         //循环
+		    day = $('#day').val(),    		             //第几天
+		    va3 = $('#freq').val();    		             //频率
+		  if(td == 0){     						         //定点
+			 MomeSaveJson['sentremindtime'] = va1+":05"; 
+			 MomeSaveJson['frequencytime']  = "00 : 00 : 00";
+			 MomeSaveJson['remind']         = "1"; 
+			 MomeSaveJson['frequencyday']   = "";
+			 MomeSaveJson['frequency']      = "";
+			 return; 
+		  }
+		  if(td == 1){
+		     MomeSaveJson['frequencytime']  = va2; 
+			 MomeSaveJson['sentremindtime'] = ""; 
+			 MomeSaveJson['remind']         = "2";
+			 va3 = va3 == "每天" ? 4 : va3 == "每周" ? 3 : va3 == "每月" ? 2 : va3 == "每年" ? 1 : "";
+			 MomeSaveJson['frequency']      = va3;
+			 va3 != 4 ? MomeSaveJson['frequencyday'] = day : MomeSaveJson['frequencyday'] = "";
+			 return; 
+		  }
+	 }
+   
+   $('#give').on('click',function(){
+      $.uexOpen('userList');
+   })
+   
+    
+    function inputSet(dom,ar){  					//input输值动态存储缓存
+	   $(dom).on('input propertychange',function(){
+	      local(ar,$(this).val());
+	     // alert(5)
+	   })
+	}
+	function stateFun(value){
+	  local('MemoLocal_state',value);
+	}
+	function smollTitleFun(value){
+	  local('MemoLocal_memostt',value);
+	}
+	function boxFn(value){
+	   value=value.join(" ");
+	   local("MemoLocal_frequencytime",value);
+	   return value;
+	} 
+	//$('.add_memo_xunHuan').on('click',function(){
+	//   alert($(this).attr('tdtab'))
+	//})
+	
+	inputSet('#addTitle','MemoLocal_name');
+	inputSet('#addTextarea','MemoLocal_content');
+	inputSet('#day','MemoLocal_frequencyday');
+	
+   
+   
+   
+   
+     function argFaSong(){    //发送数据获取
+	   var addTitle   			   = $('#addTitle').val(),       //标题
+	       addTextarea			   = $('#addTextarea').val(),    //内容
+	       pickerStatus			   = $('#pickerStatus').val(),   //状态
+	       pickerTitle			   = smollTitle('#pickerTitle'); //标签--重要
+
+	       MomeSaveJson['name']    = addTitle;		 //标题
+	       MomeSaveJson['content'] = addTextarea;    //内容
+	       state_back(pickerStatus,MomeSaveJson); //状态
+	       MomeSaveJson['memostt'] = pickerTitle;    //标签--重要
+	       MomeSaveJson['memos']   = pickerTitle;    //标签--重要
+		   MomeSaveJson['shareids']= Boolean(getlocalVal('FxUserId')) ? getlocalVal('FxUserId') : ""; //分享人ID
+		   remindGet();
+	 }
+  
+     
+     var sentremindtimeArray = new Array();
+	 SuiPicSelect('#pickerStatus','请选择状态',['无状态', '未完成', '完成'],stateFun)
+	 SuiPicSelect('#pickerTitle','请选择标签',['重要', '一般'],smollTitleFun)
+	 SuiPicSelect('#freq','请选择频率',['每天', '每周','每月','每年'],selectFn)
+     SuiTimeSelect('#SuiTime','请选择时间',boxFn);
+	  $("#dateTimePic").datetimePicker({
+	       //  value: sentremindtimeArray,
+		     formatValue:function(picker, value, displayValue){
+			   //console.log(value)
+			   displayValue=displayValue.join("-").substr(0,10)+" "+displayValue[3]+":"+displayValue[4];
+			   local("MemoLocal_sentremindtime",displayValue);
+			   return displayValue;
+			 }
+            });
+	 
+	 
+//$('#dateTimePic').val(getlocalVal('MemoLocal_sentremindtime'));
+	$('.add_memo_xunHuan').on('click',function(){
+	   
+	   $(this).addClass('add_memo_dinDian').siblings().removeClass('add_memo_dinDian');
+	   if($(this).attr('tdTab') == 0){
+	      local("MemoLocal_remind",1)
+	      $('#freq').attr('disabled','disabled').parents('a').addClass('bg_color');
+	      $('#day').attr('disabled','disabled').parents('a').addClass('bg_color');
+		  $("#dateTimePic").show();
+		  $("#SuiTime").hide();
+	   }else{
+	      local("MemoLocal_remind",2)
+	      $('#freq').removeAttr('disabled').parents('a').removeClass('bg_color');
+	      $('#day').removeAttr('disabled').parents('a').removeClass('bg_color');
+		  $("#dateTimePic").hide();
+		  $("#SuiTime").show();
+		  if($('#freq').val()=="每天"){
+		   $('#day').attr('disabled','disabled').parents('a').addClass('bg_color');
+		  }
+	   }
+	   
+	})
+	
+	
+	function MomeSaveAjax(){					         //  备忘录保存功能ajax
+			  var ParamMomeSave = JSON.stringify(MomeSaveJson);
+			  console.info('打印的传参：',ParamMomeSave);
+			  $.https({
+				   url:mainURL,
+				   data:{
+				     ClassName:"MyMemo",   
+					 MethodName:"MomeSave",
+					 ParamJson : ParamMomeSave
+				   },
+				   type:"post",
+				   dataType:"json",
+				   success:function(res,status,xhr){
+				     // //alert(res)
+					  console.log('打印出的ajax返回数据：',res)
+					  if(res.Code=1){
+					     $.toast('保存成功');
+					     MemoClearJson();//清空缓存
+						 setTimeout(function(){
+						      $.setStorage('memo_list','1'); 
+							  $.uexBack();
+							 },500)
+						
+					  }else{ return $.toast('保存失败');}
+					  
+					 },
+					error:function(xhr,errorText,errorStatus){
+					 //console.log(xhr.response)
+					 if(xhr.status==0){
+						  return $.toast("服务器出车祸了");
+						}else{
+						  if(xhr.status==200){
+						    MemoClearJson();//清空缓存
+							$.toast(xhr.response);
+							setTimeout(function(){
+							 $.uexOpen('login');
+							 },1000)
+						  }
+						}
+					
+
+				   }
+				});
+			}
+	
+	
+	function state_back2(sta,obj){  					 //  state状态码中文转数字
+					if(sta == '无状态') {obj['state'] = "0";return;}
+					if(sta == '未完成') {obj['state'] = "1";return;}
+					if(sta == '完成')   {obj['state'] = "2";return;}
+				  }
+	
+    if(getlocalVal('MemoLocal_memostt')==""){$('#pickerTitle').val('一般')}
+			if(getlocalVal('MemoLocal_filepaths') != "" && getlocalVal('MemoLocal_filepaths') != null){//附件路径不为空和null
+			   $('#explorer').find('img').attr('src','../img/timg.jpg');
+			   MomeSaveJson['filepaths'] = getlocalVal('MemoLocal_filepaths');
+			   $('#apply_img_ti').text('点击删除附件').one('click',function(){
+			      //alert(88888)
+				   fjDelJson['filepath'] = getlocalVal('MemoLocal_filepaths');
+				   fjDelJson['id'] = getlocalVal('MemoLocal_id');
+				   //alert(fjDelJson['filepath'])
+				   //alert(getlocalVal('MemoLocal_filepaths'))
+				   
+				   fjDel($(this),callBackFn);
+				 })
+			}else{
+			   // selectFileMgr();//绑定上传文件功能
+			}
+	
+	var s = getlocalVal('MemoLocal_id'),
+	    s1 = getlocalVal('MemoLocal_memoid'),
+	    s2 = getlocalVal('MemoLocal_filenames'),
+	    s3 = getlocalVal('MemoLocal_name'),
+	    s4 = getlocalVal('MemoLocal_content'),
+	    s5 = getlocalVal('MemoLocal_state'),
+	    s6 = getlocalVal('MemoLocal_memostt'),
+	   // s7 = getlocalVal('MemoLocal_frequency'),
+
+		
+	    u = getlocalVal('FxUserName'),
+	    n = getlocalVal('FxUserId');
+		
+	   if(u != "" && u != null && n != "" && n != null){
+	       $('#give').val(u);
+		   //alert(u)
+	   }
+	   if(s1 != "" && s1 != null){MomeSaveJson['memoid'] = getlocalVal('MemoLocal_memoid');}
+	   if(s2 != "" && s2 != null){MomeSaveJson['filenames'] = getlocalVal('MemoLocal_filenames');}
+	   if(s3 != "" && s3 != null){$('#addTitle').val(getlocalVal('MemoLocal_name'));}
+	   if(s4 != "" && s4 != null){$('#addTextarea').val(getlocalVal('MemoLocal_content'));}
+	   if(s5 != "" && s5 != null){$('#pickerStatus').val(getlocalVal('MemoLocal_state'));}
+	   if(s  != "0" && s != null){MomeSaveJson['id'] = getlocalVal('MemoLocal_id');}
+	   if(s6 != "" && s6 != null){$('#pickerTitle').val(getlocalVal('MemoLocal_memostt'));}
+	  // if(s7 != "" && s7 != null){$('#freq').val(getlocalVal('MemoLocal_frequency'));}
+	
+			if(getlocalVal('MemoLocal_remind')==1){//提醒选定状态
+			   $('#dateTimePic').val(getlocalVal('MemoLocal_sentremindtime'));
+			}
+			if(getlocalVal('MemoLocal_remind')==2){
+			  $('#SuiTime').val(getlocalVal('MemoLocal_frequencytime'))
+			   $('span.add_memo_xunHuan').eq(1).addClass('add_memo_dinDian').siblings().removeClass('add_memo_dinDian')
+			   $('#toogelTime div input').hide().eq(1).show();
+			  // $('#freq').attr('disabled','disabled').parents('a').addClass('bg_color');
+	          // $('#day').attr('disabled','disabled').parents('a').addClass('bg_color');
+			   $('#freq').removeAttr('disabled').parents('a').removeClass('bg_color');
+	           $('#day').removeAttr('disabled').parents('a').removeClass('bg_color');
+			   var han = getlocalVal('MemoLocal_frequency');
+			    han = han == "4" ? "每天" : han == "3" ? "每周" : han == "2" ? "每月" : han == "1" ? "每年" : "";
+				$('#freq').val(han)
+				if(han == "每天"){
+				  $('#day').attr('disabled','disabled').parents('a').addClass('bg_color');
+				}else{
+				  $('#day').val(getlocalVal('MemoLocal_frequencyday'))
+				}
+			}
+			
+			
+/*
+	   $(this).addClass('add_memo_dinDian').siblings().removeClass('add_memo_dinDian');
+	   if($(this).attr('tdTab') == 0){
+	      local("MemoLocal_remind",0)
+	      $('#freq').attr('disabled','disabled').parents('a').addClass('bg_color');
+	      $('#day').attr('disabled','disabled').parents('a').addClass('bg_color');
+		  $("#dateTimePic").show();
+		  $("#SuiTime").hide();
+	   }else{
+	      local("MemoLocal_remind",1)
+	      $('#freq').removeAttr('disabled').parents('a').removeClass('bg_color');
+	      $('#day').removeAttr('disabled').parents('a').removeClass('bg_color');
+		  $("#dateTimePic").hide();
+		  $("#SuiTime").show();
+		  if($('#freq').val()=="每天"){
+		   $('#day').attr('disabled','disabled').parents('a').addClass('bg_color');
+		  }
+	   }
+*/	   
+   
+
+			
+			
+			
+			//$('#pickerTitle').val(getlocalVal('MemoLocal_memos'))('input[name="sno"]').
+			  
+		 
+
+    function callBackFn(data){
+	     MomeSaveJson['filepaths'] = '';
+	     $('#apply_img_ti').text('上传附件');
+		 $('#explorer').find('img').attr('src','../img/jia.png');
+		 selectFileMgr();//绑定上传文件功能
+		 console.log(data)
+	}
+		  
+	$('#yes').on('touchstart',function(){
+	    $(this).css({
+	     'background':'#1ac6ee',
+	     'color':'#fff'
+	    })
+	}).on('touchend',function(){
+		$(this).css({
+		  'background':'#fff',
+		  'color':'#1ac6ee'
+		})
+	})      
+
+	$('#no').on('touchstart',function(){
+	    $(this).css({
+	     'background':'#f14646',
+	     'color':'#fff'
+	    })
+	}).on('touchend',function(){
+		$(this).css({
+		  'background':'#fff',
+		  'color':'#999'
+		});
+		MemoClearJson();
+	})   
+	
+	
+	
+	
+	$('#yes').on('click',function(e){
+		
+        argFaSong();//发送数据获取
+		if( $('#addTitle').val()==""){
+	      $.toast('请输入标题');
+		  return false;
+	   }
+	   if( $('#addTextarea').val()==""){
+	      $.toast('请输入内容');
+		  return false;
+	   }
+       if( $('#pickerStatus').val()==""){
+	      $.toast('请输入状态');
+		  return false;
+	   }
+	   if(MomeSaveJson['remind']== 1&&$('#dateTimePic').val()==""){
+	      $.toast('请输入定点时间');
+	      return false;
+	   }
+	    if(MomeSaveJson['remind']== 2){
+	      if($('#SuiTime').val()==""){
+		     $.toast('请输入循环时间');
+			 return false;
+		  }
+		  if($('#freq').val()==""){
+		    $.toast('请输入循环频率');
+	        return false;
+		  }else{
+		    if($('#freq').val()!="每天"){
+			  if($('#day').val()==""){
+			    return $.toast('请输入第几天提醒');
+			  }
+			  if(!(/^[0-9]*[1-9][0-9]*$/.test($('#day').val()))){
+	             return $.toast('第几天请输入数字');
+	          }
+			  
+			}
+		  }
+		   
+	   }
+
+	 //alert(JSON.stringify(MomeSaveJson))  
+	   
+	   MomeSaveAjax();
+	})
+	//$('#no').on('click',function(){
+	  // $.uexOpen("job_log_edit");
+	//})
+
+	
+	$('.back1').on('click',function(){
+	  MemoClearJson();
+	  $.uexBack();
+	})	
+	$.monitorVal({userlist:''})
+  })
+</script>
+
+</body>
+</html>

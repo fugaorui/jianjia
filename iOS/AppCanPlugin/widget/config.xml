@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<widget appId="dt0001s002" channelCode="000" height="480" pid="" sreensize="4.5" version="1.2" viewmode="application" widgetId="" width="320"> 
+  <name>广东律协</name>  
+  <description/>  
+  <author email=""/>  
+  <icon src="icon.png"/>  
+  <license href=""/>  
+  <content encoding="utf-8" src="./page/index.html"/>
+  <updateurl>http://dls.dongteng.me/checkupdate.php</updateurl>  
+  <logserverip/>  
+  <showmyspace>false</showmyspace>  
+  <obfuscation>false</obfuscation>  
+  <bgcolor>#fefefe</bgcolor>
+  <orientation>1</orientation> 
+    <config desc="uexJPush" type="KEY">
+		<param platform="Android" name="$UEXJPUSH_PACKAGE$" value="com.gzjj.gzbg"/>
+        <param platform="Android" name="$UEXJPUSH_APPKEY$" value="96b4b2f3707509f9ebc9b30f"/>
+    </config>  
+</widget>
+
+
+

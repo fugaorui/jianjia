@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>应用</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta content="telephone=no,email=no" name="format-detection"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="../fonts/iconfont.css">
+    <link rel="stylesheet" href="../css/min/sm.css">
+    <link rel="stylesheet" href="../css/min/sm-extend.css">
+    <link rel="stylesheet" href="../css/min/flexBox.css">
+    <link rel="stylesheet" href="../css/tonXin.css">
+    <script type='text/javascript' src='../js/vue.min.js' charset='utf-8'></script>
+    <style>
+        .button{
+            margin: 1rem auto;
+            width:96%;
+        }
+        .page .content input{
+            padding: 15px 10px;
+        }
+        .row.no-gutter .col-20{
+            padding: 10px;
+        }
+        .card{
+            margin:0;
+        }
+        .item-after{
+            width: 50%;
+            white-space: inherit!important;
+            max-height: inherit!important;
+            text-align: right!important;
+        }
+        [v-cloak] {
+            display: none;
+        }
+        .card-header{
+            position: relative;
+        }
+        .icon-down{
+            position: absolute;
+            bottom:.15rem;
+            font-size:.5rem;
+            left:50%;
+            margin-left: -.25rem;
+        }
+        .content{
+            overflowx-y:scroll;
+        }
+        p{
+            margin: 0;
+            font-size: .65rem;
+            color: #999999;
+        }
+        .rsa{
+            font-size: .65rem;
+            color: #999999;
+        }
+    </style>
+</head>
+<body>
+<div class="page-group" id="app">
+    <div class="page page-current">
+        <header class="bar bar-nav">
+            <h1 class='title'  v-cloak>{{data.title}}</h1>
+            <a class="icon icon-left pull-left" onclick="$.uexBack()"></a>
+        </header>
+        <div class="content infinite-scroll-bottom">
+                <div class="card"  v-for="(el,index) in list" v-cloak>
+                    <div class="card-header"  ><span @click="cardValClick(el)">{{el.czr}} <p>{{el.createtime}}</p> </span> <span class="icon icon-down" @click="cardValClick(el)"></span> <span class="rsa" @click="show(el.cid)">查看详情</span></div>
+
+                    <div class="card-content" v-if="cardVal == el">
+                        <div class="list-block">
+                            <ul>
+                                <li class="item-content" v-for="(e,i) in el" v-if="i != 'czr' && i != 'createtime' && i != 'cid'">
+
+                                    <div class="item-media"><i class="icon icon-f7"></i></div>
+                                    <div class="item-inner">
+                                        <div class="item-title">{{i}}</div>
+                                        <div class="item-after">{{e}}</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script type='text/javascript' src='../js/min/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/mains.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/config.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm-extend.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/demos.js' charset='utf-8'></script>
+
+<script type="text/javascript">
+    var vm = null
+    $.ready(function(){
+        vm = new Vue({
+            el:'#app',
+            data:{
+                start:'',
+                end:'',
+                loadding:false,
+                list:[],
+                cardVal:'',
+                data:{title:'',pageNo:1,pageSize:20,start:'',end:'',userid:'',url:''},
+                loading:false,
+                preloaderShow:false,
+            },
+            mounted:function () {
+                $("#start,#end").calendar();
+                var  data = JSON.parse($.getStorage("shengchengjilu2"))
+                this.data.userid = data.userid
+                this.data.start = data.start
+                this.data.end = data.end
+                this.data.title = data.title
+                this.data.url = data.url
+                this.loadData()
+                $('.infinite-scroll-bottom').scroll(function(){
+                    var $this =$(this),
+                        viewH =$(this).height(),//可见高度
+                        contentH =$(this).get(0).scrollHeight,//内容高度
+                        scrollTop =$(this).scrollTop();//滚动高度
+                    if(scrollTop/(contentH -viewH) >= 0.95){ //到达底部100px时,加载新内容
+                        if (vm.loading) return;
+                        vm.loading = true;
+                        vm.loadData()
+                    }
+                });
+            },
+            methods:{
+                show:function (cid) {
+                        console.log(cid)
+                    $.setStorage('operation_detail_id',cid)
+                    $.uexOpen('operation_detail')
+                },
+                loadData:function(){
+                    $.https({
+                        url:mainURL +  this.data.url,
+                        type:"post",
+                        data:{
+                            ParamJson : JSON.stringify(this.data)
+                        },
+                        success:function(json) {
+                            console.log(json)
+                            vm.data.pageNo ++
+                            var listD = []
+                            for(var key in json.Row){
+                                listD = json.Row[key]
+                                vm.list =  vm.list.concat(listD)
+                            }
+                            vm.$nextTick(function () {
+                                $.hideIndicator()
+                                $.refreshScroller();
+                                if(listD.length < 20){
+                                    vm.loading = true
+                                }else{
+                                    vm.loading = false
+                                }
+                            })
+                        }
+
+                    })
+                },
+                cardValClick:function (val) {
+                    if(this.cardVal == val){
+                        this.cardVal = ''
+                    }else{
+                        this.cardVal = val
+                    }
+                },
+                change1:function () {
+                    this.start = $('#start').val()
+                },
+                change2:function () {
+                    this.end = $('#end').val()
+                },
+                submit:function(){
+                    if(this.start == ''){
+                        $.toast("请选择开始时间");
+                        return
+                    }
+                    if(this.end == ''){
+                        $.toast("请选择结束时间");
+                        return
+                    }
+                    var start = new Date(this.start + ' 00:00:00').getTime()
+                    var end = new Date(this.end + ' 00:00:00').getTime()
+                    console.log(start)
+                    if(end < start){
+                        $.toast("结束日期不能小于开始日期");
+                        return
+                    }else if((start + 31536000000) < end){
+                        $.toast("查询日期段不能超过一年");
+                        return
+                    }
+
+                    if(this.loadding) return
+                    this.loadding = true 
+                    var vm = this
+                    var user = $.getUserData()
+                    $.https({
+                        url:mainURL + 'xsSQRecord.do',
+                        type:"post",
+                        data:{
+                            ParamJson : JSON.stringify({
+                                start:this.start,
+                                end:this.end,
+                                username:user.username,
+                                userid:user.userid
+                            })
+                        },
+                        success:function(data) {
+                            $.toast(data.Msg)
+                            vm.loadding = false
+                        }
+                    })
+                }
+            }
+
+
+        })
+    })
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AppCanPlugin/uexOpenFile/EUExOpen.m"
+            timestampString = "508760945.142091"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
+            landmarkName = "-onOpenWord:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AppCanPlugin/uexImage/sourceCode/PhotoPicker/uexImageAlbumPickerModel.m"
+            timestampString = "511083887.344557"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
+            landmarkName = "-doInitializing"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[uexImageAlbumPickerModel doInitializing]"
+                  moduleName = "TipSoft"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/luoqijie/Desktop/layerOA_iOS/iOS/AppCanPlugin/uexImage/sourceCode/PhotoPicker/uexImageAlbumPickerModel.m"
+                  timestampString = "520336588.652349"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "56"
+                  endingLineNumber = "56"
+                  offsetFromSymbolStart = "962">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[uexImageAlbumPickerModel doInitializing]"
+                  moduleName = "TipSoft"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/luoqijie/Desktop/layerOA_iOS/iOS/AppCanPlugin/uexImage/sourceCode/PhotoPicker/uexImageAlbumPickerModel.m"
+                  timestampString = "520336588.659558"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "56"
+                  endingLineNumber = "56"
+                  offsetFromSymbolStart = "1124">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[uexImageAlbumPickerModel doInitializing]"
+                  moduleName = "TipSoft"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/luoqijie/Desktop/layerOA_iOS/iOS/AppCanPlugin/uexImage/sourceCode/PhotoPicker/uexImageAlbumPickerModel.m"
+                  timestampString = "520336588.661373"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "56"
+                  endingLineNumber = "56"
+                  offsetFromSymbolStart = "1320">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__42-[uexImageAlbumPickerModel doInitializing]_block_invoke"
+                  moduleName = "TipSoft"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/luoqijie/Desktop/layerOA_iOS/iOS/AppCanPlugin/uexImage/sourceCode/PhotoPicker/uexImageAlbumPickerModel.m"
+                  timestampString = "520336588.663487"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "57"
+                  endingLineNumber = "57"
+                  offsetFromSymbolStart = "44">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AppCanPlugin/uexImage/sourceCode/PhotoPicker/uexImageAlbumPickerModel.m"
+            timestampString = "511083889.872765"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
+            landmarkName = "-doInitializing"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[uexImageAlbumPickerModel doInitializing]"
+                  moduleName = "TipSoft"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/luoqijie/Desktop/layerOA_iOS/iOS/AppCanPlugin/uexImage/sourceCode/PhotoPicker/uexImageAlbumPickerModel.m"
+                  timestampString = "520336588.673695"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "52"
+                  endingLineNumber = "52"
+                  offsetFromSymbolStart = "746">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[uexImageAlbumPickerModel doInitializing]"
+                  moduleName = "TipSoft"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/luoqijie/Desktop/layerOA_iOS/iOS/AppCanPlugin/uexImage/sourceCode/PhotoPicker/uexImageAlbumPickerModel.m"
+                  timestampString = "520336588.675287"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "52"
+                  endingLineNumber = "52"
+                  offsetFromSymbolStart = "912">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AppCanPlugin/uexImage/sourceCode/PhotoPicker/uexImageAlbumPickerModel.m"
+            timestampString = "511083997.613592"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
+            landmarkName = "-doInitializing"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[uexImageAlbumPickerModel doInitializing]"
+                  moduleName = "TipSoft"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/luoqijie/Desktop/layerOA_iOS/iOS/AppCanPlugin/uexImage/sourceCode/PhotoPicker/uexImageAlbumPickerModel.m"
+                  timestampString = "520336588.679653"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "51"
+                  endingLineNumber = "51"
+                  offsetFromSymbolStart = "480">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[uexImageAlbumPickerModel doInitializing]"
+                  moduleName = "TipSoft"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/luoqijie/Desktop/layerOA_iOS/iOS/AppCanPlugin/uexImage/sourceCode/PhotoPicker/uexImageAlbumPickerModel.m"
+                  timestampString = "520336588.681796"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "51"
+                  endingLineNumber = "51"
+                  offsetFromSymbolStart = "704">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AppCanPlugin/uexJPush/sourceCode/JPushInstance.m"
+            timestampString = "518339144.825606"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "399"
+            endingLineNumber = "399"
+            landmarkName = "-setBadgeNumber:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AppCanPlugin/uexCamera/EUExCamera.m"
+            timestampString = "518343132.16444"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "276"
+            endingLineNumber = "276"
+            landmarkName = "-deletePicture:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AppCanPlugin/uexImagePicker/EUExImagePicker.m"
+            timestampString = "520241996.940998"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "-pickPhotos:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
