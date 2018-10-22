@@ -130,6 +130,10 @@
                     <div class="appConfig_list_img"><img src="../img/alertPass.png"/></div>
                     <div class="appConfig_list_cache ubb ub ub-f1">修改密码</div>
                 </a>
+                <a href="javascript:;" class="ub ub-f1 ub-ac checkVersion" id="checkVersionPlatformJudge">
+                    <div class="appConfig_list_img"><img src="../img/check_banben.png"/></div>
+                    <div class="appConfig_list_cache ubb ub ub-f1">检查版本</div>
+                </a>
             </div>
 
             <div class="ub ub-f1 ub-ver appConfig_list ubb ubt">
@@ -159,7 +163,7 @@
         if (typeof uexWindow === "object") (function () {
             !isiOS && $.toolBack();
           //  isiOS && (function () {
-               /* setTimeout(function () {
+                setTimeout(function () {
                 	isiOS ? uexUpdate.getVersionNumber() : uexVersion.getCurrentVersion();
                 }, 100)
                 function setVersion(v){
@@ -174,7 +178,7 @@
                 	uexVersion.cbCurrentVersion = function (opId, dataType, data) {
                 		setVersion(data)
                 	}
-                }*/
+                }
            // })();
             var c1c = 0;
             uexWindow.setReportKey(0, 1);
@@ -192,9 +196,6 @@
         })();
         /*用户信息*/
         var userData = $.getUserData();
-        if(isiOS){
-            $('#checkVersionPlatformJudge').remove()
-        }
         console.log(userData)
         $('.appConfig_userName').html(userData.nickname);
         (userData.deptname && userData.deptname != '') && $('.appConfig_section').append(userData.deptname).show();
@@ -227,101 +228,116 @@
                     $.loginReload()
 					var indexPageAccount = $.getStorage('indexPageAccount')
 					var indexPagePassword = $.getStorage('indexPagePassword')
-                   // $.removeStorage();
+                    $.removeStorage();
 					$.setStorage('indexPageAccount',indexPageAccount)
 					$.setStorage('indexPagePassword',indexPagePassword)
                     $.uexOpen('login');
                 });
         });
-       /* $('.checkVersion').click(function (event) {
-            $.toast('已经是最新版', 3000);
-        })*/
-        /*检查版本*/
-        var _bounce = true;
         $('.checkVersion').click(function (event) {
-            if (!_bounce) return;
-            _bounce = false;
-            if (isiOS) {
-                //uexUpdate.checkVersion()
-            } else {
-                $.showPreloader('正在检查版本')
-                var flag_sdcard = 1;
-                var updateurl = ""; //下载新apk文件地址
-                var filepath2 = "/sdcard/"; //保存到sd卡
-                var fileName = ''; //新版本文件名
-                var platform = ''; //平台版本
-                //获取平台版本回调   data   0 iphone 1 android
-                uexWidgetOne.cbGetPlatform = function (opId, dataType, data) {
-                    uexVersion.getCurrentVersion()
-                };
-                //判断sdcard   data  0 sdcard不存在
-
-                //检查版本号 uexVersion.cbCurrentVersion回调方法
-               // uexWidgetOne.cbGetCurrentWidgetInfo = function (opId, dataType, data) {
-                uexVersion.cbCurrentVersion = function (opId, dataType, data) {
-                   // var json = JSON.parse(data);
-                    $.https({
-                        url: ipAddress + '/versioninfo.json',
-                        type: 'post',
-                        success: function (obj) {
-                            updateurl = obj.apkurl
-                            fileName = updateurl.substr(updateurl.lastIndexOf('/') + 1).split('.')[0];
-                            var _thisVersion = data;//parseFloat(json.version);
-                            var _newVersion = obj.version; //parseFloat();
-
-							//alert()
-
-
-                            if (_thisVersion != _newVersion) {
-                                $.hidePreloader();
-                                var modal = $.modal({
-                                    text: '检测到最新版本，是否更新！',
-                                    buttons: [{
-                                        text: '取消',
-                                        onClick: function () {
-                                            _bounce = true;
-                                            $.closeModal(modal);
-                                        }
-                                    },
-                                        {
-                                            text: '下载',
-                                            onClick: function () {
-                                                _bounce = true;
-                                                uexDownloaderMgr.createDownloader("14");
-                                            }
-                                        }]
-                                })
-                            } else {
-                                $.hidePreloader();
-                                $.toast('已经是最新版', 3000);
-                                setTimeout(function () {
-                                    _bounce = true;
-                                }, 3010)
-                            }
-                        }
-                    })
-                }
-                //显示下载进度
-                uexDownloaderMgr.onStatus = function (opId, fileSize, percent, status) {
-                    if (status == 0) {
-                        uexWindow.toast('1', '5', '下载进度：' + percent + '%', '');
-                    } else if (status == 1) { // 下载完成.
-                        uexWindow.closeToast();
-                        uexDownloaderMgr.closeDownloader('14'); //关闭下载对象
-                        uexWidget.installApp(filepath2 + fileName); // 安装下载apk文件
-                    } else {
-                        uexWindow.toast('1', '5', '下载出错，请关闭软件再次运行!', '');
-                    }
-                };
-                //创建下载对象回调函数
-                uexDownloaderMgr.cbCreateDownloader = function (opId, dataType, data) {
-                    if (data == 0) {
-                        uexDownloaderMgr.download('14', updateurl, filepath2 + fileName, '0'); //开始下载apk文件
-                    }
-                };
-                uexWidgetOne.getPlatform(); //获取平台版本
-            }
-        });
+            $.toast('已经是最新版', 3000);
+        })
+//        /*检查版本*/
+//        var _bounce = true;
+//        $('.checkVersion').click(function (event) {
+//            if (!_bounce) return;
+//            _bounce = false;
+//            if (isiOS) {
+//                uexUpdate.checkVersion()
+//            } else {
+//                $.showPreloader('正在检查版本')
+//                var flag_sdcard = 1;
+//                var updateurl = ""; //下载新apk文件地址
+//                var filepath2 = "/sdcard/"; //保存到sd卡
+//                var fileName = ''; //新版本文件名
+//                var platform = ''; //平台版本
+//                //获取平台版本回调   data   0 iphone 1 android
+//                uexWidgetOne.cbGetPlatform = function (opId, dataType, data) {
+//                    if (data == 0) {
+//                       // uexWidgetOne.getCurrentWidgetInfo();
+//					  // uexVersion.getCurrentVersion()
+//                    } else if (data == 1) {
+//                        flag_sdcard = 0;
+//                        uexFileMgr.isFileExistByPath('/sdcard/');
+//                    }
+//                };
+//                //判断sdcard   data  0 sdcard不存在
+//                uexFileMgr.cbIsFileExistByPath = function (opCode, dataType, data) {
+//                    if (flag_sdcard == 0 && data != 0) {
+//                        //uexWidgetOne.getCurrentWidgetInfo();
+//						//alert(9)
+//						uexVersion.getCurrentVersion()
+//                        flag_sdcard = 1;
+//                    }
+//                }
+//                //检查版本号 uexVersion.cbCurrentVersion回调方法
+//               // uexWidgetOne.cbGetCurrentWidgetInfo = function (opId, dataType, data) {
+//                uexVersion.cbCurrentVersion = function (opId, dataType, data) {
+//                   // var json = JSON.parse(data);
+//					alert(data)
+//                    $.https({
+//                        url: ipAddress + '/versioninfo.json',
+//                        type: 'post',
+//                        success: function (obj) {
+//                            updateurl = obj.apkurl
+//                            fileName = updateurl.substr(updateurl.lastIndexOf('/') + 1).split('.')[0];
+//                            var _thisVersion = data;//parseFloat(json.version);
+//                            var _newVersion = obj.version; //parseFloat();
+//
+//							alert('newVersion:'+obj.version+'--'+'oldVersion:'+data)
+//							//alert()
+//
+//
+//                            if (_thisVersion != _newVersion) {
+//                                $.hidePreloader();
+//                                var modal = $.modal({
+//                                    text: '检测到最新版本，是否更新！',
+//                                    buttons: [{
+//                                        text: '取消',
+//                                        onClick: function () {
+//                                            _bounce = true;
+//                                            $.closeModal(modal);
+//                                        }
+//                                    },
+//                                        {
+//                                            text: '下载',
+//                                            onClick: function () {
+//                                                _bounce = true;
+//                                                uexDownloaderMgr.createDownloader("14");
+//                                            }
+//                                        }]
+//                                })
+//                            } else {
+//                                $.hidePreloader();
+//                                $.toast('已经是最新版', 3000);
+//                                setTimeout(function () {
+//                                    _bounce = true;
+//                                }, 3010)
+//                            }
+//                        }
+//                    })
+//                }
+//                //显示下载进度
+//                uexDownloaderMgr.onStatus = function (opId, fileSize, percent, status) {
+//                    if (status == 0) {
+//                        uexWindow.toast('1', '5', '下载进度：' + percent + '%', '');
+//                    } else if (status == 1) { // 下载完成.
+//                        uexWindow.closeToast();
+//                        uexDownloaderMgr.closeDownloader('14'); //关闭下载对象
+//                        uexWidget.installApp(filepath2 + fileName); // 安装下载apk文件
+//                    } else {
+//                        uexWindow.toast('1', '5', '下载出错，请关闭软件再次运行!', '');
+//                    }
+//                };
+//                //创建下载对象回调函数
+//                uexDownloaderMgr.cbCreateDownloader = function (opId, dataType, data) {
+//                    if (data == 0) {
+//                        uexDownloaderMgr.download('14', updateurl, filepath2 + fileName, '0'); //开始下载apk文件
+//                    }
+//                };
+//                uexWidgetOne.getPlatform(); //获取平台版本
+//            }
+//        });
 
         /*清除完成*/
        /* $('.clearAll').click(function (event) {
@@ -345,8 +361,7 @@
                 checkCount();
             }, mail_list_time4: function () {
                 clearInterval(setInterTimeGlobal)
-            },
-            refresh3:''
+            }
         })
 
 

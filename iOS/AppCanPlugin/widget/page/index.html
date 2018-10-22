@@ -195,6 +195,7 @@
 
     $.ready(function () {
         var userData = $.getUserData();//$.getStorage(userDataIndexInfo)//$.getUserData();
+
         if (!userData) return $.uexOpen('login'), $.toast("未登录");
         if (typeof uexWindow === "object") (function () {
             var c1c = 0;
@@ -368,12 +369,12 @@
                 if (getlocalVal("mailVersionSetLocalCache") == val) {
                     return false;
                 } else {
-                   // $.showPreloader("正在更新通讯录");//加载提示
+                    $.showPreloader("正在更新通讯录");//加载提示
                     mailListAjax(val);
                     return false;
                 }
             } else {
-               // $.showPreloader("正在更新通讯录");//加载提示
+                $.showPreloader("正在更新通讯录");//加载提示
                 mailListAjax(val);
                 return false;
             }
@@ -433,9 +434,7 @@
                window.location.reload()
             }, mail_list_time2: function () {
                 clearInterval(setInterTimeGlobal)
-            },
-            refresh1:''
-            
+            }
         })
     })
 

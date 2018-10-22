@@ -210,9 +210,9 @@
     dispatch_async(dispatch_queue_create("qingl", DISPATCH_QUEUE_CONCURRENT), ^{
         EUExJPush *jp=[[EUExJPush alloc]init];
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
-        
+
         [[UIApplication sharedApplication] cancelAllLocalNotifications];
-        
+
         [JPUSHService resetBadge];
         [jp setBadgeNumber:[NSMutableArray arrayWithObject:@0]];
     });

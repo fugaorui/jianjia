@@ -14,16 +14,14 @@ $.config = {
     swipePanelOnlyClose:false         //只允许滑动关闭侧栏，不允许滑动打开。
 }  
 var isApp = localStorage.getItem("app") != "1" ? false : true;  
-var isiOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-
-$setHeader()
+var isiOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端   
+$setHeader() 
 function $setHeader(){
     if(isiOS && isApp){
         $('body').addClass('isIOS') 
         $('.iosheader').length == 0 && $('header').before('<div class="iosheader"></div>');
     }  
 }
-
 var ipAddress = 'http://39.104.56.218/'
 var ip = localStorage.getItem("ipAddress")
 if(ip != null){

@@ -75,9 +75,7 @@
             transition: all 0.2s ease-in-out;
             -webkit-transition: all 0.2s ease-in-out;
         }
-.isIOS .bar-header-secondary{
-        top:3.2rem;
-}
+
         .time_siftings {
             margin-top: .5rem;
         }
@@ -176,7 +174,7 @@
             <!--<a class="icon icon-left pull-left" onclick="$openHome()"></a>-->
             <a class="icon icon-left pull-left" onclick="$.uexBack()"></a>
             <!--<a class="icon pull-right">筛选</a>-->
-            <h1 class="title">顾客列表</h1>
+            <h1 class="title">顾客开卡信息列表</h1>
         </header>
 
         <div class="bar bar-header-secondary">
@@ -187,6 +185,11 @@
                     </div>
                     <a class="button button-fill button-primary col-15" style="top:0;right: .3rem;" @click="searchClick"><span class="icon icon-search"></span></a>
                 </div>
+                <!--<a class="searchbar-cancel">取消</a>
+                <div class="search-input">
+                    <label class="icon icon-search" for="search"></label>
+                    <input type="search"  v-model="searchVal"  id='search' @change="searchClick" placeholder='输入顾客编号...'/>
+                </div>-->
             </div>
         </div>
         <div class="fixed_button bar bar-tab" v-if="openCard" v-cloak>
@@ -196,16 +199,19 @@
         </div>
         <div class="content infinite-scroll infinite-scroll-bottom" data-distance="500" v-cloak>
             <ul>
-                <li v-for="el in list" @click="detail(el.gkbh)" >
+                <li v-for="el in list" @click="detail(el.id)" class="shenhe1" :class="[{'shenhe3':el.state == 1},{'shenhe2':el.state == 2},{'shenhe4':el.state == 3},{'shenhe5':el.state == 4}]">
                     <a href="javascript:;">
                         <div class="ub ub-f1 ub-as ub-pc ub-ver"  >
                             <div class="ub ub-f1 ub-ac ub-pj email_Admin_list">
                             <span class="ub ub-as ub-pc ub-f1 ub-ver ut-m line1">
-                                {{el.gkxm}}
+                                {{el.cname}}
                                 </span>
-
+                                <div class="ub ub-ac ub-pc email_Admin_right">
+                                    <span>{{el.kkrq}}</span>
+                                    <span class="icon icon-right"></span>
+                                </div>
                             </div>
-                            <div class="ub ub-f1 ub-ac ub-ps email_Admin_list_bottom"><span>{{el.gkbh}}</span></div>
+                            <div class="ub ub-f1 ub-ac ub-ps email_Admin_list_bottom"><span>{{el.gkxm}}</span></div>
                         </div>
                     </a>
                 </li>
@@ -228,7 +234,7 @@
 <script type="text/javascript">
     var vm
     $.ready(function () {
-        $.monitorVal({operationkakaxx22:''})
+        $.monitorVal({operationkakaxx:''})
         vm = new Vue({
             el:'#app',
             data: {
@@ -278,29 +284,26 @@
                     var page = this
                     console.log(page.page)
                     $.https({
-                        url: mainURL+'initCustomerInfo.do',
+                        url: mainURL+'cardInit.do',
                         data: {
                             ParamJson: JSON.stringify({
                                 pageNo:page.page,
                                 pageSize:"20",
                                 gkbh:page.searchVal,
-                                roleid:$.getUserData().roleid,
                                 px:$.getStorage('operationpxzd'),
                                 zdid:$.getStorage('operationpxfd'),
-                                fdid:$.getStorage('operationpxkkxx'),
-                                mk:$.getStorage('listVal')
+                                fdid:$.getStorage('operationpxkkxx')
                             })
                         },
                         type: "post",
                         dataType: "json",
                         success: function (json) {
                             vm.page ++
-                            vm.list = vm.list.concat(json.Row.customerList)
+                            vm.list = vm.list.concat(json.Row.cardList)
                             vm.$nextTick(function () {
                                 $.hideIndicator()
                                 $.refreshScroller();
-                                console.log(json.Row.customerList.length)
-                                if(json.Row.customerList.length < 20){
+                                if(json.Row.cardList.length <= 0){
                                     vm.preloaderShow = false
                                 }else{
                                     vm.loading = false
@@ -312,8 +315,8 @@
 
                 },
                 detail:function(id){
-                    $.setStorage('operationpxkukeleibiao',id)
-                    $.uexOpen('operationpxkukeleibiao')
+                    $.setStorage('operation_detail_id',id)
+                    $.uexOpen('operation_detail')
                 },
                 addCard:function () {
                     $.setStorage('operation_detail_id',"")

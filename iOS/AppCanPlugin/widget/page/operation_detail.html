@@ -1,145 +1,121 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title></title>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="initial-scale=1, maximum-scale=1">
-<meta content="telephone=no,email=no" name="format-detection" />
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-<meta name="description" content="">
-<!-- <link rel="shortcut icon" href="/favicon.ico"> -->
-<link rel="stylesheet" href="../fonts/iconfont.css">
-<link rel="stylesheet" href="../css/min/sm.css">
-<link rel="stylesheet" href="../css/min/sm-extend.css">
-<link rel="stylesheet" href="../css/min/flexBox.css">
-<link rel="stylesheet" href="../css/tonXin.css">
-<link rel="stylesheet" href="../js/pickout.css">
-<script type='text/javascript' src='../js/vue.min.js' charset='utf-8'></script>
-<style>
-div.list-block {
-	margin: 0px;
-}
+    <title></title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta content="telephone=no,email=no" name="format-detection"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="description" content="">
+    <!-- <link rel="shortcut icon" href="/favicon.ico"> -->
+    <link rel="stylesheet" href="../fonts/iconfont.css">
+    <link rel="stylesheet" href="../css/min/sm.css">
+    <link rel="stylesheet" href="../css/min/sm-extend.css">
+    <link rel="stylesheet" href="../css/min/flexBox.css">
+    <link rel="stylesheet" href="../css/tonXin.css">
+    <link rel="stylesheet" href="../js/pickout.css">
+    <script type='text/javascript' src='../js/vue.min.js' charset='utf-8'></script>
+    <style>
 
-.list-block .item-title.label {
-	width: 25%;
-}
+        div.list-block{
+            margin: 0px;
+        }
+        .list-block .item-title.label{
+            width:25%;
+        }
+        #content_all{
+            word-break: break-all;
+            word-wrap: break-word;
+        }
+        [v-cloak] {
+            display: none;
+        }
+        .li21{
 
-#content_all {
-	word-break: break-all;
-	word-wrap: break-word;
-}
+        }
+        .li21 .item-input{
+            height:6rem;
+            margin-top: .4rem;
+            vertical-align: middle;
+            overflow: auto;
+        }
+        .li21 .item-title{
+            margin-top: -3.2rem!important;
+            vertical-align: middle;
 
-[v-cloak] {
-	display: none;
-}
+        }
+        .tab-item .icon{
+            background: url(../img/sqk.png) no-repeat;
+            width: 1.2rem;
+            display: inline-block;
+            background-size: contain;
+        }
+        .tab-item:nth-of-type(2) .icon{
+            background-image: url(../img/sh.png);
+        }
+        .tab-item:nth-of-type(3) .icon{
+            background-image: url(../img/sy.png);
+        }
+        .tab-item:nth-of-type(4) .icon{
+            background-image: url(../img/tk.png);
+        }
+        .label-checkbox .item-media{
+            width: 3rem;
+            display: inline-block;
+        }
+        .label-checkbox .icon{
+            margin-right: .5rem;
+        }
+        .modalss{
+            width: 98%;
+            left: 0;
+            margin-left: 1%;
+        }
+        .modalss .modal-inner{
+            background: #ffffff;
+        }
+        .modalss  .modal-button{
+            background: #ffffff;
+        }
+        .external > div{
+            position: relative;
+            height: 2.5rem;
+        }
+        .external .icon,.external  .tab-label{
+            position: absolute;
+        }
+        .external .icon{
+            margin-left: -.5rem!important;
+            top: .2rem!important;
+        }
+        .external  .tab-label{
+            top: 1.5rem!important;
+        }
 
-.li21 {
-	
-}
+        .form-group {
+            width:100%;
+            float:left;
+            margin:5px 0;
+        }
 
-.li21 .item-input {
-	height: 6rem;
-	margin-top: .4rem;
-	vertical-align: middle;
-	overflow: auto;
-}
+        label{
+            margin-bottom:10px;
+            float:left;
+        }
 
-.li21 .item-title {
-	margin-top: -3.2rem !important;
-	vertical-align: middle;
-}
-
-.sqk, .tab-item .icon {
-	background: url(../img/sqk.png) no-repeat;
-	width: 1.2rem;
-	display: inline-block;
-	background-size: contain;
-}
-
-.shenhe {
-	background-image: url(../img/sh.png) !important;
-}
-
-.haoka {
-	background-image: url(../img/sy.png) !important;
-}
-
-.tuika {
-	background-image: url(../img/tk.png) !important;
-}
-
-.label-checkbox .item-media {
-	width: 3rem;
-	display: inline-block;
-}
-
-.label-checkbox .icon {
-	margin-right: .5rem;
-}
-
-.modalss {
-	width: 98%;
-	left: 0;
-	margin-left: 1%;
-}
-
-.modalss .modal-inner {
-	background: #ffffff;
-}
-
-.modalss  .modal-button {
-	background: #ffffff;
-}
-
-.external>div {
-	position: relative;
-	height: 2.5rem;
-}
-
-.external .icon, .external  .tab-label {
-	position: absolute;
-}
-
-.external .icon {
-	margin-left: -.5rem !important;
-	top: .2rem !important;
-}
-
-.external  .tab-label {
-	top: 1.5rem !important;
-}
-
-.form-group {
-	width: 100%;
-	float: left;
-	margin: 5px 0;
-}
-
-label {
-	margin-bottom: 10px;
-	float: left;
-}
-
-.field-input, select {
-	width: calc(100% - 20px);
-	float: left;
-	padding: 10px;
-	font-family: inherit;
-}
-
-.mp0 {
-	margin: 0;
-	padding: 0;
-}
-
-.tuika .modal-inner {
-	padding: 0;
-	border-radius: .3rem .3rem 0 0;
-	overflow: hidden;
-}
-</style>
+        .field-input, select{
+            width:calc(100% - 20px);
+            float:left;
+            padding:10px;
+            font-family:inherit;
+        }
+        .mp0{
+            margin: 0;
+            padding:0;
+        }
+    </style>
 
 </head>
 
@@ -147,46 +123,45 @@ label {
 
 
 <body>
-	<div class="page-group" id="app">
-		<!-- 单个page ,第一个.page默认被展示page_msn-->
-		<div
-			class="page page-current leave page_email_Admin page_memo page_msn"
-			id="page_inEmail">
+<div class="page-group" id="app">
+    <!-- 单个page ,第一个.page默认被展示page_msn-->
+    <div class="page page-current leave page_email_Admin page_memo page_msn" id="page_inEmail">
 
-			<!--站内信头部-->
-			<header class="bar bar-nav">
-				<a class="icon icon-left pull-left" onclick="$.uexBack();"></a> <a
-					class="icon icon-menu pull-right" @click="openList"
-					v-if="xiangmuleixing"></a>
-				<h1 class="title">开卡详情</h1>
-			</header>
+        <!--站内信头部-->
+        <header class="bar bar-nav">
+            <a class="icon icon-left pull-left" onclick="$.uexBack()"></a>
+            <a class="icon icon-menu pull-right" onclick="$.uexOpen('operatsqkList')" v-if="xiangmuleixing"></a>
+            <h1 class="title">开卡详情</h1>
+        </header>
 
-			<!--工作日志编辑保存按钮-->
-			<nav class="bar bar-tab" v-cloak v-if="xiangmuleixing">
+        <!--工作日志编辑保存按钮-->
+        <nav class="bar bar-tab"  v-cloak v-if="xiangmuleixing">
 
-				<a class="tab-item external " v-if="xiangVal == 2">
-					<div>
-						<span class="icon sqk" @click.once="tabClick(0)"></span> <span
-							class="tab-label">收欠款</span>
-					</div>
-				</a> <a class="tab-item external"
-					v-if="(xiangVal == 3 || xiangVal == 4) && state == 1">
-					<div>
-						<span class="icon haoka" @click.once="tabClick(2)"></span> <span
-							class="tab-label">耗卡</span>
-					</div>
-				</a> <a class="tab-item external" v-if="xiangVal == 3  && state == 0">
-					<div>
-						<span class="icon  shenhe" @click.once="tabClick(1)"></span> <span
-							class="tab-label">审核</span>
-					</div>
-				</a> <a class="tab-item external " v-if="xiangVal == 0 || xiangVal == 1">
-					<div>
-						<span class="icon tuika" @click="tabClick(3)"></span> <span
-							class="tab-label">退卡</span>
-					</div>
-				</a>
-				<!-- <a class="tab-item external" v-if="roleid != 4 && state == '0'"  >
+            <a class="tab-item external " v-if="xiangVal == 2">
+                <div>
+                    <span class="icon " @click.once="tabClick(0)"></span>
+                    <span class="tab-label">收欠款</span>
+                </div>
+            </a>
+            <a class="tab-item external" v-if="(xiangVal == 3 || xiangVal == 4) && state == 1">
+                <div>
+                    <span class="icon " @click.once="tabClick(2)"></span>
+                    <span class="tab-label">耗卡</span>
+                </div>
+            </a>
+            <a class="tab-item external" v-if="xiangVal == 3  && state == 0" >
+                <div>
+                    <span class="icon "@click.once="tabClick(1)"></span>
+                    <span class="tab-label">审核</span>
+                </div>
+            </a>
+            <a class="tab-item external" v-if="xiangVal == 0 || xiangVal == 1" >
+                <div>
+                    <span class="icon " @click.once="tabClick(3)"></span>
+                    <span class="tab-label">退卡</span>
+                </div>
+            </a>
+           <!-- <a class="tab-item external" v-if="roleid != 4 && state == '0'"  >
                 <div>
                     <span class="icon "@click.once="tabClick(1)"></span>
                     <span class="tab-label">审核</span>
@@ -204,111 +179,106 @@ label {
                     <span class="tab-label">退卡</span>
                 </div>
             </a>-->
-			</nav>
-			<!-- 这里是页面内容区 -->
-			<div class="fixed_button bar bar-tab" v-cloak v-if="edit"
-				@click="addFrom">
-				<a href="javascript:;"
-					class="button button-fill button-warning bottoms"> 新增开卡 </a>
-			</div>
-			<div class="content">
-				<div class="list-block" v-cloak>
-					<ul>
-						<li>
-							<div class="item-content">
-								<!--<div class="item-inner" @click="openSelect(0,list.zdxxList,$event)">-->
-								<div class="item-inner">
-									<div class="item-title label">总店名称</div>
-									<div class="item-input">
-										<div v-if="edit">
-											{{data.zdmc}} <select id="select1" v-model="data.zdid"
-												@change="rootId()" disabled style="display: none">
-												<option v-for="el in list.zdxxList" :value="el.id"
-													v-text="el.zdmc"></option>
-											</select>
-										</div>
-										<span v-else v-text="data.zdmc"></span>
-									</div>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="item-content">
-								<div class="item-inner">
-									<div class="item-title label">分店名称</div>
-									<div class="item-input">
-										<div v-if="edit">
-											{{data.fdmc}} <select v-if="edit" id="select2"
-												v-model="data.fdid" disabled style="display: none">
-												<option v-for="el in fdxxDataList" :value="el.id"
-													v-text="el.fdmc"></option>
-											</select>
-										</div>
-										<span v-else v-text="data.fdmc"></span>
-									</div>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="item-content">
-								<div class="item-inner">
-									<div class="item-title label">编号</div>
-									<div class="item-input">
-										<input type="text" id="gkbhaaa" v-model="data.gkbh"
-											:disabled="!edit">
-									</div>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="item-content">
-								<div class="item-inner">
-									<div class="item-title label">姓名</div>
-									<div class="item-input">
-										<input type="text" v-model="data.gkxm" :disabled="!edit">
-									</div>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="item-content">
-								<div class="item-inner">
-									<div class="item-title label">年龄</div>
-									<div class="item-input">
-										<input type="number" v-model="data.age" :disabled="!edit">
-									</div>
-								</div>
-							</div>
-						</li>
-						<li v-if="edit">
-							<div class="item-content">
-								<div class="item-inner">
-									<div class="item-title label">出生年月</div>
-									<div class="item-input">
-										<input type="text" id="csnydata" :disabled="!edit" />
-									</div>
-								</div>
-							</div>
-						</li>
-						<li v-if="edit">
-							<div class="item-content"
-								@click="openSelect(5,list.customerTypeList,$event)">
-								<div class="item-inner">
-									<div class="item-title label">顾客类型</div>
-									<div class="item-input">
-										<div v-if="edit">
-											{{data.gkmc}} <select v-if="edit" v-model="data.gklx"
-												@change="chongfuleixing" style="display: none">
-												<option v-for="el in list.customerTypeList" :value="el.id"
-													v-text="el.mc"></option>
-											</select>
-										</div>
+        </nav>
+        <!-- 这里是页面内容区 -->
+        <div class="fixed_button bar bar-tab"  v-cloak v-if="edit" @click="addFrom">
+            <a href="javascript:;" class="button button-fill button-warning bottoms">
+                新增开卡
+            </a>
+        </div>
+        <div class="content">
+            <div class="list-block" v-cloak>
+                <ul>
+                    <li >
+                        <div class="item-content">
+                            <!--<div class="item-inner" @click="openSelect(0,list.zdxxList,$event)">-->
+                            <div class="item-inner" >
+                                <div class="item-title label">总店名称</div>
+                                <div class="item-input" >
+                                    <div v-if="edit">
+                                        {{data.zdmc}}
+                                        <select id="select1"  v-model="data.zdid" @change="rootId()" disabled  style="display: none">
+                                            <option v-for="el in list.zdxxList" :value="el.id" v-text="el.zdmc"></option>
+                                        </select>
+                                    </div>
+                                    <span v-else v-text="data.zdmc"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li >
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">分店名称</div>
+                                <div class="item-input" @click="openSelect(1,fdxxDataList,$event)">
+                                    <div v-if="edit">
+                                        {{data.fdmc}}
+                                        <select v-if="edit" id="select2" v-model="data.fdid" disabled  style="display: none">
+                                            <option v-for="el in fdxxDataList" :value="el.id" v-text="el.fdmc"></option>
+                                        </select>
+                                    </div>
+                                    <span v-else v-text="data.fdmc"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li >
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">编号</div>
+                                <div class="item-input">
+                                    <input type="text" id="gkbhaaa" v-model="data.gkbh" :disabled="!edit" >
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li >
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">姓名</div>
+                                <div class="item-input">
+                                    <input type="text"  v-model="data.gkxm" :disabled="!edit">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li >
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">年龄</div>
+                                <div class="item-input">
+                                    <input type="number" v-model="data.age" :disabled="!edit">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li v-if="edit">
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">出生年月</div>
+                                <div class="item-input">
+                                    <input type="text" id="csnydata"   :disabled="!edit" />
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li v-if="edit">
+                        <div class="item-content"  @click="openSelect(5,list.customerTypeList,$event)">
+                            <div class="item-inner">
+                                <div class="item-title label">顾客类型</div>
+                                <div class="item-input">
+                                    <div v-if="edit">
+                                        {{data.gkmc}}
+                                        <select v-if="edit" v-model="data.gklx" @change="chongfuleixing" style="display: none">
+                                            <option v-for="el in list.customerTypeList" :value="el.id" v-text="el.mc"></option>
+                                        </select>
+                                    </div>
 
-									</div>
-								</div>
-							</div>
-						</li>
-						<!--<li v-if="chongfu">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <!--<li v-if="chongfu">
                         <div class="item-content">
                             <div class="item-inner">
                                 <div class="item-title label">技术人员</div>
@@ -320,252 +290,249 @@ label {
                             </div>
                         </div>
                     </li>-->
-						<li>
-							<div class="item-content">
-								<div class="item-inner">
-									<div class="item-title label">联系方式</div>
-									<div class="item-input">
-										<input type="number" v-model="data.lxfs" :disabled="!edit">
-									</div>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="item-content">
-								<div class="item-inner">
-									<div class="item-title label">家庭住址</div>
-									<div class="item-input">
-										<input type="text" v-model="data.address" :disabled="!edit">
-									</div>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="item-content">
-								<div class="item-inner">
-									<div class="item-title label">邮箱</div>
-									<div class="item-input">
-										<input type="text" v-model="data.email" :disabled="!edit">
-									</div>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="item-content">
-								<div class="item-inner">
-									<div class="item-title label">性别</div>
-									<div class="item-input">
-										<label class="label-checkbox"> <input type="radio"
-											value="1" name="sex" v-model="data.sex" :disabled="!edit">
-											<div class="item-media">
-												<i class="icon icon-form-checkbox"></i>男
-											</div>
-										</label> <label class="label-checkbox"> <input type="radio"
-											value="0" name="sex" v-model="data.sex" :disabled="!edit">
-											<div class="item-media">
-												<i class="icon icon-form-checkbox"></i>女
-											</div>
-										</label>
-									</div>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="item-content">
-								<div class="item-inner">
-									<div class="item-title label">来源</div>
-									<div class="item-input">
-										<input type="text" v-model="data.gkly" :disabled="!edit">
-									</div>
-								</div>
-							</div>
-						</li>
-						<li v-if="edit">
-							<div class="item-content">
-								<div class="item-inner">
-									<div class="item-title label">品项</div>
-									<div class="item-input">
-										{{data.tname}} <select v-if="edit" v-model="data.px"
-											disabled  @change="pingxiang" style="display: none">
-											<option v-for="el in list.typeList" :value="el.id"
-												v-text="el.tname"></option>
-										</select>
-									</div>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="item-content">
-								<div class="item-inner">
-									<div class="item-title label">开卡项目</div>
-									<div class="item-input">
-										<div v-if="edit">
-											{{data.cname}} <select v-model="data.cid" @change="kkxmsss"
-												style="display: none">
-												<option v-for="el in cardlist" :value="el.id"
-													v-text="el.name"></option>
-											</select>
-										</div>
-										<span v-else v-text="data.cname"></span>
-									</div>
-								</div>
-							</div>
-						</li>
-						<li v-if="edit">
-							<div class="item-content">
-								<div class="item-inner">
-									<div class="item-title label">项目类型</div>
-									<div class="item-input">
-										<div v-if="edit">
-											{{data.name}} <select v-if="edit" v-model="data.xmlx"
-												style="display: none">
-												<option v-for="el in list.projectTypeList" :value="el.id"
-													v-text="el.name"></option>
-											</select>
-										</div>
-										<span v-else v-text="data.name"></span>
-									</div>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="item-content">
-								<div class="item-inner">
-									<div class="item-title label">开卡日期</div>
-									<div class="item-input">
-										<input type="text" id="kkrqass" v-model="data.kkrq"
-											@change="kkrqss" :disabled="!edit" />
-									</div>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="item-content">
-								<div class="item-inner">
-									<div class="item-title label">项目金额</div>
-									<div class="item-input">
-										<input type="number" v-model="data.xmje" :disabled="!edit">
-									</div>
-								</div>
-							</div>
-						</li>
-						<li v-if="edit" @click="zffsclick">
-							<div class="item-content">
-								<div class="item-inner">
-									<div class="item-title label">支付方式</div>
-									<div class="item-input">
-										<span>现金:{{zffs.xj}}</span><br> <span>微信:{{zffs.wx}}</span><br>
-										<span>支付宝:{{zffs.zfb}}</span><br> <span>刷卡:{{zffs.sk}}</span><br>
-										<span>代金券:{{zffs.djq}}</span><br> <span>划卡:{{zffs.hk}}</span><br>
-										<span>转卡:{{zffs.zk}}</span><br>
-									</div>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="item-content">
-								<div class="item-inner">
-									<div class="item-title label">实付</div>
-									<div class="item-input">
-										<input type="number" v-model="data.sf" disabled="disabled">
-									</div>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="item-content">
-								<div class="item-inner">
-									<div class="item-title label">欠款</div>
-									<div class="item-input">
-										<input type="number" v-model="data.qk"
-											:style="data.qk > 0 ? 'color:red' : ''" disabled="disabled">
-									</div>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="item-content">
-								<div class="item-inner">
-									<div class="item-title label">总次数</div>
-									<div class="item-input">
-										<input type="number" v-model="data.zcs" :disabled="!edit">
-									</div>
-								</div>
-							</div>
-						</li>
-						<li v-if="!edit">
-							<div class="item-content">
-								<div class="item-inner">
-									<div class="item-title label">剩余金额</div>
-									<div class="item-input">
-										<input type="number" v-model="data.syhkje" :disabled="!edit">
-									</div>
-								</div>
-							</div>
-						</li>
-						<li v-if="!edit">
-							<div class="item-content">
-								<div class="item-inner">
-									<div class="item-title label">剩余次数</div>
-									<div class="item-input">
-										<input type="number" v-model="data.sycs" :disabled="!edit">
-									</div>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="item-content">
-								<div class="item-inner">
-									<div class="item-title label">销售人员</div>
-									<div class="item-input">
-										<input type="text" v-model="data.salername"
-											disabled="disabled">
-									</div>
-								</div>
-							</div>
-						</li>
-						<li class="li21">
-							<div class="item-content">
-								<div class="item-inner">
-									<div class="item-title label">备注</div>
-									<div class="item-input">
-										<textarea v-model="data.remark" :disabled="!edit"></textarea>
-									</div>
-								</div>
-							</div>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
+                    <li >
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">联系方式</div>
+                                <div class="item-input">
+                                    <input type="number" v-model="data.lxfs" :disabled="!edit">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li >
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">家庭住址</div>
+                                <div class="item-input">
+                                    <input type="text" v-model="data.address" :disabled="!edit">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li >
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">邮箱</div>
+                                <div class="item-input">
+                                    <input type="text" v-model="data.email" :disabled="!edit">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li >
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">性别</div>
+                                <div class="item-input">
+                                    <label class="label-checkbox">
+                                        <input type="radio" value="1" name="sex" v-model="data.sex" :disabled="!edit" >
+                                        <div class="item-media"><i class="icon icon-form-checkbox"></i>男</div>
+                                    </label>
+                                    <label class="label-checkbox">
+                                        <input type="radio" value="0"   name="sex" v-model="data.sex" :disabled="!edit" >
+                                        <div class="item-media"><i class="icon icon-form-checkbox"></i>女</div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li >
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">来源</div>
+                                <div class="item-input">
+                                    <input type="text" v-model="data.gkly" :disabled="!edit">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li v-if="edit">
+                        <div class="item-content">
+                            <div class="item-inner" @click="openSelect(2,list.typeList,$event)">
+                                <div class="item-title label">品项</div>
+                                <div class="item-input">
+                                    {{data.tname}}
+                                    <select v-if="edit" v-model="data.px" disabled  @change="pingxiang" style="display: none">
+                                        <option v-for="el in list.typeList" :value="el.id" v-text="el.tname"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li >
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">开卡项目</div>
+                                <div class="item-input" @click="openSelect(3,cardlist,$event)">
+                                    <div v-if="edit">
+                                        {{data.cname}}
+                                        <select  v-model="data.cid"  @change="kkxmsss" style="display: none">
+                                            <option v-for="el in cardlist" :value="el.id" v-text="el.name"></option>
+                                        </select>
+                                    </div>
+                                    <span v-else v-text="data.cname"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li v-if="edit">
+                        <div class="item-content" @click="openSelect(4,list.projectTypeList,$event)">
+                            <div class="item-inner">
+                                <div class="item-title label">项目类型</div>
+                                <div class="item-input" >
+                                    <div v-if="edit">
+                                        {{data.name}}
+                                        <select v-if="edit" v-model="data.xmlx" style="display: none" >
+                                            <option v-for="el in list.projectTypeList" :value="el.id" v-text="el.name"></option>
+                                        </select>
+                                    </div>
+                                    <span v-else v-text="data.name"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li >
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">开卡日期</div>
+                                <div class="item-input">
+                                    <input type="text" id="kkrqass" v-model="data.kkrq" @change="kkrqss" :disabled="!edit"/>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li >
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">项目金额</div>
+                                <div class="item-input">
+                                    <input type="number" v-model="data.xmje" :disabled="!edit">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li v-if="edit"  @click="zffsclick">
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">支付方式</div>
+                                <div class="item-input">
+                                    <span>现金:{{zffs.xj}}</span><br>
+                                    <span>微信:{{zffs.wx}}</span><br>
+                                    <span>支付宝:{{zffs.zfb}}</span><br>
+                                    <span>刷卡:{{zffs.sk}}</span><br>
+                                    <span>代金券:{{zffs.djq}}</span><br>
+                                    <span>划卡:{{zffs.hk}}</span><br>
+                                    <span>转卡:{{zffs.zk}}</span><br>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li >
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">实付</div>
+                                <div class="item-input">
+                                    <input type="number" v-model="data.sf" disabled="disabled">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li >
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">欠款</div>
+                                <div class="item-input">
+                                    <input type="number" v-model="data.qk" :style="data.qk > 0 ? 'color:red' : ''" disabled="disabled">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li >
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">总次数</div>
+                                <div class="item-input">
+                                    <input type="number" v-model="data.zcs" :disabled="!edit">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li v-if="!edit">
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">剩余金额</div>
+                                <div class="item-input">
+                                    <input type="number" v-model="data.syhkje" :disabled="!edit">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li v-if="!edit">
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">剩余次数</div>
+                                <div class="item-input">
+                                    <input type="number" v-model="data.sycs" :disabled="!edit">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li >
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">销售人员</div>
+                                <div class="item-input">
+                                    <input type="text" v-model="data.salername" disabled="disabled">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="li21">
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">备注</div>
+                                <div class="item-input">
+                                    <textarea  v-model="data.remark" :disabled="!edit"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
-		<div class="pk-overlay" v-show="select.Modal" v-cloak></div>
-		<div class="pk-modal" v-show="select.Modal" v-cloak>
-			<div class="head"></div>
-			<div class="pk-search"></div>
-			<span class="close" @click="select.Modal = false">×</span>
-			<ul class="main">
-				<li class="pk-option" v-for="e in select.list"
-					@click="onSelect(e.id)"><span class="txt">{{
-						select.index == 0 && e.zdmc || select.index == 1 && e.fdmc ||
-						select.index == 2 && e.tname || select.index == 3 && e.name ||
-						select.index == 4 && e.name || select.index == 5 && e.mc }}</span></li>
-			</ul>
-		</div>
-	</div>
+    <div class="pk-overlay" v-show="select.Modal" v-cloak></div>
+    <div class="pk-modal" v-show="select.Modal" v-cloak>
+        <div class="head"></div>
+        <div class="pk-search"></div>
+        <span class="close" @click="select.Modal = false">×</span>
+        <ul class="main">
+            <li class="pk-option" v-for="e in select.list" @click="onSelect(e.id)">
+                <span class="txt" >{{
+                    select.index == 0 && e.zdmc  ||
+                    select.index == 1 && e.fdmc  ||
+                    select.index == 2 && e.tname ||
+                    select.index == 3 && e.name  ||
+                    select.index == 4 && e.name  ||
+                    select.index == 5 && e.mc
+                    }}</span>
+            </li>
+        </ul>
+    </div>
+</div>
 
 
-	<script type='text/javascript' src='../js/min/zepto.min.js'
-		charset='utf-8'></script>
-	<script type='text/javascript' src='../js/mains.js' charset='utf-8'></script>
-	<script type='text/javascript' src='../js/config.js' charset='utf-8'></script>
-	<script type='text/javascript' src='../js/min/sm.js' charset='utf-8'></script>
-	<script type='text/javascript' src='../js/min/sm-extend.min.js'
-		charset='utf-8'></script>
-	<script type='text/javascript' src='../js/demos.js' charset='utf-8'></script>
-	<script type='text/javascript' src='../js/pickout.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/mains.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/config.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/min/sm-extend.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/demos.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/pickout.js' charset='utf-8'></script>
 
-	<script type="text/javascript">
+<script type="text/javascript">
     var vm = null
     $.ready(function(){
         vm = new Vue({
@@ -600,10 +567,9 @@ label {
                 },
                 showTool:false,
                 addFroms:false,
-                data:{gkmc:'',name:'',tname:'',gkbh :'' , gkxm :'' , csny :'' , sex :0 , lxfs :'' , address :'' , age :'' , email :'' ,zdid :'' , zdmc :'' , fdid :'' , fdmc :'' , gkbh :'' , gklx :'' ,gkly  :'', kkrq :'' , cid :'' , cname :'' , xmje :0 ,sf  :'',qk :'', zcs :'',salerid :'' , salername :'' , artsanid :'' , remark :'' , xmlx :'' , px :''},
+                data:{gkmc:'',name:'',tname:'',gkbh :'' , gkxm :'' , csny :'' , sex :0 , lxfs :'' , address :'' , age :'' , email :'' ,zdid :'' , zdmc :'' , fdid :'' , fdmc :'' , gkbh :'' , gklx :'' ,gkly  :'', kkrq :'' , cid :'' , cname :'' , xmje :'' ,sf  :'',qk :'', zcs :'',salerid :'' , salername :'' , artsanid :'' , remark :'' , xmlx :'' , px :''},
             },
             created: function (){
-                $.setStorage('dange_detail_id','2')
                 $.showIndicator()
                 if(!this.edit){
                     var xiangmuleixing = $.getStorage('xiangmuleixing')
@@ -692,14 +658,6 @@ label {
             mounted: function () {
             },
             methods: {
-                openList:function () {
-                    if($.getUserData().roleid == 4){
-                        $.uexOpen('operatsqkList')
-					}else{
-                        $.setStorage('dange_detail_id',"1")
-                        $.uexOpen('operationpdangejilu')
-					}
-                },
                 openSelect:function (n,list,event) {
                     event.preventDefault()
                     var vm = this
@@ -756,8 +714,12 @@ label {
                 },
                 checkUp:function () {
                     var vm = this.data,r = ''
-                   if(vm.gklx == ''){
+                    if(vm.fdid == ''){
+                        r = "请选择分店名称";
+                    }else if(vm.gklx == ''){
                         r = "请选择顾客类型";
+                    }else if(vm.gkly == ''){
+                        r = "请选择顾客来源";
                     }else if(vm.px == ''){
                         r = "请选择品项";
                     }else if(vm.cid == ''){
@@ -812,7 +774,7 @@ label {
                     });
                 },
                 zffsclick:function () {
-                    if(this.data.xmje >= 0){
+                    if(this.data.xmje > 0){
                         this.modalShow(1,function (e) {
                             if(vm.data.xmje >= e){
                                 $.closeModal(".modalss.modal-in")
@@ -889,7 +851,6 @@ label {
                     vm.zffs.hk = $('#qkform input[name="hk"]').val()
                     vm.zffs.zk = $('#qkform input[name="zk"]').val()
                     vm.zffs.cid = $('#qkform input[name="cid"]').val()
-                    vm.zffs.userid = $.getUserData().userid
                     $.https({
                         url: mainURL+'sqk.do',
                         data:  vm.zffs,
@@ -944,64 +905,25 @@ label {
                     if(id == 0){
                         vm.modalShow()
                     }else{
-                        if(id == 3){
-                            var modal = $.modal({
-                                text: '<div class="list-block">\n' +
-                                '    <ul>\n' +
-                                '      <li><div class="item-content">项目金额：'+vm.data.xmje+'</div></li>' +
-                                '      <li><div class="item-content">实付：'+vm.data.sf+'</div></li>' +
-                                '      <li><div class="item-content">欠款：'+vm.data.qk+'</div></li>' +
-                                '      <li><div class="item-content">剩余金额：'+vm.data.syhkje+'</div></li>' +
-                                '      <li><div class="item-content"><input type="Number" id="tuikajine" placeholder="请输入退卡金额" /></div></li>' +
-                                '</ul></div>',
-                                extraClass:'tuika',
-                                buttons: [
-                                    {
-                                        text: '取消',
-                                        onClick: function() {
+                        $.confirm('确认'+name, function () {
+                            $.https({
+                                url: mainURL+ url,
+                                data: {
+                                    ParamJson: JSON.stringify({
+                                        id: vm.data.id,
+                                        userid: $.getUserData().userid,
+                                        nickname:$.getUserData().nickname,
+                                        state:'1'
+                                    })
+                                },
+                                type: "post",
+                                dataType: "json",
+                                success: function (json) {
+                                    vm.msg(json.Msg)
+                                    $.setStorage('operationkakaxx',"1")
 
-                                        }
-                                    },
-                                    {
-                                        text: '提交',
-                                        close:false,
-                                        onClick: function() {
-                                            var val = parseFloat($('#tuikajine').val())
-                                            if(val > 0){
-                                                send(val)
-                                                $.closeModal(modal)
-                                            }else{
-                                                $.toast("请填写正确金额");
-                                            }
-                                        }
-                                    }
-                                ]
-                            })
-                        }else{
-                            $.confirm('确认'+name, function () {
-                                send()
+                                }
                             });
-                        }
-
-                    }
-                    function send(val) {
-                        $.https({
-                            url: mainURL+ url,
-                            data: {
-                                ParamJson: JSON.stringify({
-                                    id: vm.data.id,
-                                    userid: $.getUserData().userid,
-                                    nickname:$.getUserData().nickname,
-                                    state:'1',
-                                    tkje:val
-                                })
-                            },
-                            type: "post",
-                            dataType: "json",
-                            success: function (json) {
-                                vm.msg(json.Msg)
-                                $.setStorage('operationkakaxx',"1")
-                            }
                         });
                     }
 

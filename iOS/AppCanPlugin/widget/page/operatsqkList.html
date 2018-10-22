@@ -179,9 +179,6 @@
         .mp0.list-block .item-inner{
             min-height:1.1rem
         }
-        [v-cloak] {
-            display: none;
-        }
     </style>
 </head>
 <body>
@@ -193,7 +190,7 @@
             <!--<a class="icon icon-left pull-left" onclick="$openHome()"></a>-->
             <a class="icon icon-left pull-left" onclick="$.uexBack()"></a>
             <!--<a class="icon pull-right">筛选</a>-->
-            <h1 class="title" v-cloak>{{roleid == 4 ? '收欠款' : '耗卡'}}列表</h1>
+            <h1 class="title">收欠款列表</h1>
         </header>
 
         <!--<div class="bar bar-header-secondary">
@@ -304,11 +301,9 @@
                 loading:false,
                 preloaderShow:false,
                 searchVal:'',
-                showList:'',
-                roleid : $.getUserData().roleid
+                showList:''
             },
             created: function (){
-
                 $.showIndicator()
                 this.loadData();
             },
@@ -346,9 +341,10 @@
 
                 },
                 loadData:function (callBack) {
-                    var url =  this.roleid == 4 ? 'sqkRecord.do': 'initJSHKRecord.do'
+                    var page = this
+                    console.log(page.page)
                     $.https({
-                            url:mainURL +url ,
+                            url:mainURL + 'sqkRecord.do ',
                             type:"post",
                             data:{
                                 ParamJson : JSON.stringify({
@@ -365,24 +361,13 @@
                             }
                         })
                 },
-                loadData2:function (callBack) {
-                    $.https({
-                        url:mainURL + 'sqkRecord.do ',
-                        type:"post",
-                        data:{
-                            ParamJson : JSON.stringify({
-                                "cid" :   $.getStorage('operation_detail_id')
-                            })
-                        },
-                        success:function(data){
-                            console.log(data)
-                            if( data.Row.cardList.length == 0){
-                                vm.preloaderShow = true
-                            }
-                            vm.list = data.Row.cardList
-                            $.hideIndicator()
-                        }
-                    })
+                detail:function(id){
+                    $.setStorage('operation_detail_id',id)
+                    $.uexOpen('operation_detail')
+                },
+                addCard:function () {
+                    $.setStorage('operation_detail_id',"")
+                    $.uexOpen('operation_detail2')
                 }
             }
         })

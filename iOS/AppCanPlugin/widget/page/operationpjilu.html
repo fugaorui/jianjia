@@ -189,9 +189,6 @@
             z-index: 999999;
             width: 100%;
         }
-        .isIOS .searceh{
-            top: 3.7rem;
-        }
         .searceh .list-block{
             background: #ffffff;
             position: absolute;
@@ -212,20 +209,6 @@
             right:0!important;
             left:50%;
             margin-left: -45%;
-        }
-        .card-header{
-            position: relative;
-        }
-        .icon-down{
-            position: absolute;
-            bottom:.15rem;
-            font-size:.5rem;
-            left:50%;
-            margin-left: -.25rem;
-        }
-        .rsa{
-            font-size: .65rem;
-            color: #999999;
         }
     </style>
 </head>
@@ -266,13 +249,10 @@
                 </div>
             </div>
             <div class="row rowunit">
-                <div class="col-33">
+                <div class="col-40">
                     <a class="button button-fill button-primary" style="top:0;right: .3rem;" @click="gkbh = startTime = endTime = ''">重置</a>
                 </div>
-                <div class="col-33">
-                    <a class="button button-fill button-primary" style="top:0;right: .3rem;" @click="submit">生成记录</a>
-                </div>
-                <div class="col-33">
+                <div class="col-40" style="    margin-left: 24%;">
                     <a class="button button-fill button-primary" style="top:0;right: .3rem;" @click="searchClick">搜索</a>
                 </div>
             </div>
@@ -293,22 +273,22 @@
                             <span class="ub ub-as ub-pc ub-f1 ub-ver ut-m line1">
                                 {{el.artisan}}
                                 </span>
-                                <div class="ub ub-ac ub-pc email_Admin_right" @click="openm(el.cid)">
-                                    <span class="rsa">查看详情</span>
+                                <div class="ub ub-ac ub-pc email_Admin_right">
+                                    <span>{{el.createtime}}</span>
+                                    <span class="icon icon-down"></span>
                                 </div>
                             </div>
-                            <span class="icon icon-down"></span>
-                            <div class="ub ub-f1 ub-ac ub-ps email_Admin_list_bottom"><span>{{el.createtime}}</span></div>
+                            <div class="ub ub-f1 ub-ac ub-ps email_Admin_list_bottom"><span>{{el.gkxm}}</span></div>
                         </div>
                         <div class="list-block mp0" v-show="showList == el">
                             <ul>
-                                <li class="item-content" v-for="(e,ei) in el" v-if="ei != 'cid' && ei != 'createtime' && ei != 'artisan'">
+                                <li class="item-content">
                                     <div class="item-inner">
-                                        <div class="item-title">{{ei}}</div>
-                                        <div class="item-after">{{e}}</div>
+                                        <div class="item-title">开卡项目</div>
+                                        <div class="item-after">{{el.cname}}</div>
                                     </div>
                                 </li>
-                               <!-- <li class="item-content">
+                                <li class="item-content">
                                     <div class="item-inner">
                                         <div class="item-title">本次耗卡次数</div>
                                         <div class="item-after">{{el.bchkcs}}</div>
@@ -319,7 +299,7 @@
                                         <div class="item-title">本次耗卡金额</div>
                                         <div class="item-after">{{el.bchkje}}元</div>
                                     </div>
-                                </li>-->
+                                </li>
                             </ul>
                         </div>
                     </a>
@@ -397,45 +377,6 @@
 
             },
             methods: {
-                openm:function (id) {
-                    $.setStorage('operation_detail_id',id)
-                    $.uexOpen('operation_detail')
-                },
-                submit:function () {
-                    if(this.startTime == ''){
-                        $.toast("请选择开始时间");
-                        return
-                    }
-                    if(this.endTime == ''){
-                        $.toast("请选择结束时间");
-                        return
-                    }
-                    var start = new Date(this.startTime + ' 00:00:00').getTime()
-                    var end = new Date(this.endTime + ' 00:00:00').getTime()
-                    if(end < start){
-                        $.toast("结束日期不能小于开始日期");
-                        return
-                    }
-
-
-                    var vm = this
-                    var user = $.getUserData()
-                    $.https({
-                        url:mainURL + 'ysHKRecord.do',
-                        type:"post",
-                        data:{
-                            ParamJson : JSON.stringify({
-                                start:this.startTime,
-                                end:this.endTime,
-                                username:user.username,
-                                userid:user.userid
-                            })
-                        },
-                        success:function(data) {
-                            $.toast(data.Msg)
-                        }
-                    })
-                },
                 clickShowList:function (el) {
                     if(this.showList == el){
                         this.showList = ''
@@ -464,11 +405,6 @@
                     var page = this
                     console.log(page.page)
                     var user = $.getUserData()
-                    var id = ''
-                    if($.getStorage('dange_detail_id') == "1"){
-                       id =  $.getStorage('operation_detail_id')
-
-                    }
                     $.https({
                         url: mainURL+'initJSHKRecord.do',
                         data: {
@@ -479,8 +415,7 @@
                                 end:this.endTime,
                                 roleid:user.roleid,
                                 gkbh:this.gkbh,
-                                artisanid:user.userid,
-                                id:id
+                                artisanid:user.userid
                             })
                         },
                         type: "post",

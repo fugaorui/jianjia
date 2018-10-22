@@ -109,12 +109,50 @@
 <script type='text/javascript' src='../js/demos.js' charset='utf-8'></script>
 <script>
 var vm ;
-var applyId;
+var applyId ;
 
         $.ready(function () {
-
-
-
+            if(isApp){
+                (function () {
+                    var tags = new Array("tag4", "tag5", "tag6");
+                    setTimeout(function(){
+                        uexJPush.getRegistrationID();
+                    },100)
+                    uexJPush.cbGetRegistrationID = function (code, type, data) {
+                        applyId = JSON.parse(data).registrationID;
+//                    $.setStorage('aliasAndTagsValue', applyId);
+//                    $.setStorage('aliasAndTagsValueBool', 1);
+                        uexJPush.setAliasAndTags(JSON.stringify({///同时设置别名和标签及回调方法
+                            alias: applyId,
+                            tags: tags
+                        }));
+                    }
+                })();
+                uexJPush.cbSetAliasAndTags = function (code, type, data) {
+                    var aliaName = JSON.parse(data).alias;
+                    /*$.monitorVal2({
+                        aliasAndTagsValueBool: function (interval) {
+                            clearInterval(interval)
+                            var applyId = $.getStorage('aliasAndTagsValue');
+                            $.https({
+                                url: mainURL,
+                                data: {
+                                    ClassName: 'UserInfo',
+                                    MethodName: 'updateJpushparam',
+                                    ParamJson: JSON.stringify({
+                                            "registrationid": applyId
+                                    })
+                                },
+                                type: "post",
+                                dataType: "json",
+                                success: function (res) {
+                                    $.setStorage('appRegistrationID',applyId)
+                                }
+                            });
+                        }
+                    });*/
+                }
+            }
         	  vm = new Vue({
                  el:'#app',
                  data: {
@@ -128,76 +166,77 @@ var applyId;
                 		 this.boxss = true 
                      },
                      clickBox:function () {
-                       /*  $.prompt('当前IP：'+ localStorage.getItem("ipAddress"), '', function (value) {
+                         $.prompt('当前IP：'+ localStorage.getItem("ipAddress"), '', function (value) {
                              if(value == '' ){
-                                  value = "47.104.107.68"
+                                  value = "39.104.56.218"
                              }
                              localStorage.setItem("ipAddress", 'http://' + value + '/')
-                             location = location
-                         });*/
+                             location=location
+                         });
                      },
                 	 login:function(){
-                         $.showIndicator();
-                         sendAliasAndTags()
+                		 var account = $('[name="account"]').val(),
+                         password = $('[name="password"]').val();
+                 var SessionId = $.getStorage('SessionId');
+                 if (account === '' || password === '') return $.toast('用户名或密码不能为空');
+                 $.showIndicator();
+     			return sendAliasAndTags(); 
+                 function sendAliasAndTags() {
+                     $.https({
+                         url: mainURL+'login.do',
+                         data: {  
+                             ParamJson: JSON.stringify({
+                                 "account": account,
+                                 "password": password,
+                                  "applyId":applyId
+                               /*  "alias": aliaName == "undefined" ? '' : aliaName,
+                                 "registrationid": applyId == "undefined" ? '' : applyId*/
+                             })
+                         },
+                         type: "post",
+                         success: function (json) {
+                       
+                             $.hideIndicator();
+                             if (json.Code == 1) {
+                                 $.setStorage('SessionId', json.Row.SessionId);
+     							var isChecked = $('label.label-checkbox input[type="checkbox"]:checked').length
+                                // isChecked && json.userInfo && $.setStorage('userDataIndexInfo', JSON.stringify(json.userInfo));
+     							if(isChecked){
+     								$.setStorage('indexPageAccount', account);
+     							    $.setStorage('indexPagePassword', password);
+     							}else{
+     								$.setStorage('indexPageAccount', '');
+     							    $.setStorage('indexPagePassword', '');
+     							}
+
+                                 json.Row && $.setStorage('userData', JSON.stringify(json.Row));
+
+                                 $.toast('登录成功');
+                                 setTimeout(function () {
+                                     $.setStorage('goLoginPagemy_appConfig', '1');
+                                     $.setStorage('mail_list', '1');
+                                     $.uexOpen('index');
+                                     //setTimeout(uexWindow.close, 500)
+                                 }, 1500)
+                             } else {
+                                 return $.alert(json.Msg || json.msg);
+                             }
+                         },
+                         error: function (xhr, errorText, errorStatus) {
+
+                             $.toast('登录失败');
+                             $.hideIndicator();
+                         }
+                     });
+                 }
+                		 
                 	 }
                  }
                  
         	 })
-            function sendAliasAndTags() {
-                var account = $('[name="account"]').val(),
-                    password = $('[name="password"]').val();
-                if (account === '' || password === '') return $.toast('用户名或密码不能为空');
-                $.https({
-                    url: mainURL+'login.do',
-                    data: {
-                        ParamJson: JSON.stringify({
-                            "account": account,
-                            "password": password,
-                            "applyId":applyId
-                        })
-                    },
-                    type: "post",
-                    success: function (json) {
-                        $.hideIndicator();
-                        if (json.Code == 1) {
-                            var isChecked = $('label.label-checkbox input[type="checkbox"]:checked').length
-                            // isChecked && json.userInfo && $.setStorage('userDataIndexInfo', JSON.stringify(json.userInfo));
-                            if(isChecked){
-                                $.setStorage('indexPageAccount', account);
-                                $.setStorage('indexPagePassword', password);
-                            }else{
-                                $.setStorage('indexPageAccount', '');
-                                $.setStorage('indexPagePassword', '');
-                            }
-
-                            json.Row && $.setStorage('userData', JSON.stringify(json.Row));
-
-                            $.toast('登录成功');
-                            setTimeout(function () {
-                                $.setStorage('goLoginPagemy_appConfig', '1');
-                                $.setStorage('mail_list', '1');
-                                $.setStorage('refresh1', '1');
-                                $.setStorage('refresh2', '1');
-                                $.setStorage('refresh3', '1');
-                                $.setStorage('refresh4', '1');
-                                $.uexOpen('index');
-                                //setTimeout(uexWindow.close, 500)
-                            }, 1500)
-                        } else {
-                            return $.alert(json.Msg || json.msg);
-                        }
-                    },
-                    error: function (xhr, errorText, errorStatus) {
-
-                        $.toast('登录失败');
-                        $.hideIndicator();
-                    }
-                });
-            }
     		$('[name="account"]').val($.getStorage('indexPageAccount'))
             $('[name="password"]').val($.getStorage('indexPagePassword'));
     		if($.getStorage('indexPagePassword') != '') $('label.label-checkbox input[type="checkbox"]').attr('checked',true)
-
             if (typeof uexWindow === "object") (function () {
                 applyId = uexJPush.getRegistrationID();
                 var tags = new Array("tag4", "tag5", "tag6");

@@ -157,9 +157,6 @@
         .shenhe3:after{
             background-image: url("../img/operationpxkkxx0.png");
         }
-        .isIOS .bar-header-secondary{
-            top:3.2rem;
-        }
     </style>
 </head>
 <body>
@@ -282,8 +279,7 @@
                                 gkbh:page.searchVal,
                                 px:$.getStorage('operationpxzd'),
                                 zdid:$.getStorage('operationpxfd'),
-                                fdid:$.getStorage('operationpxkkxx'),
-                                mk:$.getStorage('listVal')
+                                fdid:$.getStorage('operationpxkkxx')
                             })
                         },
                         type: "post",
@@ -294,7 +290,7 @@
                             vm.$nextTick(function () {
                                 $.hideIndicator()
                                 $.refreshScroller();
-                                if(json.Row.cardList.length <= 1){
+                                if(json.Row.cardList.length <= 0){
                                     vm.preloaderShow = false
                                 }else{
                                     vm.loading = false

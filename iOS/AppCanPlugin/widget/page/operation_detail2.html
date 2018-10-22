@@ -111,9 +111,6 @@
             padding:10px;
             font-family:inherit;
         }
-        .page_memo  .button-on{
-            background-color: #b5b4b4!important;
-        }
     </style>
 
 </head>
@@ -131,54 +128,38 @@
             <a class="icon icon-left pull-left" onclick="$.uexBack()"></a>
             <h1 class="title">开卡详情</h1>
         </header>
-        <!--  <nav class="bar bar-tab"  v-cloak v-if="xiangmuleixing">
 
-             <a class="tab-item external " v-if="xiangVal == 2">
-                 <div>
-                     <span class="icon sqk" @click.once="tabClick(0)"></span>
-                     <span class="tab-label">收欠款</span>
-                 </div>
-             </a>
-             <a class="tab-item external" v-if="(xiangVal == 3 || xiangVal == 4) && state == 1">
-                 <div>
-                     <span class="icon haoka" @click.once="tabClick(2)"></span>
-                     <span class="tab-label">耗卡</span>
-                 </div>
-             </a>
-             <a class="tab-item external" v-if="xiangVal == 3  && state == 0" >
-                 <div>
-                     <span class="icon  shenhe"@click.once="tabClick(1)"></span>
-                     <span class="tab-label">审核</span>
-                 </div>
-             </a>
-             <a class="tab-item external " v-if="xiangVal == 0 || xiangVal == 1" >
-                 <div>
-                     <span class="icon tuika" @click.once="tabClick(3)"></span>
-                     <span class="tab-label">退卡</span>
-                 </div>
-             </a>
-             <a class="tab-item external" v-if="roleid != 4 && state == '0'"  >
-                  <div>
-                      <span class="icon "@click.once="tabClick(1)"></span>
-                      <span class="tab-label">审核</span>
-                  </div>
-              </a>
-              <a class="tab-item external" v-if="roleid != 4 && hkcs >= 1 && state == 1"  >
-                  <div>
-                      <span class="icon " @click.once="tabClick(2)"></span>
-                      <span class="tab-label">耗卡</span>
-                  </div>
-              </a>
-              <a class="tab-item external" v-if="roleid != 3 && state == 1"  >
-                  <div>
-                      <span class="icon " @click.once="tabClick(3)"></span>
-                      <span class="tab-label">退卡</span>
-                  </div>
-              </a>
-         </nav>-->
+        <!--工作日志编辑保存按钮-->
+        <!--<nav class="bar bar-tab"  v-cloak v-if="!edit && ((roleid != 3 && sqk != 0 && state == 1) || (roleid != 4 && state == '0') || (roleid != 4 && hkcs >= 1 && state == 1) || (roleid != 3 && state == 1)) && showTool">
+
+            <a class="tab-item external " v-if="roleid != 3 && sqk != 0 && state == 1" >
+                <div>
+                    <span class="icon " @click.once="tabClick(0)"></span>
+                    <span class="tab-label">收欠款</span>
+                </div>
+            </a>
+            <a class="tab-item external" v-if="roleid != 4 && state == '0'"  >
+                <div>
+                    <span class="icon "@click.once="tabClick(1)"></span>
+                    <span class="tab-label">审核</span>
+                </div>
+            </a>
+            <a class="tab-item external" v-if="roleid != 4 && hkcs >= 1 && state == 1"  >
+                <div>
+                    <span class="icon " @click.once="tabClick(2)"></span>
+                    <span class="tab-label">耗卡</span>
+                </div>
+            </a>
+            <a class="tab-item external" v-if="roleid != 3 && state == 1"  >
+                <div>
+                    <span class="icon " @click.once="tabClick(3)"></span>
+                    <span class="tab-label">退卡</span>
+                </div>
+            </a>
+        </nav>-->
         <!-- 这里是页面内容区 -->
         <div class="fixed_button bar bar-tab"  v-cloak v-if="edit" @click="addFrom">
-            <a href="javascript:;" class="button button-fill button-warning bottoms" :class="{'button-on':addFroms}">
+            <a href="javascript:;" class="button button-fill button-warning bottoms">
                 新增开卡
             </a>
         </div>
@@ -436,12 +417,12 @@
                             </div>
                         </div>
                     </li>
-                    <li>
+                    <li >
                         <div class="item-content">
                             <div class="item-inner">
                                 <div class="item-title label">欠款</div>
                                 <div class="item-input">
-                                    <input type="number" v-model="data.qk"  :style="data.qk > 0 ? 'color:red' : ''"  disabled="disabled">
+                                    <input type="number" v-model="data.qk"   disabled="disabled">
                                 </div>
                             </div>
                         </div>
@@ -562,7 +543,7 @@
                 },
                 showTool:false,
                 addFroms:false,
-                data:{gkmc:'',name:'',tname:'',gkbh :'' , gkxm :'' , csny :'' , sex :0 , lxfs :'' , address :'' , age :'' , email :'' ,zdid :'' , zdmc :'' , fdid :'' , fdmc :'' , gkbh :'' , gklx :'' ,gkly  :'', kkrq :'' , cid :'' , cname :'' , xmje :0 ,sf  :'',qk :'', zcs :'',salerid :'' , salername :'' , artsanid :'' , remark :'' , xmlx :'' , px :''},
+                data:{gkmc:'',name:'',tname:'',gkbh :'' , gkxm :'' , csny :'' , sex :0 , lxfs :'' , address :'' , age :'' , email :'' ,zdid :'' , zdmc :'' , fdid :'' , fdmc :'' , gkbh :'' , gklx :'' ,gkly  :'', kkrq :'' , cid :'' , cname :'' , xmje :'' ,sf  :'',qk :'', zcs :'',salerid :'' , salername :'' , artsanid :'' , remark :'' , xmlx :'' , px :''},
             },
             created: function (){
                 $.showIndicator()
@@ -692,8 +673,12 @@
                 },
                 checkUp:function () {
                     var vm = this.data,r = ''
-                    if(vm.gklx == ''){
+                    if(vm.fdid == ''){
+                        r = "请选择分店名称";
+                    }else if(vm.gklx == ''){
                         r = "请选择顾客类型";
+                    }else if(vm.gkly == ''){
+                        r = "请选择顾客来源";
                     }else if(vm.px == ''){
                         r = "请选择品项";
                     }else if(vm.cid == ''){
@@ -742,15 +727,13 @@
                         success: function (json) {
                             $.toast(json.Msg, 2345, function () {
                                 $.setStorage('operation', "1")
-                                $.setStorage('operationkakaxx11', "1")
-                                $.setStorage('operationkakaxx22', "1")
                                 $.uexBack()
                             });
                         }
                     });
                 },
                 zffsclick:function () {
-                    if(this.data.xmje >= 0){
+                    if(this.data.xmje > 0){
                         this.modalShow(1,function (e) {
                             if(vm.data.xmje >= e){
                                 $.closeModal(".modalss.modal-in")
